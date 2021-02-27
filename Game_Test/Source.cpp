@@ -5,7 +5,6 @@
 #define MOSTIMA "mostima.png"
 #define EXUSIAI "exusiai.png"
 
-
 //	use int main if you want to have a console to print out message 
 int main()
 //int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)

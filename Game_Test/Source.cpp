@@ -5,6 +5,7 @@
 #define MOSTIMA "mostima.png"
 #define EXUSIAI "exusiai.png"
 //ken herew
+//hello ken
 
 //	use int main if you want to have a console to print out message 
 int main()

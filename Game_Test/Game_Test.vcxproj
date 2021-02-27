@@ -145,6 +145,8 @@
     <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="GameWindows.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -154,11 +156,12 @@
     <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GameWindows.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Source.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game_Test.rc" />

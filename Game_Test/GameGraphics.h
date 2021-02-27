@@ -7,6 +7,7 @@ class GameGraphics
 private:
 	static GameGraphics* instance;
 	GameGraphics();
+	~GameGraphics();
 public:
 	static GameGraphics* getInstance();
 	D3DPRESENT_PARAMETERS d3dPP;

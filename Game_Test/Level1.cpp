@@ -13,16 +13,11 @@ Level1::Level1()
 
 Level1::~Level1()
 {
-	sprite->Release();
-	sprite = NULL;
-
-	texture->Release();
-	texture = NULL;
+	std::cout << "Hello" << std::endl;
 }
 
 void Level1::init()
 {
-
 	//	Create sprite. Study the documentation. 
 	D3DXCreateSprite(GameGraphics::getInstance()->d3dDevice, &sprite);
 	//	Create texture. Study the documentation.

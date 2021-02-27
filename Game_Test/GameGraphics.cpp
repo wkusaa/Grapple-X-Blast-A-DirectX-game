@@ -8,6 +8,11 @@ GameGraphics::GameGraphics()
 	ZeroMemory(&d3dPP, sizeof(d3dPP));
 }
 
+GameGraphics::~GameGraphics()
+{
+	std::cout << "GameGraphics destroyed" << std::endl;
+}
+
 GameGraphics* GameGraphics::getInstance()
 {
 	if (!instance)
@@ -61,6 +66,9 @@ void GameGraphics::release()
 {
 	d3dDevice->Release();
 	d3dDevice = NULL;
+
+	delete instance;
+	instance = 0;
 }
 
 

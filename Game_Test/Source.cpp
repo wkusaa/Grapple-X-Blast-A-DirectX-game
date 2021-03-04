@@ -2,8 +2,8 @@
 #include "GameGraphics.h"
 #include "GameInput.h"
 #include "GameStateManager.h"
-#define MOSTIMA "mostima.png"
-#define EXUSIAI "exusiai.png"
+
+
 //ken herew
 //hello ken
 
@@ -20,12 +20,9 @@ int main()
 	gGraphics->createDevice();
 	gInput->createInput();
 
-	
 	GameStateManager* gManager = gManager->getInstance();
 	while (gWin->gameLoop())//it just works
 	{
-
-		
 		gInput->update();
 
 		if (gInput->MouseButtonClick(0))
@@ -33,30 +30,21 @@ int main()
 			std::cout << "MouseClick" << std::endl;
 		}
 
-		gGraphics->clear();
+
+
+		gManager->update();
+
 		gGraphics->beginScene();
 
-		gManager->currentGameState->update();
-		gManager->currentGameState->draw();
-
+		gManager->draw();
 
 		gGraphics->endScene();
-		gGraphics->present();
 	}
 
 	gInput->release();
 	gGraphics->release();
-	gWin->clearWindow();
-
-	delete gInput;
-	//delete gGraphics; //private destructor test
-	delete gWin;
-
-
-	gManager->releaseInstance();
-	delete gManager;
-	gManager = NULL;
-	//destructor check
+	gWin->release();
+	gManager->release();
 
 	return 0;
 }

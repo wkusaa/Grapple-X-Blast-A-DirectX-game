@@ -16,15 +16,15 @@ private:
 	//	Window's structure
 	WNDCLASS wndClass;
 	bool isFullscreen;
-
 	GameWindows();
+	~GameWindows();
 public:
 	int r;
 	int g;
 	int b;
 	static GameWindows* getInstance();
 	void createWindow();
-	void clearWindow();
+	void release();
 	bool gameLoop();
 	HWND getHWND();
 	void setIsFullscreen(bool isFullScreen);

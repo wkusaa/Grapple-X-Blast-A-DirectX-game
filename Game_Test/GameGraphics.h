@@ -20,5 +20,6 @@ public:
 	void present();
 	void release();
 
-};
+	void toggleFullscreen();
 
+};

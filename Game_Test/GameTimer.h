@@ -1,6 +1,5 @@
 #pragma once
-#include <winnt.h>
-#include <profileapi.h>
+#include "GameWindows.h"
 //FrameTimer.h
 class GameTimer {
 
@@ -12,6 +11,9 @@ private:
 	float intervalsPerFrame;
 
 public:
+	GameTimer();
+	~GameTimer();
+
 	void init(int fps);
 	int framesToUpdate();
 };

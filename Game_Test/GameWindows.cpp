@@ -14,6 +14,7 @@ GameWindows* GameWindows::getInstance()
 
 GameWindows::GameWindows()
 {
+	std::cout << "GameWindows constructed" << std::endl;
 	this->r = 0;
 	this->g = 128;
 	this->b = 128;
@@ -21,6 +22,11 @@ GameWindows::GameWindows()
 	this->hInstance = GetModuleHandle(NULL);
 	this->g_hWnd = NULL;
 	this->wndClass = { 0 };
+}
+
+GameWindows::~GameWindows()
+{
+	std::cout << "GameWindows destroyed" << std::endl;
 }
 
 
@@ -78,7 +84,17 @@ void GameWindows::createWindow()
 	wndClass.lpszClassName = "My Window";
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
 	RegisterClass(&wndClass);
-	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, 0, 100, 1298, 767, g_hWnd, NULL, hInstance, NULL);
+
+	RECT rect;
+	ZeroMemory(&rect, sizeof(LPRECT));
+	rect.top = 0;
+	rect.left = 0;
+	rect.bottom = 720;
+	rect.right = 1280;
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+
+
+	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
 	ShowWindow(g_hWnd, 1);
 
 	//	Some interesting function to try out.
@@ -88,10 +104,13 @@ void GameWindows::createWindow()
 
 
 
-void GameWindows::clearWindow()
+void GameWindows::release()
 {
 	//	Free up the memory.
 	UnregisterClass(wndClass.lpszClassName, hInstance);
+
+	delete instance;
+	instance = 0;
 }
 
 bool GameWindows::gameLoop()
@@ -101,11 +120,11 @@ bool GameWindows::gameLoop()
 
 	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
-		//	Receive a quit message
-		if (msg.message == WM_QUIT)
-		{
+		////	Receive a quit message
+		//if (msg.message == WM_QUIT)
+		//{
 
-		}
+		//}
 
 		//	Translate the message 
 		TranslateMessage(&msg);

@@ -4,6 +4,7 @@ GameGraphics* GameGraphics::instance = 0;
 
 GameGraphics::GameGraphics()
 {
+	std::cout << "GameGraphics constructed" << std::endl;
 	direct3D9 = Direct3DCreate9(D3D_SDK_VERSION);
 	ZeroMemory(&d3dPP, sizeof(d3dPP));
 }
@@ -23,21 +24,21 @@ GameGraphics* GameGraphics::getInstance()
 	return instance;
 }
 
-//IDirect3DDevice9* GameDirectObject::getDevice()
-//{
-//	return d3dDevice;
-//}
-
 void GameGraphics::createDevice()
 {
-	GameWindows* gWin = gWin->getInstance();
-	d3dPP.Windowed = true;
+	
+	GameWindows* gWin = GameWindows::getInstance();
+	d3dPP.Windowed = false;
 	d3dPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dPP.BackBufferFormat = D3DFMT_UNKNOWN;
+	//d3dPP.BackBufferFormat = D3DFMT_UNKNOWN;//windowed
+	//d3dPP.BackBufferFormat = D3DFMT_X8B8G8R8;//fullscreen
+	d3dPP.BackBufferFormat = D3DFMT_A8R8G8B8;
 	d3dPP.BackBufferCount = 1;
 	d3dPP.BackBufferWidth = 1280;
 	d3dPP.BackBufferHeight = 720;
 	d3dPP.hDeviceWindow = gWin->getHWND();
+	//d3dPP.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	d3dPP.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 	direct3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, gWin->getHWND(), D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPP, &d3dDevice);
 }
 
@@ -49,12 +50,14 @@ void GameGraphics::clear()
 
 void GameGraphics::beginScene()
 {
+	clear();
 	d3dDevice->BeginScene();
 }
 
 void GameGraphics::endScene()
 {
 	d3dDevice->EndScene();
+	present();
 }
 
 void GameGraphics::present()
@@ -67,8 +70,14 @@ void GameGraphics::release()
 	d3dDevice->Release();
 	d3dDevice = NULL;
 
+	direct3D9->Release();
+	direct3D9 = NULL;
+
 	delete instance;
-	instance = 0;
+	instance = NULL;
 }
 
+void GameGraphics::toggleFullscreen()
+{
 
+}

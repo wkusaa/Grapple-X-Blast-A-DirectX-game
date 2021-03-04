@@ -42,6 +42,9 @@
     <ClCompile Include="GameTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindows.h">
@@ -71,6 +74,9 @@
     <ClInclude Include="GameTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game_Test.rc">
@@ -86,10 +92,13 @@
     <Image Include="game_icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="mostima.png">
+    <Image Include="images\mostima.png">
       <Filter>Source Files</Filter>
     </Image>
-    <Image Include="exusiai.png">
+    <Image Include="images\exusiai.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="images\militia.png">
       <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>

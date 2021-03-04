@@ -4,7 +4,7 @@ GameInput* GameInput::instance = 0;
 
 GameInput::GameInput()
 {
-
+	std::cout << "GameInput constructed" << std::endl;
 	HRESULT result;
 	DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
 
@@ -25,6 +25,11 @@ GameInput::GameInput()
 
 	ZeroMemory(diKeys, sizeof(diKeys));
 	ZeroMemory(&mouseState, sizeof(mouseState));
+}
+
+GameInput::~GameInput()
+{
+	std::cout << "GameInput destroyed" << std::endl;
 }
 
 bool GameInput::ReadKeyboard()
@@ -144,6 +149,9 @@ void GameInput::release()
 	//	Release DirectInput.
 	dInput->Release();
 	dInput = NULL;
+
+	delete instance;
+	instance = NULL;
 }
 
 bool GameInput::EscapeKeyPressed()
@@ -170,7 +178,7 @@ bool GameInput::MouseButtonClick(int button)
 {
 	if (mouseState.rgbButtons[button] & 0x80)
 	{
-		previousMouseState[button] = 1;	
+		previousMouseState[button] = 1;
 	}
 	else if (previousMouseState[button] == 1)
 	{
@@ -178,5 +186,30 @@ bool GameInput::MouseButtonClick(int button)
 		return true;
 	}
 
+	return false;
+}
+
+bool GameInput::KeyboardKeyHold(int code)
+{
+	if (diKeys[code] & 0x80)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+bool GameInput::KeyboardKeyPressed(int code)
+{
+	if (diKeys[code] & 0x80)
+	{
+		previousKeyState = 1; 
+	}
+	else if (previousKeyState == 1)
+	{
+		previousKeyState = 0;
+		return true;
+	}
 	return false;
 }

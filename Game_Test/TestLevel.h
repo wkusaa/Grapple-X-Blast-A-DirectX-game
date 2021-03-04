@@ -1,10 +1,8 @@
 #pragma once
 #include "GameState.h"
 #include <iostream>
-#define MOSTIMA "images/mostima.png"
-#define EXUSIAI "images/exusiai.png"
 
-class Level1 :public GameState
+class TestLevel :public GameState
 {
 private:
 	LPDIRECT3DTEXTURE9 texture;
@@ -14,8 +12,8 @@ private:
 	D3DXMATRIX mat;
 
 public:
-	Level1();
-	~Level1();
+	TestLevel();
+	~TestLevel();
 
 	void init();
 	void update();

@@ -12,11 +12,13 @@ private:
 	LPDIRECTINPUTDEVICE8  dInputMouseDevice;
 	BYTE  diKeys[256];
 	DIMOUSESTATE mouseState;
+	int previousKeyState;
 	int previousMouseState[3];
 	GameInput();
+	~GameInput();
 	bool ReadKeyboard();
 	bool ReadMouse();
-	
+
 public:
 	struct mousePosition {
 		int x;
@@ -26,9 +28,12 @@ public:
 	bool createInput();
 	void update();
 	void release();
-	
+
 	bool EscapeKeyPressed();
 	bool MouseButtonPressed(int button);
 	bool MouseButtonClick(int button);
-};
+	bool KeyboardKeyHold(int code);
+	bool KeyboardKeyPressed(int code);
 
+
+};

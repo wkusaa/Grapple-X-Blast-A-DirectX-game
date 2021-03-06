@@ -28,10 +28,39 @@ void Level1::init()
 void Level1::update()
 {
 	float mov = 1.0f;
+
+	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < 1280 && playerPos.y < 720)
+	{
+		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 5.0f, 0.0f));
+	}
+
+	if (playerPos.x < 0)
+	{
+		playerPos.x = 0;
+	}
+
+	if (playerPos.y < 0)
+	{
+		playerPos.y = 0;
+	}
+
+	if (playerPos.x > 1280)
+	{
+		playerPos.y = 1280;
+	}
+
+	if (playerPos.y > 720)
+	{
+		playerPos.y = 720;
+	}
+
+
+
+
 	if (GameInput::getInstance()->KeyboardKeyHold(DIK_W))
 	{
 		std::cout << "Key pressed" << std::endl;
-		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, -mov, 0.0f));
+		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, -20.0f, 0.0f));
 	}
 
 	if (GameInput::getInstance()->KeyboardKeyHold(DIK_A))

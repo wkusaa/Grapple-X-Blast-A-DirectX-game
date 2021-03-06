@@ -44,9 +44,7 @@ GameStateManager* GameStateManager::getInstance()
 
 void GameStateManager::update()
 {
-	//currentGameState->update();
 	int framesToUpdate = gTimer->framesToUpdate();
-	//std::cout << framesToUpdate << std::endl;
 	for (int i = 0; i < framesToUpdate; i++)
 	{
 		currentGameState->update();
@@ -55,15 +53,7 @@ void GameStateManager::update()
 
 void GameStateManager::draw()
 {
-
 	currentGameState->draw();
-	//int framesToUpdate = gTimer->framesToUpdate();
-
-
-	//for (int i = 0; i < framesToUpdate; i++)
-	//{
-	//	currentGameState->draw();
-	//}
 }
 
 void GameStateManager::release()

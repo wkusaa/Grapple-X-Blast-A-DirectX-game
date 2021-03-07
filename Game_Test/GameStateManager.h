@@ -14,6 +14,7 @@ private:
 	~GameStateManager();
 public:
 	static GameStateManager* getInstance();
+	void fixedUpdate();
 	void update();
 	void draw();
 	void release();

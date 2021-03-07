@@ -12,7 +12,7 @@ private:
 	LPDIRECTINPUTDEVICE8  dInputMouseDevice;
 	BYTE  diKeys[256];
 	DIMOUSESTATE mouseState;
-	int previousKeyState;
+	int previousKeyState[256];
 	int previousMouseState[3];
 	GameInput();
 	~GameInput();

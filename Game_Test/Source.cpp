@@ -30,9 +30,8 @@ int main()
 			std::cout << "MouseClick" << std::endl;
 		}
 
-
-
 		gManager->update();
+		gManager->fixedUpdate();
 
 		gGraphics->beginScene();
 

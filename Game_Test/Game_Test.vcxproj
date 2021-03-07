@@ -177,6 +177,7 @@
     <None Include="blaze.cur" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\player\run\Run_Spritesheet.png" />
     <Image Include="game_icon.ico" />
     <Image Include="images\exusiai.png" />
     <Image Include="images\militia.png" />

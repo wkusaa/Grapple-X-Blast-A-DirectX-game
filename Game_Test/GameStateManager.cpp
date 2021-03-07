@@ -11,7 +11,7 @@ GameStateManager::GameStateManager()
 	testLevel->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
-	currentGameState = gameLevels[0];
+	currentGameState = gameLevels[1];
 
 	gTimer = new GameTimer;
 	gTimer->init(60);
@@ -42,13 +42,19 @@ GameStateManager* GameStateManager::getInstance()
 	return instance;
 }
 
-void GameStateManager::update()
+
+void GameStateManager::fixedUpdate()
 {
 	int framesToUpdate = gTimer->framesToUpdate();
 	for (int i = 0; i < framesToUpdate; i++)
 	{
-		currentGameState->update();
+		currentGameState->fixedUpdate();
 	}
+}
+
+void GameStateManager::update()
+{
+	currentGameState->update();
 }
 
 void GameStateManager::draw()

@@ -204,11 +204,11 @@ bool GameInput::KeyboardKeyPressed(int code)
 {
 	if (diKeys[code] & 0x80)
 	{
-		previousKeyState = 1; 
+		previousKeyState[code] = 1; 
 	}
-	else if (previousKeyState == 1)
+	else if (previousKeyState[code] == 1)
 	{
-		previousKeyState = 0;
+		previousKeyState[code] = 0;
 		return true;
 	}
 	return false;

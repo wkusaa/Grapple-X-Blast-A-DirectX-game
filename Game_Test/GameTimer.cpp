@@ -4,6 +4,11 @@
 GameTimer::GameTimer()
 {
 	Requested_FPS = 0;
+	intervalsPerFrame = 0;
+	timer_freq = { 0 };
+	time_now = { 0 };
+	time_previous = { 0 };
+	
 
 }
 

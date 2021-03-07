@@ -28,11 +28,11 @@ void GameGraphics::createDevice()
 {
 	
 	GameWindows* gWin = GameWindows::getInstance();
-	d3dPP.Windowed = false;
+	d3dPP.Windowed = true;
 	d3dPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	//d3dPP.BackBufferFormat = D3DFMT_UNKNOWN;//windowed
 	//d3dPP.BackBufferFormat = D3DFMT_X8B8G8R8;//fullscreen
-	d3dPP.BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dPP.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dPP.BackBufferCount = 1;
 	d3dPP.BackBufferWidth = 1280;
 	d3dPP.BackBufferHeight = 720;

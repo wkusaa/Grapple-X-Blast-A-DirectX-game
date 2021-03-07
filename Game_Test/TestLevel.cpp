@@ -5,11 +5,22 @@ TestLevel::TestLevel()
 	std::cout << "TestLevel constructed" << std::endl;
 	texture = NULL;
 	sprite = NULL;
+
+	spriteCentre2D = D3DXVECTOR2(256.0f, 256.0f);
+	scaling = D3DXVECTOR2(5.0f, 5.0f);
+	spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
+	size = D3DXVECTOR2(32.0f, 32.0f);
 	playerPos = D3DXVECTOR3(0, 0, 0);
-	spriteRect.left = 189;
-	spriteRect.top = 196;
-	spriteRect.right = 310;
-	spriteRect.bottom = 320;
+
+	spriteRect.top = 0;
+	spriteRect.left = 0;
+	spriteRect.bottom = spriteRect.top + size.x;
+	spriteRect.right = spriteRect.left + size.y;
+
+	animationTimer = 0;
+	animationRate = 1.0f / 8;
+	currentFrame = 0;
+	rotation = 0;
 }
 
 TestLevel::~TestLevel()
@@ -22,12 +33,11 @@ void TestLevel::init()
 	//	Create sprite. Study the documentation. 
 	D3DXCreateSprite(GameGraphics::getInstance()->d3dDevice, &sprite);
 	//	Create texture. Study the documentation.
-	D3DXCreateTextureFromFile(GameGraphics::getInstance()->d3dDevice, "images/militia.png", &texture);
+	D3DXCreateTextureFromFile(GameGraphics::getInstance()->d3dDevice, PLAYER_RUN, &texture);
 }
 
 void TestLevel::update()
 {
-
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_Q))
 	{
 		GameGraphics* gGraphics = gGraphics->getInstance();
@@ -47,30 +57,35 @@ void TestLevel::update()
 		}
 	}
 
-	D3DXVECTOR2 spriteCentre2D = D3DXVECTOR2(256.0f, 256.0f);
-	D3DXVECTOR2 trans = D3DXVECTOR2(0.0f, 0.0f);
-
-	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
-	D3DXMatrixTransformation2D(&mat, NULL, 0.0, NULL, &spriteCentre2D, NULL, &D3DXVECTOR2(playerPos.x, playerPos.y));
-	//std::cout << playerPos.x << "|" << playerPos.y << std::endl;
-
 }
 
 void TestLevel::fixedUpdate()
 {
+	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, NULL, &D3DXVECTOR2(playerPos.x, playerPos.y));
+	//std::cout << playerPos.x << "|" << playerPos.y << std::endl;
 
+	animationTimer += 1 / 60.0f;
+	if (animationTimer >= animationRate)
+	{
+		animationTimer -= animationRate;
+		currentFrame++;
+		currentFrame %= 8;
+	}
+
+	spriteRect.top = 0;
+	spriteRect.left = size.x * currentFrame;
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
 }
 
 void TestLevel::draw()
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-	//D3DXVECTOR3 spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
-
-	// Tell the sprite about the matrix
 	sprite->SetTransform(&mat);
 	
-	sprite->Draw(texture, NULL, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	sprite->Draw(texture, &spriteRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	
 	sprite->End();
 }

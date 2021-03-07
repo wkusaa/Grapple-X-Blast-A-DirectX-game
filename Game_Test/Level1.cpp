@@ -31,8 +31,8 @@ void Level1::update()
 
 	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < 1280 && playerPos.y < 720)
 	{
-		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 5.0f, 0.0f));
-	}
+		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
+	}//simple gravity lmao
 
 	if (playerPos.x < 0)
 	{
@@ -55,12 +55,10 @@ void Level1::update()
 	}
 
 
-
-
-	if (GameInput::getInstance()->KeyboardKeyHold(DIK_W))
+	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_W))
 	{
-		std::cout << "Key pressed" << std::endl;
-		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, -20.0f, 0.0f));
+		std::cout << "W Key pressed" << std::endl;
+		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, -200.0f, 0.0f));
 	}
 
 	if (GameInput::getInstance()->KeyboardKeyHold(DIK_A))

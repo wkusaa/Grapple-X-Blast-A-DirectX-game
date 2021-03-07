@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include <iostream>
+#define PLAYER_RUN "assets/player/run/Run_Spritesheet.png"
 
 class TestLevel :public GameState
 {
@@ -10,6 +11,15 @@ private:
 	D3DXVECTOR3 playerPos;
 	RECT spriteRect;
 	D3DXMATRIX mat;
+	D3DXVECTOR2 spriteCentre2D;
+	D3DXVECTOR2 scaling;
+	D3DXVECTOR2 size;
+	D3DXVECTOR3 spriteCentre3D;
+	float rotation;
+	int currentFrame;
+	float animationTimer;
+	float animationRate;
+
 
 public:
 	TestLevel();

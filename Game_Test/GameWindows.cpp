@@ -49,21 +49,6 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 			PostQuitMessage(0);
 			break;
 		}
-		else if (wParam == 70)
-		{
-
-			if (!gWin->getIsFullscreen())
-			{
-				gWin->setIsFullscreen(true);
-			}
-			else if (gWin->getIsFullscreen())
-			{
-				gWin->setIsFullscreen(false);
-			}
-		}
-
-
-
 		//	Default handling for other messages.
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
@@ -92,7 +77,6 @@ void GameWindows::createWindow()
 	rect.bottom = 720;
 	rect.right = 1280;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
-
 
 	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
 	ShowWindow(g_hWnd, 1);

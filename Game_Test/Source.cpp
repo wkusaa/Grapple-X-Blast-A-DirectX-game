@@ -4,7 +4,7 @@
 #include "GameStateManager.h"
 
 
-//ken herew
+//ken edited
 //hello ken
 
 //	use int main if you want to have a console to print out message 

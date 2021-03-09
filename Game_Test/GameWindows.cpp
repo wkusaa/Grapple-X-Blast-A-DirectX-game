@@ -74,8 +74,8 @@ void GameWindows::createWindow()
 	ZeroMemory(&rect, sizeof(LPRECT));
 	rect.top = 0;
 	rect.left = 0;
-	rect.bottom = 720;
-	rect.right = 1280;
+	rect.bottom = WIN_HEIGHT;
+	rect.right = WIN_WIDTH;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
 	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);

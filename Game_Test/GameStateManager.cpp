@@ -7,11 +7,14 @@ GameStateManager::GameStateManager()
 	std::cout << "GameStateManager constructed" << std::endl;
 	Level1* level1 = new Level1;
 	TestLevel* testLevel = new TestLevel;
+	TestLevel2* testLevel2 = new TestLevel2;
 	level1->init();
 	testLevel->init();
+	testLevel2->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
-	currentGameState = gameLevels[1];
+	gameLevels.push_back(testLevel2);
+	currentGameState = gameLevels[0];
 
 	gTimer = new GameTimer;
 	gTimer->init(60);
@@ -64,7 +67,6 @@ void GameStateManager::draw()
 
 void GameStateManager::release()
 {
-
 	if (instance)
 	{
 		delete instance;

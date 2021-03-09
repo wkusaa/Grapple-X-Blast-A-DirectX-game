@@ -3,6 +3,7 @@
 #include "GameTimer.h"
 #include "Level1.h"
 #include "TestLevel.h"
+#include "TestLevel2.h"
 #include <vector>
 #include <iostream>
 class GameStateManager

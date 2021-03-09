@@ -1,7 +1,9 @@
 #pragma once
 #include "GameState.h"
+#include "Player.h"
 #include <iostream>
 #define PLAYER_RUN "assets/player/run/Run_Spritesheet.png"
+#define PLAYER_SPRITE "assets/player/player_spritesheet.png"
 
 class TestLevel :public GameState
 {

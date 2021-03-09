@@ -9,7 +9,7 @@ TestLevel::TestLevel()
 	spriteCentre2D = D3DXVECTOR2(256.0f, 256.0f);
 	scaling = D3DXVECTOR2(5.0f, 5.0f);
 	spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
-	size = D3DXVECTOR2(32.0f, 32.0f);
+	size = D3DXVECTOR2(128.0f, 128.0f);
 	playerPos = D3DXVECTOR3(0, 0, 0);
 
 	spriteRect.top = 0;
@@ -18,14 +18,23 @@ TestLevel::TestLevel()
 	spriteRect.right = spriteRect.left + size.y;
 
 	animationTimer = 0;
-	animationRate = 1.0f / 8;
+	animationRate = 0.5f / 8;
 	currentFrame = 0;
 	rotation = 0;
+
+	//Player* player = new Player;
+	//player->GetPosition();
+	
 }
 
 TestLevel::~TestLevel()
 {
 	std::cout << "TestLevel destroyed" << std::endl;
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void TestLevel::init()
@@ -33,7 +42,7 @@ void TestLevel::init()
 	//	Create sprite. Study the documentation. 
 	D3DXCreateSprite(GameGraphics::getInstance()->d3dDevice, &sprite);
 	//	Create texture. Study the documentation.
-	D3DXCreateTextureFromFile(GameGraphics::getInstance()->d3dDevice, PLAYER_RUN, &texture);
+	D3DXCreateTextureFromFile(GameGraphics::getInstance()->d3dDevice, PLAYER_SPRITE, &texture);
 }
 
 void TestLevel::update()
@@ -73,7 +82,6 @@ void TestLevel::fixedUpdate()
 		currentFrame %= 8;
 	}
 
-	spriteRect.top = 0;
 	spriteRect.left = size.x * currentFrame;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
@@ -92,9 +100,5 @@ void TestLevel::draw()
 
 void TestLevel::release()
 {
-	sprite->Release();
-	sprite = NULL;
 
-	texture->Release();
-	texture = NULL;
 }

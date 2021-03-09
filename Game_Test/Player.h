@@ -1,15 +1,22 @@
 #pragma once
-#include <d3d9.h>
-#include <d3dx9.h>
+#include "GameObject.h"
+#define PLAYER_SPRITE "assets/player/player_spritesheet.png"
 
 
-class Player
+class Player : public GameObject
 {
 private:
-	LPDIRECT3DTEXTURE9 texture;
-	LPD3DXSPRITE sprite;
-
+	static Player* instance;
+	float speed;
+	Player();
+	~Player();
 public:
-
+	static Player* getInstance();
+	void Initialize(LPDIRECT3DDEVICE9 device);
+	void Begin();
+	void Update();
+	void SetTransform(D3DXMATRIX mat);
+	void Draw();
+	void ReleaseInstance();
 };
 

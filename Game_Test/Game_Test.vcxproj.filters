@@ -45,6 +45,15 @@
     <ClCompile Include="TestLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLevel2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindows.h">
@@ -77,6 +86,15 @@
     <ClInclude Include="TestLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLevel2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game_Test.rc">
@@ -102,6 +120,9 @@
       <Filter>Source Files</Filter>
     </Image>
     <Image Include="assets\player\run\Run_Spritesheet.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="assets\player\player_spritesheet.png">
       <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>

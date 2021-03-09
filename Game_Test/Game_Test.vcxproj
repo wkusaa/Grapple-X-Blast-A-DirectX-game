@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClCompile Include="GameGraphics.cpp" />
     <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GameTimer.cpp" />
@@ -157,10 +159,13 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TestLevel.cpp" />
+    <ClCompile Include="TestLevel2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameGraphics.h" />
     <ClInclude Include="GameInput.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GameTimer.h" />
@@ -169,6 +174,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TestLevel.h" />
+    <ClInclude Include="TestLevel2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game_Test.rc" />
@@ -177,6 +183,7 @@
     <None Include="blaze.cur" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\player\player_spritesheet.png" />
     <Image Include="assets\player\run\Run_Spritesheet.png" />
     <Image Include="game_icon.ico" />
     <Image Include="images\exusiai.png" />

@@ -34,8 +34,8 @@ void GameGraphics::createDevice()
 	//d3dPP.BackBufferFormat = D3DFMT_X8B8G8R8;//fullscreen
 	d3dPP.BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dPP.BackBufferCount = 1;
-	d3dPP.BackBufferWidth = 1280;
-	d3dPP.BackBufferHeight = 720;
+	d3dPP.BackBufferWidth = WIN_WIDTH;
+	d3dPP.BackBufferHeight = WIN_HEIGHT;
 	d3dPP.hDeviceWindow = gWin->getHWND();
 	//d3dPP.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dPP.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;

@@ -15,6 +15,11 @@ Level1::Level1()
 Level1::~Level1()
 {
 	std::cout << "Level1 destroyed" << std::endl;
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void Level1::init()
@@ -33,6 +38,10 @@ void Level1::update()
 	{
 		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
 	}//simple gravity lmao
+
+	
+
+
 
 	if (playerPos.x < 0)
 	{
@@ -129,9 +138,5 @@ void Level1::draw()
 
 void Level1::release()
 {
-	sprite->Release();
-	sprite = NULL;
 
-	texture->Release();
-	texture = NULL;
 }

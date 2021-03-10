@@ -14,7 +14,7 @@ GameStateManager::GameStateManager()
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
 	gameLevels.push_back(testLevel2);
-	currentGameState = gameLevels[2];
+	currentGameState = gameLevels[0];
 
 	gTimer = new GameTimer;
 	gTimer->init(60);

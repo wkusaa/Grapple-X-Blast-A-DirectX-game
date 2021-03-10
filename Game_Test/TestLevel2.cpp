@@ -3,13 +3,12 @@
 TestLevel2::TestLevel2()
 {
 	std::cout << "TestLevel2 created" << std::endl;
-	Player* player = player->getInstance();
+	Player::getInstance();
 }
 
 TestLevel2::~TestLevel2()
 {
 	std::cout << "TestLevel2 destroyed" << std::endl;
-	std::cout << "RELEASE!" << std::endl;
 	Player::getInstance()->ReleaseInstance();
 }
 
@@ -30,7 +29,6 @@ void TestLevel2::fixedUpdate()
 
 void TestLevel2::draw()
 {
-
 	Player::getInstance()->Begin();
 	Player::getInstance()->Draw();
 }

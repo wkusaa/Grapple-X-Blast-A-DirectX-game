@@ -113,6 +113,15 @@
     <Image Include="images\mostima.png">
       <Filter>Source Files</Filter>
     </Image>
+    <Image Include="images\exusiai.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="images\militia.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="assets\player\run\Run_Spritesheet.png">
+      <Filter>Source Files</Filter>
+    </Image>
     <Image Include="assets\player\player_spritesheet.png">
       <Filter>Source Files</Filter>
     </Image>

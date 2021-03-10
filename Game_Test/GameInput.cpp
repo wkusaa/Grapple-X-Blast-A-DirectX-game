@@ -82,12 +82,13 @@ void GameInput::update()
 	GameInput::ReadMouse();
 	mousePosition.x += mouseState.lX;
 	mousePosition.x = max(mousePosition.x, 0);
-	mousePosition.x = min(mousePosition.x, 1280); // screen sizes
+	mousePosition.x = min(mousePosition.x, WIN_WIDTH); // screen sizes
 
 	mousePosition.y += mouseState.lY;
 	mousePosition.y = max(mousePosition.y, 0);
-	mousePosition.y = min(mousePosition.y, 720);
+	mousePosition.y = min(mousePosition.y, WIN_HEIGHT);
 
+	//std::cout << mousePosition.x << "|" << mousePosition.y << std::endl;
 }
 
 GameInput* GameInput::getInstance()

@@ -20,6 +20,7 @@ protected:
 	D3DXMATRIX mat;
 	RECT spriteRect;
 
+
 	int currentFrame;
 	float animationTimer;
 	float animationRate;

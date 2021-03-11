@@ -32,14 +32,12 @@ void Level1::init()
 
 void Level1::update()
 {
-	float mov = 1.0f;
+	float mov = 0.1f;
 
 	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < 1280 && playerPos.y < 720)
 	{
-		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
+		//D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
 	}//simple gravity lmao
-
-	
 
 
 
@@ -110,16 +108,19 @@ void Level1::update()
 		}
 	}
 
+	
 
-	D3DXVECTOR2 spriteCentre2D = D3DXVECTOR2(256.0f, 256.0f);
+
+	D3DXVECTOR2 rotationCentre = D3DXVECTOR2(0, 0); //(0,0) is in the centre of the sprite
 	//D3DXVECTOR3 spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
 	// Screen position of the sprite
 	D3DXVECTOR2 trans = D3DXVECTOR2(0.0f, 0.0f);
 
 	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
-	D3DXMatrixTransformation2D(&mat, NULL, 0.0, NULL, &spriteCentre2D, NULL, &D3DXVECTOR2(playerPos.x, playerPos.y));
+	D3DXMatrixTransformation2D(&mat, NULL, NULL, NULL, &rotationCentre, D3DXToRadian(180), &D3DXVECTOR2(playerPos.x, playerPos.y));
+	//D3DXMatrixRotationY(&mat, 0.523599f);
 	//std::cout << playerPos.x << "|" << playerPos.y << std::endl;
-
+	std::cout << playerPos.x << "|" << playerPos.y << std::endl;
 }
 
 void Level1::fixedUpdate()

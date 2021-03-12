@@ -1,11 +1,12 @@
 #include "Level1.h"
+#include <math.h>
 //testing
 Level1::Level1()
 {
 	std::cout << "Level1 constructed" << std::endl;
 	texture = NULL;
 	sprite = NULL;
-	playerPos = D3DXVECTOR3(0, 0, 0);
+	playerPos = D3DXVECTOR3(WIN_WIDTH/2, WIN_HEIGHT/2, 0);
 	spriteRect.left = 189;
 	spriteRect.top = 196;
 	spriteRect.right = 310;
@@ -32,9 +33,9 @@ void Level1::init()
 
 void Level1::update()
 {
-	float mov = 0.1f;
+	float mov = 1.0f;
 
-	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < 1280 && playerPos.y < 720)
+	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < WIN_WIDTH && playerPos.y < WIN_HEIGHT)
 	{
 		//D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
 	}//simple gravity lmao
@@ -51,14 +52,14 @@ void Level1::update()
 		playerPos.y = 0;
 	}
 
-	if (playerPos.x > 1280)
+	if (playerPos.x > WIN_WIDTH)
 	{
-		playerPos.y = 1280;
+		playerPos.y = WIN_WIDTH;
 	}
 
-	if (playerPos.y > 720)
+	if (playerPos.y > WIN_HEIGHT)
 	{
-		playerPos.y = 720;
+		playerPos.y = WIN_HEIGHT;
 	}
 
 
@@ -115,12 +116,29 @@ void Level1::update()
 	//D3DXVECTOR3 spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
 	// Screen position of the sprite
 	D3DXVECTOR2 trans = D3DXVECTOR2(0.0f, 0.0f);
+	GameInput* gInput = GameInput::getInstance();
 
-	// out, scaling centre, scaling rotation, scaling, rotation centre, rotation, translation
-	D3DXMatrixTransformation2D(&mat, NULL, NULL, NULL, &rotationCentre, D3DXToRadian(180), &D3DXVECTOR2(playerPos.x, playerPos.y));
-	//D3DXMatrixRotationY(&mat, 0.523599f);
-	//std::cout << playerPos.x << "|" << playerPos.y << std::endl;
-	std::cout << playerPos.x << "|" << playerPos.y << std::endl;
+	
+	//float dot = D3DXVec2Dot(&D3DXVECTOR2(playerPos.x, playerPos.y), &D3DXVECTOR2(gInput->mousePosition.x, gInput->mousePosition.y));
+	//float dotProduct = playerPos.x * playerPos.y + gInput->mousePosition.x * gInput->mousePosition.y;
+	//float magA = sqrt(pow(playerPos.x, 2) + pow(playerPos.y, 2));
+	//float magB = sqrt(pow(gInput->mousePosition.x, 2) + pow(gInput->mousePosition.y, 2));
+	//float cosa = dotProduct / (magA * magB);
+	//float angle = acos(cosa);
+	float angle = atan2(playerPos.y - gInput->mousePosition.y, playerPos.x - gInput->mousePosition.x);
+/*			90
+			|
+			|
+			|
+	0------------------180
+			|
+			|
+			|
+			270	*/	
+			
+	std::cout << (D3DXToDegree(angle) < 0 ? D3DXToDegree(angle) +360 : D3DXToDegree(angle)) << std::endl;
+	D3DXMatrixTransformation2D(&mat, NULL, NULL, NULL, &rotationCentre, angle, &D3DXVECTOR2(playerPos.x, playerPos.y));
+	
 }
 
 void Level1::fixedUpdate()

@@ -81,12 +81,11 @@ void GameInput::update()
 	GameInput::ReadKeyboard();
 	GameInput::ReadMouse();
 	mousePosition.x += mouseState.lX;
-	mousePosition.x = max(mousePosition.x, 0);
-	mousePosition.x = min(mousePosition.x, 1280); // screen sizes
-
 	mousePosition.y += mouseState.lY;
-	mousePosition.y = max(mousePosition.y, 0);
-	mousePosition.y = min(mousePosition.y, 720);
+	if (mousePosition.x < 0) { mousePosition.x = 0; }
+	if (mousePosition.y < 0) { mousePosition.y = 0; }
+	if (mousePosition.x > WIN_WIDTH) { mousePosition.x = WIN_WIDTH; }
+	if (mousePosition.y > WIN_HEIGHT) { mousePosition.y = WIN_HEIGHT; }
 
 }
 

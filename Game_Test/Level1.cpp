@@ -37,8 +37,8 @@ void Level1::update()
 
 	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < WIN_WIDTH && playerPos.y < WIN_HEIGHT)
 	{
-		//D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
-	}//simple gravity lmao
+		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
+	}//simple gravity lmao not good for platformers
 
 
 
@@ -109,35 +109,27 @@ void Level1::update()
 		}
 	}
 
-	
-
-
 	D3DXVECTOR2 rotationCentre = D3DXVECTOR2(0, 0); //(0,0) is in the centre of the sprite
 	//D3DXVECTOR3 spriteCentre3D = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
 	// Screen position of the sprite
 	D3DXVECTOR2 trans = D3DXVECTOR2(0.0f, 0.0f);
 	GameInput* gInput = GameInput::getInstance();
 
-	
-	//float dot = D3DXVec2Dot(&D3DXVECTOR2(playerPos.x, playerPos.y), &D3DXVECTOR2(gInput->mousePosition.x, gInput->mousePosition.y));
-	//float dotProduct = playerPos.x * playerPos.y + gInput->mousePosition.x * gInput->mousePosition.y;
-	//float magA = sqrt(pow(playerPos.x, 2) + pow(playerPos.y, 2));
-	//float magB = sqrt(pow(gInput->mousePosition.x, 2) + pow(gInput->mousePosition.y, 2));
-	//float cosa = dotProduct / (magA * magB);
-	//float angle = acos(cosa);
 	float angle = atan2(playerPos.y - gInput->mousePosition.y, playerPos.x - gInput->mousePosition.x);
+	float angleD = (D3DXToDegree(angle) < 0 ? D3DXToDegree(angle) + 360 : D3DXToDegree(angle));
+
 /*			90
 			|
 			|
 			|
-	0------------------180
+0/360------------------180
 			|
 			|
 			|
 			270	*/	
-			
-	std::cout << (D3DXToDegree(angle) < 0 ? D3DXToDegree(angle) +360 : D3DXToDegree(angle)) << std::endl;
-	D3DXMatrixTransformation2D(&mat, NULL, NULL, NULL, &rotationCentre, angle, &D3DXVECTOR2(playerPos.x, playerPos.y));
+
+	std::cout << angleD << std::endl;
+	D3DXMatrixTransformation2D(&mat, NULL, NULL, NULL, &rotationCentre, D3DXToRadian(angleD), &D3DXVECTOR2(playerPos.x, playerPos.y));
 	
 }
 

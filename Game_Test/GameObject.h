@@ -13,7 +13,8 @@ protected:
 	LPD3DXSPRITE sprite;
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 movement;
-	D3DXVECTOR3 rotation;
+	D3DXVECTOR3 rotation;//not sure where to use
+	D3DXVECTOR3 rotationCentre;
 	D3DXVECTOR3 spriteCentre;
 	D3DXVECTOR3 scaling;
 	D3DXVECTOR3 size;
@@ -24,17 +25,37 @@ protected:
 	float animationTimer;
 	float animationRate;
 	float rotationRate;
+	float rotationAngle;
 
 public:
 	GameObject();
 	~GameObject();
-	D3DXVECTOR3 GetPosition();
 	virtual void Initialize(LPDIRECT3DDEVICE9 device);
 	virtual void Update();
 	virtual void Begin();
-	virtual void SetTransform(D3DXMATRIX mat);
+	virtual void SetTransform();
 	virtual void Draw();
-	virtual void ReleaseInstance();
 	void Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile);
+
+	void setPosition(D3DXVECTOR3 position);
+	D3DXVECTOR3 getPosition();
+
+	void setMatrix(D3DXMATRIX matrix);
+	D3DXMATRIX getMatrix();
+
+	void setSize(D3DXVECTOR3 size);
+	D3DXVECTOR3 getSize();
+
+	void setScaling(D3DXVECTOR3 scaling);
+	D3DXVECTOR3 getScaling();
+
+	void setSpriteCentre(D3DXVECTOR3 spriteCentre);
+	D3DXVECTOR3 getSpriteCentre();
+
+	void setRotationCentre(D3DXVECTOR3 rotationCentre);
+	D3DXVECTOR3 getRotationCentre();
+
+	void setRotationAngle(float rotationAngle);
+	float getRotationAngle();
 };
 

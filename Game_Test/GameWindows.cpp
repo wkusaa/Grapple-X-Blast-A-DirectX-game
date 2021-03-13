@@ -82,7 +82,7 @@ void GameWindows::createWindow()
 	ShowWindow(g_hWnd, 1);
 
 	//	Some interesting function to try out.
-	//	ShowCursor(false);
+	//ShowCursor(false);
 
 }
 

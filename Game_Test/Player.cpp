@@ -12,31 +12,34 @@ Player::Player()
 
 	scaling = D3DXVECTOR3(5.0f, 5.0f, 1.0f);
 	movement = D3DXVECTOR3();
-	spriteCentre = D3DXVECTOR3(256.0f, 256.0f, 0.0f);
 	size = D3DXVECTOR3(128.0f, 128.0f, 1.0f);
-	position = D3DXVECTOR3(0, 0, 0);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
+	position = D3DXVECTOR3(WIN_WIDTH/2, WIN_HEIGHT/2, 0);
 	mat = D3DMATRIX();
 	rotation = D3DXVECTOR3();
+	rotationAngle = 0;
 
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = spriteRect.top + size.x;
-	spriteRect.right = spriteRect.left + size.y;
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
 
 	animationTimer = 0;
 	animationRate = 0.5f / 8;
 	currentFrame = 0;
 	rotationRate = 0;
+
+	blastCannon.setPosition(position);
 }
 
 Player::~Player()
 {
 	std::cout << "Player destroyed" << std::endl;
-	sprite->Release();
-	sprite = NULL;
+	//sprite->Release();
+	//sprite = NULL;
 
-	texture->Release();
-	texture = NULL;
+	//texture->Release();
+	//texture = NULL; destructor called at GameObject
 }
 
 Player* Player::getInstance()
@@ -51,16 +54,16 @@ Player* Player::getInstance()
 
 void Player::Initialize(LPDIRECT3DDEVICE9 device)
 {
-	//	Create sprite. Study the documentation. 
 	D3DXCreateSprite(device, &sprite);
-	//	Create texture. Study the documentation.
 	D3DXCreateTextureFromFile(device, PLAYER_SPRITE, &texture);
+
+	blastCannon.Initialize(device);
 }
 
-void Player::Begin()
-{
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-}
+//void Player::Begin()
+//{
+//	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+//}
 
 void Player::Update()
 {
@@ -75,18 +78,31 @@ void Player::Update()
 	spriteRect.left = size.x * currentFrame;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
-}
 
-void Player::SetTransform(D3DXMATRIX mat)
-{
-	sprite->SetTransform(&mat);
+	blastCannon.Update();
 }
 
 void Player::Draw()
 {
-	sprite->Draw(texture, &spriteRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	SetTransform();
+	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
+	blastCannon.Draw();
 }
+
+void Player::Begin()
+{
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	blastCannon.Begin();
+}
+
+//void Player::SetTransform()
+//{
+//	D3DXMatrixTransformation2D(&mat, NULL, NULL, &D3DXVECTOR2(scaling.x, scaling.y), &D3DXVECTOR2(rotationCentre.x, rotationCentre.y), D3DXToRadian(rotationAngle), &D3DXVECTOR2(position.x, position.y));
+//	sprite->SetTransform(&mat);
+//}
+
+
 
 void Player::ReleaseInstance()
 {

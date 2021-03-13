@@ -37,10 +37,6 @@ GameObject::~GameObject()
 
 }
 
-D3DXVECTOR3 GameObject::GetPosition()
-{
-	return position;
-}
 
 void GameObject::Initialize(LPDIRECT3DDEVICE9 device)
 {
@@ -60,8 +56,9 @@ void GameObject::Begin()
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 }
 
-void GameObject::SetTransform(D3DXMATRIX mat)
+void GameObject::SetTransform()
 {
+	D3DXMatrixTransformation2D(&mat, NULL, NULL, &D3DXVECTOR2(scaling.x, scaling.y), &D3DXVECTOR2(rotationCentre.x, rotationCentre.y), D3DXToRadian(rotationAngle), &D3DXVECTOR2(position.x, position.y));
 	sprite->SetTransform(&mat);
 }
 
@@ -71,10 +68,6 @@ void GameObject::Draw()
 	sprite->End();
 }
 
-void GameObject::ReleaseInstance()
-{
-
-}
 
 void GameObject::Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile)
 {
@@ -82,4 +75,74 @@ void GameObject::Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile)
 	D3DXCreateSprite(device, &sprite);
 	//	Create texture. Study the documentation.
 	D3DXCreateTextureFromFile(device, sourceFile, &texture);
+}
+
+void GameObject::setPosition(D3DXVECTOR3 position)
+{
+	this->position = position;
+}
+
+void GameObject::setSize(D3DXVECTOR3 size)
+{
+	this->size = size;
+}
+
+D3DXVECTOR3 GameObject::getSize()
+{
+	return size;
+}
+
+void GameObject::setScaling(D3DXVECTOR3 scaling)
+{
+	this->scaling = scaling;
+}
+
+D3DXVECTOR3 GameObject::getScaling()
+{
+	return this->scaling;
+}
+
+void GameObject::setSpriteCentre(D3DXVECTOR3 spriteCentre)
+{
+	this->spriteCentre = spriteCentre;
+}
+
+D3DXVECTOR3 GameObject::getSpriteCentre()
+{
+	return spriteCentre;
+}
+
+void GameObject::setRotationCentre(D3DXVECTOR3 rotationCentre)
+{
+	this->rotationCentre = rotationCentre;
+}
+
+D3DXVECTOR3 GameObject::getRotationCentre()
+{
+	return this->rotationCentre;
+}
+
+void GameObject::setRotationAngle(float rotationAngle)
+{
+	this->rotationAngle = rotationAngle;
+}
+
+float GameObject::getRotationAngle()
+{
+	return this->rotationAngle;
+}
+
+D3DXVECTOR3 GameObject::getPosition()
+{
+	return this->position;
+}
+
+void GameObject::setMatrix(D3DXMATRIX matrix)
+{
+	this->mat = matrix;
+}
+
+D3DXMATRIX GameObject::getMatrix()
+{
+	return mat;
 }

@@ -13,11 +13,10 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	GameWindows* gWin = gWin->getInstance();
-	GameGraphics* gGraphics = gGraphics->getInstance();
-	GameInput* gInput = gInput->getInstance();
-
 	gWin->createWindow();
+	GameGraphics* gGraphics = gGraphics->getInstance();
 	gGraphics->createDevice();
+	GameInput* gInput = GameInput::getInstance();
 	gInput->createInput();
 
 	GameStateManager* gManager = gManager->getInstance();

@@ -9,12 +9,13 @@ class Player : public GameObject
 private:
 	static Player* instance;
 	float speed;
-	BlastCannon blastCannon;
+
 	
 	Player();
 	~Player();
 
 public:
+	BlastCannon blastCannon;
 	static Player* getInstance();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Begin();

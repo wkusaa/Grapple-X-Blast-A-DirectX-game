@@ -35,10 +35,10 @@ void Level1::update()
 {
 	float mov = 1.0f;
 
-	if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < WIN_WIDTH && playerPos.y < WIN_HEIGHT)
-	{
-		D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
-	}//simple gravity lmao not good for platformers
+	//if (playerPos.x >= 0 && playerPos.y >= 0 && playerPos.x < WIN_WIDTH && playerPos.y < WIN_HEIGHT)
+	//{
+	//	D3DXVec3Add(&playerPos, &playerPos, &D3DXVECTOR3(0.0f, 10.0f, 0.0f));
+	//}//simple gravity lmao not good for platformers
 
 
 

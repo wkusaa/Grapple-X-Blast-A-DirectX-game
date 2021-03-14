@@ -11,7 +11,6 @@ private:
 protected:
 	LPDIRECT3DTEXTURE9 texture;
 	LPD3DXSPRITE sprite;
-	D3DXVECTOR3 position;
 	D3DXVECTOR3 movement;
 	D3DXVECTOR3 rotation;//not sure where to use
 	D3DXVECTOR3 rotationCentre;
@@ -36,6 +35,9 @@ public:
 	virtual void SetTransform();
 	virtual void Draw();
 	void Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile);
+
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 velocity;
 
 	void setPosition(D3DXVECTOR3 position);
 	D3DXVECTOR3 getPosition();

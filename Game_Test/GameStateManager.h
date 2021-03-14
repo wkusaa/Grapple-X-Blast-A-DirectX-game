@@ -6,6 +6,8 @@
 #include "TestLevel2.h"
 #include <vector>
 #include <iostream>
+#define FPS 60.0f
+
 class GameStateManager
 {
 private:
@@ -19,6 +21,9 @@ public:
 	void update();
 	void draw();
 	void release();
+
+	float elapsedTime;
+	//test
 
 	GameTimer* gTimer;
 	GameState* currentGameState;

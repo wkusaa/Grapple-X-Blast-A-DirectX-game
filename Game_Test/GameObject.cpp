@@ -58,7 +58,7 @@ void GameObject::Begin()
 
 void GameObject::SetTransform()
 {
-	D3DXMatrixTransformation2D(&mat, NULL, NULL, &D3DXVECTOR2(scaling.x, scaling.y), &D3DXVECTOR2(rotationCentre.x, rotationCentre.y), D3DXToRadian(rotationAngle), &D3DXVECTOR2(position.x, position.y));
+	D3DXMatrixTransformation2D(&mat, NULL, NULL, &D3DXVECTOR2(scaling.x, scaling.y), &D3DXVECTOR2(rotationCentre.x, rotationCentre.y), rotationAngle, &D3DXVECTOR2(position.x, position.y));//in rotation angle is in radian
 	sprite->SetTransform(&mat);
 }
 

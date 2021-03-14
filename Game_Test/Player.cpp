@@ -10,7 +10,7 @@ Player::Player()
 
 	speed = 1.0f;
 
-	scaling = D3DXVECTOR3(5.0f, 5.0f, 1.0f);
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	movement = D3DXVECTOR3();
 	size = D3DXVECTOR3(128.0f, 128.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
@@ -41,6 +41,11 @@ Player::~Player()
 	//texture->Release();
 	//texture = NULL; destructor called at GameObject
 }
+
+//BlastCannon Player::BlastCannon()
+//{
+//	return blastCannon;
+//}
 
 Player* Player::getInstance()
 {
@@ -80,6 +85,7 @@ void Player::Update()
 	spriteRect.right = spriteRect.left + size.x;
 
 	blastCannon.Update();
+	blastCannon.setPosition(position);
 }
 
 void Player::Draw()

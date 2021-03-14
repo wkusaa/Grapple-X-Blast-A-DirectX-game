@@ -101,39 +101,15 @@ GameInput* GameInput::getInstance()
 
 bool GameInput::createInput()
 {
-	//HRESULT result;
-	//DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
-
-	////keyboard
-	//LPDIRECTINPUTDEVICE8  dInputKeyboardDevice;
-	//result = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);
-
-	//if (FAILED(result))
-	//{
-	//	return false;
-	//}
-
-	//dInputKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
-	//dInputKeyboardDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-	//dInputKeyboardDevice->Acquire();
-
-	////mouse
-	//LPDIRECTINPUTDEVICE8  dInputMouseDevice;
-	//result = dInput->CreateDevice(GUID_SysMouse, &dInputMouseDevice, NULL);
-
-	//if (FAILED(result))
-	//{
-	//	return false;
-	//}
-
-	//dInputMouseDevice->SetDataFormat(&c_dfDIMouse);
-	//dInputMouseDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
-	//dInputMouseDevice->Acquire();
-
 	HRESULT result;
 	DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
 
 	result = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);
+
+	if (FAILED(result))
+	{
+		return false;
+	}
 
 	dInputKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
 	dInputKeyboardDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
@@ -141,8 +117,13 @@ bool GameInput::createInput()
 
 	result = dInput->CreateDevice(GUID_SysMouse, &dInputMouseDevice, NULL);
 
+	if (FAILED(result))
+	{
+		return false;
+	}
+
 	dInputMouseDevice->SetDataFormat(&c_dfDIMouse);
-	dInputMouseDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	dInputMouseDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	dInputMouseDevice->Acquire();
 
 	return true;

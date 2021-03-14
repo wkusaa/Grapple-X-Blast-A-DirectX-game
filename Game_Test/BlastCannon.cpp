@@ -29,13 +29,12 @@ BlastCannon::~BlastCannon()
 void BlastCannon::rotateGunBasedMouse()
 {
 	GameInput* gInput = GameInput::getInstance();
-	float angle = atan2(position.y - gInput->mousePosition.y, position.x - gInput->mousePosition.x);
-	float rotationAngle = (D3DXToDegree(angle) < 0 ? D3DXToDegree(angle) + 360 : D3DXToDegree(angle));
-
-	rotationAngle =	rotationAngle-180;
-
-	std::cout << rotationAngle << std::endl;
-	setRotationAngle(rotationAngle);
+	//float angle = atan2(position.y - gInput->mousePosition.y, position.x - gInput->mousePosition.x); // for gun facing left
+	float angle = atan2(gInput->mousePosition.y - position.y, gInput->mousePosition.x - position.x); // for gun facing right
+	//float rotationAngle = (D3DXToDegree(angle) < 0 ? D3DXToDegree(angle) + 360 : D3DXToDegree(angle)); 
+	//rotationAngle =	rotationAngle-180;
+	//std::cout << angle << std::endl;
+	setRotationAngle(angle);
 }
 
 void BlastCannon::Initialize(LPDIRECT3DDEVICE9 device)

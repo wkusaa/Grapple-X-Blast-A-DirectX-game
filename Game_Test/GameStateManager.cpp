@@ -17,7 +17,10 @@ GameStateManager::GameStateManager()
 	currentGameState = gameLevels[2];
 
 	gTimer = new GameTimer;
-	gTimer->init(60);
+	gTimer->init(FPS);
+
+
+	
 
 }
 
@@ -48,10 +51,13 @@ GameStateManager* GameStateManager::getInstance()
 
 void GameStateManager::fixedUpdate()
 {
+
 	int framesToUpdate = gTimer->framesToUpdate();
 	for (int i = 0; i < framesToUpdate; i++)
 	{
+		elapsedTime += (1.0f / FPS);
 		currentGameState->fixedUpdate();
+		//std::cout << elapsedTime << std::endl;
 	}
 }
 

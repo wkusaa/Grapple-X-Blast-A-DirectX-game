@@ -24,18 +24,12 @@ int main()
 	{
 		gInput->update();
 
-		if (gInput->MouseButtonClick(0))
-		{
-			std::cout << "MouseClick" << std::endl;
-		}
-
 		gManager->update();
 		gManager->fixedUpdate();
 
 		gGraphics->beginScene();
 
 		gManager->draw();
-
 		gGraphics->endScene();
 	}
 

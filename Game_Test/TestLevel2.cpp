@@ -9,15 +9,12 @@ TestLevel2::TestLevel2()
 
 	gravity = D3DXVECTOR3(0.0f, 0.02f, 0.0f);
 	direction = D3DXVECTOR3(sin(D3DXToRadian(90)), -cos(D3DXToRadian(90)), 0.0f);
-	line = new DXLine;
-	line->createLine(GameGraphics::getInstance()->d3dDevice);
 }
 
 TestLevel2::~TestLevel2()
 {
 	std::cout << "TestLevel2 destroyed" << std::endl;
 	Player::getInstance()->ReleaseInstance();
-	delete line;
 }
 
 void TestLevel2::init()
@@ -63,19 +60,7 @@ void TestLevel2::draw()
 	Player::getInstance()->Draw();
 	//y=mx
 	//float blastOffAngle = Player::getInstance()->getBlastOffAngle();
-	D3DXVECTOR3 cannonPos = Player::getInstance()->blastCannon.getPosition();
-	int lineScaling = 10;
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
 
-	//float scalarX = mouseX + (cannonPos.x - mouseX) * lineScaling;
-	//float scalarY = mouseY + (cannonPos.y - mouseY) * lineScaling;
-
-	float scalarX = cannonPos.x + (mouseX - cannonPos.x) * lineScaling;
-	float scalarY = cannonPos.y + (mouseY - cannonPos.y) * lineScaling;
-
-	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(GameInput::getInstance()->mousePosition.x, GameInput::getInstance()->mousePosition.y) };
-	line->draw(lineVertices,2,D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void TestLevel2::release()

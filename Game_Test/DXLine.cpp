@@ -24,6 +24,6 @@ void DXLine::draw(D3DXVECTOR2 lineVertices[], int verticeSize, D3DCOLOR color)
 	//int verticeSize = sizeof(lineVertices);
 	//std::cout << verticeSize << std::endl;
 	line->Begin();
-	line->Draw(lineVertices, 2, D3DCOLOR_XRGB(0, 0, 0));
+	line->Draw(lineVertices, 2, color);
 	line->End();
 }

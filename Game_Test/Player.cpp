@@ -117,3 +117,12 @@ void Player::ReleaseInstance()
 		delete instance;
 	}
 }
+
+float Player::getBlastOffAngle()
+{
+	float mousePointAngle;
+	mousePointAngle = blastCannon.getRotationAngle() - D3DXToRadian(90); //offset by 90 degrees
+	float blastOffAngle = mousePointAngle;
+
+	return blastOffAngle;
+}

@@ -10,7 +10,6 @@ private:
 	static Player* instance;
 	float speed;
 
-	
 	Player();
 	~Player();
 
@@ -23,5 +22,6 @@ public:
 	//void SetTransform();
 	void Draw();
 	void ReleaseInstance();
+	float getBlastOffAngle();
 };
 

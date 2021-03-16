@@ -73,6 +73,7 @@ void GameStateManager::draw()
 
 void GameStateManager::release()
 {
+	//currentGameState->release();
 	if (instance)
 	{
 		delete instance;

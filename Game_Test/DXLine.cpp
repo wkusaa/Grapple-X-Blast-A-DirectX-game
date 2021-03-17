@@ -20,10 +20,7 @@ void DXLine::createLine(LPDIRECT3DDEVICE9 device)
 
 void DXLine::draw(D3DXVECTOR2 lineVertices[], int verticeSize, D3DCOLOR color)
 {
-
-	//int verticeSize = sizeof(lineVertices);
-	//std::cout << verticeSize << std::endl;
 	line->Begin();
-	line->Draw(lineVertices, 2, color);
+	line->Draw(lineVertices, verticeSize, color);
 	line->End();
 }

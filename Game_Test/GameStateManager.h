@@ -4,6 +4,7 @@
 #include "Level1.h"
 #include "TestLevel.h"
 #include "TestLevel2.h"
+#include "TestLevel3.h"
 #include <vector>
 #include <iostream>
 #define FPS 60.0f

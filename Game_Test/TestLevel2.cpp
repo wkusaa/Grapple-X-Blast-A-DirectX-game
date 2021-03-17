@@ -14,7 +14,6 @@ TestLevel2::TestLevel2()
 TestLevel2::~TestLevel2()
 {
 	std::cout << "TestLevel2 destroyed" << std::endl;
-	Player::getInstance()->ReleaseInstance();
 }
 
 void TestLevel2::init()
@@ -56,10 +55,8 @@ void TestLevel2::fixedUpdate()
 
 void TestLevel2::draw()
 {
-	Player::getInstance()->Begin();
+	//Player::getInstance()->Begin();
 	Player::getInstance()->Draw();
-	//y=mx
-	//float blastOffAngle = Player::getInstance()->getBlastOffAngle();
 
 }
 

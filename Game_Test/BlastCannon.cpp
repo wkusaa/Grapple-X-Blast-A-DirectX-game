@@ -1,5 +1,8 @@
 #include "BlastCannon.h"
 
+//BlastCannon* BlastCannon::instance = 0;
+
+
 BlastCannon::BlastCannon()
 {
 	std::cout << "BlastCannon created" << std::endl;
@@ -30,6 +33,8 @@ BlastCannon::~BlastCannon()
 	delete laserLine;
 }
 
+
+
 void BlastCannon::rotateGunBasedMouse()
 {
 	GameInput* gInput = GameInput::getInstance();
@@ -56,6 +61,7 @@ void BlastCannon::Update()
 
 void BlastCannon::Draw()
 {
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
@@ -73,11 +79,6 @@ void BlastCannon::drawLaserLine()
 	float scalarX = cannonPos.x + (mouseX - cannonPos.x) * lineScaling;
 	float scalarY = cannonPos.y + (mouseY - cannonPos.y) * lineScaling;
 	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(scalarX, scalarY) };
-	laserLine->draw(lineVertices, 1, D3DCOLOR_XRGB(255, 77, 77)); // bright red
-}
-
-void BlastCannon::Begin()
-{
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(255, 77, 77)); // bright red
 }
 

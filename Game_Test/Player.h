@@ -17,7 +17,7 @@ public:
 	BlastCannon blastCannon;
 	static Player* getInstance();
 	void Initialize(LPDIRECT3DDEVICE9 device);
-	void Begin();
+	//void Begin();
 	void Update();
 	//void SetTransform();
 	void Draw();

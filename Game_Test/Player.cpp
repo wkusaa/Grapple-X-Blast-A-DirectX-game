@@ -90,24 +90,17 @@ void Player::Update()
 
 void Player::Draw()
 {
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
 	blastCannon.Draw();
 }
 
-void Player::Begin()
-{
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	blastCannon.Begin();
-}
-
-//void Player::SetTransform()
+//void Player::Begin()
 //{
-//	D3DXMatrixTransformation2D(&mat, NULL, NULL, &D3DXVECTOR2(scaling.x, scaling.y), &D3DXVECTOR2(rotationCentre.x, rotationCentre.y), D3DXToRadian(rotationAngle), &D3DXVECTOR2(position.x, position.y));
-//	sprite->SetTransform(&mat);
+//	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 //}
-
 
 
 void Player::ReleaseInstance()

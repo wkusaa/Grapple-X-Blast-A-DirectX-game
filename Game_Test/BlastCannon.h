@@ -7,6 +7,7 @@
 class BlastCannon : public GameObject
 {
 private:
+	//static BlastCannon* instance;
 	DXLine* laserLine;
 
 public:
@@ -17,6 +18,4 @@ public:
 	void Update();
 	void Draw();
 	void drawLaserLine();
-	void Begin();
 };
-

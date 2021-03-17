@@ -4,8 +4,8 @@ GameObject::GameObject()
 {
 	std::cout << "GameObject created" << std::endl;
 
-	//texture = NULL;
-	//sprite = NULL;
+	texture = NULL;
+	sprite = NULL;
 
 	//scaling = D3DXVECTOR3();
 	//movement = D3DXVECTOR3();
@@ -51,10 +51,10 @@ void GameObject::Update()
 
 }
 
-void GameObject::Begin()
-{
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-}
+//void GameObject::Begin()
+//{
+//	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+//}
 
 void GameObject::SetTransform()
 {
@@ -64,6 +64,8 @@ void GameObject::SetTransform()
 
 void GameObject::Draw()
 {
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	SetTransform();
 	sprite->Draw(texture, &spriteRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
 }

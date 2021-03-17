@@ -31,7 +31,7 @@ public:
 	~GameObject();
 	virtual void Initialize(LPDIRECT3DDEVICE9 device);
 	virtual void Update();
-	virtual void Begin();
+	//virtual void Begin();
 	virtual void SetTransform();
 	virtual void Draw();
 	void Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile);

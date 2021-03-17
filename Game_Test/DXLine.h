@@ -15,4 +15,3 @@ public:
 	void createLine(LPDIRECT3DDEVICE9 device);
 	void draw(D3DXVECTOR2 lineVertices[], int verticeSize, D3DCOLOR color);
 };
-

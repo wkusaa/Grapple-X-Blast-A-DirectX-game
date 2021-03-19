@@ -28,8 +28,14 @@ void TestLevel3::update()
 {
 	Player* player = Player::getInstance();
 
-	D3DXVECTOR3 grapplingPoint = D3DXVECTOR3(WIN_WIDTH / 2, WIN_HEIGHT / 2, 1.0f);
+	D3DXVECTOR3 grapplingPoint = D3DXVECTOR3(WIN_WIDTH / 2,( WIN_HEIGHT / 2 ) - 200, 1.0f);
 	float distanceFromPoint = 400.0f;
+
+	//if (GameInput::getInstance()->MouseButtonClick(0))
+	//{
+	//	std::cout << "MouseClick" << std::endl;
+	//	player->switchWeapon();
+	//}
 
 	if (angleDegree > 270)
 	{
@@ -62,7 +68,6 @@ void TestLevel3::fixedUpdate()
 {
 	Player* player = Player::getInstance();
 	player->Update();
-
 
 }
 

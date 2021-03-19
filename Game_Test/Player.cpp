@@ -29,17 +29,25 @@ Player::Player()
 	currentFrame = 0;
 	rotationRate = 0;
 
-	blastCannon.setPosition(position);
+	//blastCannon.setPosition(position);
+	blastCannon = new BlastCannon;
+	grappleGun = new GrappleGun;
+
+	blastCannon->Initialize(GameGraphics::getInstance()->d3dDevice);
+	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
+
+	currentWeapon = blastCannon;
+	currentWeapon->setPosition(position);
+
+	isSwitched = true;
 }
 
 Player::~Player()
 {
 	std::cout << "Player destroyed" << std::endl;
-	//sprite->Release();
-	//sprite = NULL;
-
-	//texture->Release();
-	//texture = NULL; destructor called at GameObject
+	delete blastCannon;
+	delete grappleGun;
+	currentWeapon = NULL;
 }
 
 //BlastCannon Player::BlastCannon()
@@ -62,7 +70,6 @@ void Player::Initialize(LPDIRECT3DDEVICE9 device)
 	D3DXCreateSprite(device, &sprite);
 	D3DXCreateTextureFromFile(device, PLAYER_SPRITE, &texture);
 
-	blastCannon.Initialize(device);
 }
 
 //void Player::Begin()
@@ -84,8 +91,8 @@ void Player::Update()
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
 
-	blastCannon.Update();
-	blastCannon.setPosition(position);
+	currentWeapon->Update();
+	currentWeapon->setPosition(position);
 }
 
 void Player::Draw()
@@ -94,7 +101,7 @@ void Player::Draw()
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
-	blastCannon.Draw();
+	currentWeapon->Draw();
 }
 
 //void Player::Begin()
@@ -114,8 +121,22 @@ void Player::ReleaseInstance()
 float Player::getBlastOffAngle()
 {
 	float mousePointAngle;
-	mousePointAngle = blastCannon.getRotationAngle() - D3DXToRadian(90); //offset by 90 degrees
+	mousePointAngle = currentWeapon->getRotationAngle() - D3DXToRadian(90); //offset by 90 degrees
 	float blastOffAngle = mousePointAngle;
 
 	return blastOffAngle;
+}
+
+void Player::switchWeapon()
+{
+	if (isSwitched)
+	{
+		currentWeapon = grappleGun;
+		isSwitched = false;
+	}
+	else
+	{
+		currentWeapon = blastCannon;
+		isSwitched = true;
+	}
 }

@@ -33,6 +33,14 @@ BlastCannon::~BlastCannon()
 	delete laserLine;
 }
 
+//BlastCannon* BlastCannon::getInstance()
+//{
+//	if (!instance)
+//	{
+//		instance = new BlastCannon;
+//	}
+//	return instance;
+//}
 
 
 void BlastCannon::rotateGunBasedMouse()

@@ -86,6 +86,12 @@ void BlastCannon::drawLaserLine()
 	float mouseY = GameInput::getInstance()->mousePosition.y;
 	float scalarX = cannonPos.x + (mouseX - cannonPos.x) * lineScaling;
 	float scalarY = cannonPos.y + (mouseY - cannonPos.y) * lineScaling;
+
+	//if (scalarX < 0) { scalarX = 0; }
+	//if (scalarY < 0) { scalarY = 0; }
+	//if (scalarX > WIN_WIDTH) { scalarX = WIN_WIDTH; }
+	//if (scalarY > WIN_HEIGHT) { scalarY = WIN_HEIGHT; }
+
 	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(scalarX, scalarY) };
 	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(255, 77, 77)); // bright red
 }

@@ -28,5 +28,6 @@ public:
 	void ReleaseInstance();
 	float getBlastOffAngle();
 	void switchWeapon();
+	void action();
 };
 

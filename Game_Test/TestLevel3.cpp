@@ -8,35 +8,44 @@ TestLevel3::TestLevel3()
 
 
 	gravity = D3DXVECTOR3(0.0f, 0.02f, 0.0f);
-	direction = D3DXVECTOR3(sin(D3DXToRadian(90)), -cos(D3DXToRadian(90)), 0.0f);
+	player->direction = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	angleDegree = 90;
 	swingOppositeDirection = true;
+
+	grapplePoint = new GrapplingPoint(D3DXVECTOR3(WIN_WIDTH / 2, (WIN_HEIGHT / 2) - 200, 1.0f));
+
 }
 
 TestLevel3::~TestLevel3()
 {
 	std::cout << "TestLevel3 destroyed" << std::endl;
+	delete grapplePoint;
 }
 
 void TestLevel3::init()
 {
-	Player::getInstance()->Initialize(GameGraphics::getInstance()->d3dDevice);
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	Player::getInstance()->Initialize(gameGraphics->d3dDevice);
+	grapplePoint->Initialize(gameGraphics->d3dDevice);
 }
 
 void TestLevel3::update()
 {
 	Player* player = Player::getInstance();
 
-	D3DXVECTOR3 grapplingPoint = D3DXVECTOR3(WIN_WIDTH / 2,( WIN_HEIGHT / 2 ) - 200, 1.0f);
+	if (GameInput::getInstance()->MouseButtonClick(0))
+	{
+		std::cout << "MouseClick" << std::endl;
+		player->action();
+	}
+
+	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_H))
+	{
+		std::cout << "MouseClick" << std::endl;
+		player->switchWeapon();
+	}
 	float distanceFromPoint = 400.0f;
-
-	//if (GameInput::getInstance()->MouseButtonClick(0))
-	//{
-	//	std::cout << "MouseClick" << std::endl;
-	//	player->switchWeapon();
-	//}
-
 	if (angleDegree > 270)
 	{
 		swingOppositeDirection = false;
@@ -60,7 +69,9 @@ void TestLevel3::update()
 	float offsetX = (sin(angle)) * distanceFromPoint;
 	float offsetY = (-cos(angle)) * distanceFromPoint;
 
-	D3DXVECTOR3 currentPosition = D3DXVECTOR3(grapplingPoint.x + offsetX, grapplingPoint.y + offsetY, 1.0f);
+	
+
+	D3DXVECTOR3 currentPosition = D3DXVECTOR3(grapplePoint->getPosition().x + offsetX, grapplePoint->getPosition().y + offsetY, 1.0f);
 	player->setPosition(currentPosition);
 }
 
@@ -74,6 +85,7 @@ void TestLevel3::fixedUpdate()
 void TestLevel3::draw()
 {
 	Player::getInstance()->Draw();
+	grapplePoint->Draw();
 }
 
 void TestLevel3::release()

@@ -15,9 +15,9 @@ GameWindows* GameWindows::getInstance()
 GameWindows::GameWindows()
 {
 	std::cout << "GameWindows constructed" << std::endl;
-	this->r = 0;
-	this->g = 128;
-	this->b = 128;
+	this->r = 163;
+	this->g = 0;
+	this->b = 0;
 	this->isFullscreen = false;
 	this->hInstance = GetModuleHandle(NULL);
 	this->g_hWnd = NULL;

@@ -67,8 +67,11 @@ void GrappleGun::drawLaserLine()
 	float mouseY = GameInput::getInstance()->mousePosition.y;
 	float scalarX = cannonPos.x + (mouseX - cannonPos.x) * lineScaling;
 	float scalarY = cannonPos.y + (mouseY - cannonPos.y) * lineScaling;
+
+
+
 	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(scalarX, scalarY) };
-	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(255, 77, 77)); // bright red
+	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(0, 255, 255)); // bright red
 }
 
 void GrappleGun::swingingFromGrapplePoint(D3DXVECTOR3 grapplePoint)

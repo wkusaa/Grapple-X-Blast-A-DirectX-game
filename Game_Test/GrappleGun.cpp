@@ -73,8 +73,3 @@ void GrappleGun::drawLaserLine()
 	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(scalarX, scalarY) };
 	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(0, 255, 255)); // bright red
 }
-
-void GrappleGun::swingingFromGrapplePoint(D3DXVECTOR3 grapplePoint)
-{
-
-}

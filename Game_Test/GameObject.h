@@ -11,7 +11,6 @@ private:
 protected:
 	LPDIRECT3DTEXTURE9 texture;
 	LPD3DXSPRITE sprite;
-	D3DXVECTOR3 movement;
 	D3DXVECTOR3 rotation;//not sure where to use
 	D3DXVECTOR3 rotationCentre;
 	D3DXVECTOR3 spriteCentre;

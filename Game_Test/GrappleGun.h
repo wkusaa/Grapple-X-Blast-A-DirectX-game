@@ -20,6 +20,6 @@ public:
 	void Update();
 	void Draw();
 	void drawLaserLine();
-	void swingingFromGrapplePoint(D3DXVECTOR3 grapplePoint);
+	//void swingingFromGrapplePoint(D3DXVECTOR3 grapplePoint);
 };
 

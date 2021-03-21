@@ -37,14 +37,9 @@ void TestLevel3::update()
 	if (GameInput::getInstance()->MouseButtonClick(0))
 	{
 		std::cout << "MouseClick" << std::endl;
-		player->action();
+		//player->action();
 	}
 
-	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_H))
-	{
-		std::cout << "MouseClick" << std::endl;
-		player->switchWeapon();
-	}
 	float distanceFromPoint = 400.0f;
 	if (angleDegree > 270)
 	{
@@ -65,11 +60,8 @@ void TestLevel3::update()
 	}
 
 	float angle = D3DXToRadian(angleDegree);
-
 	float offsetX = (sin(angle)) * distanceFromPoint;
 	float offsetY = (-cos(angle)) * distanceFromPoint;
-
-	
 
 	D3DXVECTOR3 currentPosition = D3DXVECTOR3(grapplePoint->getPosition().x + offsetX, grapplePoint->getPosition().y + offsetY, 1.0f);
 	player->setPosition(currentPosition);

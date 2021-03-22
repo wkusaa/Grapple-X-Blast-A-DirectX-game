@@ -65,7 +65,6 @@ void GameStateManager::fixedUpdate()
 	{
 		elapsedTime += (1.0f / FPS);
 		currentGameState->fixedUpdate();
-		//std::cout << elapsedTime << std::endl;
 	}
 }
 

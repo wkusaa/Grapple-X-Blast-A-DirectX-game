@@ -7,11 +7,9 @@
 class GrappleGun : public GameObject
 {
 private:
-	//static BlastCannon* instance;
 	DXLine* laserLine;
 
 public:
-	//BlastCannon* getInstance();
 	GrappleGun();
 	~GrappleGun();
 
@@ -19,7 +17,5 @@ public:
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Update();
 	void Draw();
-	void drawLaserLine();
-	//void swingingFromGrapplePoint(D3DXVECTOR3 grapplePoint);
 };
 

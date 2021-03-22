@@ -1,14 +1,17 @@
 #pragma once
 #include "GameState.h"
 #include "Player.h"
-#include "GameStateManager.h"
 #include "PlayerController.h"
+#include <vector>
+#include "GrapplingPoint.h"
 #include <iostream>
 
 class TestLevel4 :public GameState
 {
 private:
 	PlayerController* playerCon;
+	//GrapplingPoint graplePoint;
+	std::vector<GrapplingPoint*> grapplePointArray;
 public:
 	TestLevel4();
 	~TestLevel4();

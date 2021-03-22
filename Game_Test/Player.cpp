@@ -10,8 +10,7 @@ Player::Player()
 
 	speed = 1.0f;
 
-	scaling = D3DXVECTOR3(3.0f, 3.0f, 1.0f);
-	movement = D3DXVECTOR3();
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	size = D3DXVECTOR3(128.0f, 128.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	position = D3DXVECTOR3(WIN_WIDTH/2, WIN_HEIGHT/2, 0);
@@ -28,7 +27,7 @@ Player::Player()
 	spriteRect.right = spriteRect.left + size.x;
 
 	animationTimer = 0;
-	animationRate = 0.5f / 8;
+	animationRate = 0.1f / 8;
 	currentFrame = 0;
 	rotationRate = 0;
 
@@ -39,10 +38,7 @@ Player::Player()
 	blastCannon->Initialize(GameGraphics::getInstance()->d3dDevice);
 	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
 
-	currentWeapon = blastCannon;
-	currentWeapon->setPosition(position);
 
-	isSwitched = true;
 }
 
 Player::~Player()
@@ -53,10 +49,6 @@ Player::~Player()
 	currentWeapon = NULL;
 }
 
-//BlastCannon Player::BlastCannon()
-//{
-//	return blastCannon;
-//}
 
 Player* Player::getInstance()
 {
@@ -118,31 +110,4 @@ float Player::getBlastOffAngle()
 	float blastOffAngle = mousePointAngle;
 
 	return blastOffAngle;
-}
-
-void Player::switchWeapon()
-{
-	if (isSwitched)
-	{
-		currentWeapon = grappleGun;
-		isSwitched = false;
-	}
-	else
-	{
-		currentWeapon = blastCannon;
-		isSwitched = true;
-	}
-}
-
-void Player::action()
-{
-	if (isSwitched)
-	{
-		//std::cout << blastCannon->position.x << std::endl;
-
-	}
-	else
-	{
-
-	}
 }

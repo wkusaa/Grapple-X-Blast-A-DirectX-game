@@ -43,7 +43,7 @@ void TestLevel2::fixedUpdate()
 
 	//if (GameInput::getInstance()->KeyboardKeyHold(DIK_W))
 	{
-
+		//hoho
 		player->velocity = direction * magnitude;
 		direction += gravity;
 		player->velocity += gravity;

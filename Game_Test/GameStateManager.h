@@ -5,6 +5,8 @@
 #include "TestLevel.h"
 #include "TestLevel2.h"
 #include "TestLevel3.h"
+#include "TestLevel4.h"
+#include "PlayerController.h"
 #include <vector>
 #include <iostream>
 #define FPS 60.0f
@@ -14,6 +16,7 @@ class GameStateManager
 private:
 
 	static GameStateManager* instance;
+	PlayerController* playerController;
 	GameStateManager();
 	~GameStateManager();
 public:

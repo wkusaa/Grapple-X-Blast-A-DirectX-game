@@ -21,13 +21,11 @@ public:
 	GameObject* currentWeapon;
 	static Player* getInstance();
 	void Initialize(LPDIRECT3DDEVICE9 device);
-	//void Begin();
 	void Update();
-	//void SetTransform();
 	void Draw();
 	void ReleaseInstance();
 	float getBlastOffAngle();
-	void switchWeapon();
-	void action();
+	//void switchWeapon();
+	//void action();
 };
 

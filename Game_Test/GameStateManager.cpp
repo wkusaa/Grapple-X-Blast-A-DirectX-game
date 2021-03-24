@@ -9,15 +9,18 @@ GameStateManager::GameStateManager()
 	TestLevel* testLevel = new TestLevel;
 	TestLevel2* testLevel2 = new TestLevel2;
 	TestLevel3* testLevel3 = new TestLevel3;
+	TestLevel99* testLevel99 = new TestLevel99;
 	level1->init();
 	testLevel->init();
 	testLevel2->init();
 	testLevel3->init();
+	testLevel99->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
 	gameLevels.push_back(testLevel2);
 	gameLevels.push_back(testLevel3);
-	currentGameState = gameLevels[2];
+	gameLevels.push_back(testLevel99);
+	currentGameState = gameLevels[4];
 
 	gTimer = new GameTimer;
 	gTimer->init(FPS);

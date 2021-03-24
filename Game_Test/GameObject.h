@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 #include <iostream>
 
+//typedef GameObject * GAMEOBJECT;
 
 class GameObject
 {
@@ -18,7 +19,7 @@ protected:
 	D3DXVECTOR3 scaling;
 	D3DXVECTOR3 size;
 	D3DXMATRIX mat;
-	RECT spriteRect;
+	RECT bounding_box;
 
 	int currentFrame;
 	float animationTimer;
@@ -36,6 +37,7 @@ public:
 	virtual void Draw();
 	void Initialize(LPDIRECT3DDEVICE9 device, LPCSTR sourceFile);
 
+	RECT spriteRect;
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 velocity;
 

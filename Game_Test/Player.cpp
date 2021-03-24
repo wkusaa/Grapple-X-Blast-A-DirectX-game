@@ -12,15 +12,15 @@ Player::Player()
 
 	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	movement = D3DXVECTOR3();
-	size = D3DXVECTOR3(128.0f, 128.0f, 1.0f);
+	size = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	position = D3DXVECTOR3(WIN_WIDTH/2, WIN_HEIGHT/2, 0);
 	mat = D3DMATRIX();
 	rotation = D3DXVECTOR3();
 	rotationAngle = 0;
 
-	spriteRect.top = 0;
-	spriteRect.left = 0;
+	spriteRect.top = 46;
+	spriteRect.left = 52;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
 

@@ -17,11 +17,80 @@ PlayerController::PlayerController()
 	player->currentWeapon->setPosition(player->position);
 	isSwitched = true;
 
-	weaponState = blastCannon;
-	aState = BlastOff;
 	angleDegree = 90;
 
+	onHook = NULL;
+
+	animationCount[BlastOff] = 4;
+	animationCount[Hook] = 4;
+	animationCount[Swinging] = 2;
+	animationCount[Release] = 2;
+	animationCount[Idle] = 8;
+	animationCount[FreeFall] = 8;
+	animationCount[Death] = 7;
+	animationCount[GetHit] = 4;
+
+	weaponState = blastCannon;
+	aState = Idle;
+	tempAState = aState;
+
 }
+
+void PlayerController::animationController()
+{
+	
+	switch (aState)
+	{
+	case PlayerController::BlastOff:
+		player->setAnimationCount(animationCount[BlastOff]);
+		player->setAnimationRow(BlastOff);
+		player->setAnimationLoop(false);
+		break;
+	case PlayerController::Hook:
+		player->setAnimationCount(animationCount[Hook]);
+		player->setAnimationRow(Hook);
+		player->setAnimationLoop(false);
+		break;
+	case PlayerController::Swinging:
+		player->setAnimationCount(animationCount[Swinging]);
+		player->setAnimationRow(Swinging);
+		player->setAnimationLoop(false);
+		break;
+	case PlayerController::Release:
+		player->setAnimationCount(animationCount[Release]);
+		player->setAnimationRow(Release);
+		player->setAnimationLoop(false);
+		break;
+	case PlayerController::Idle:
+		player->setAnimationCount(animationCount[Idle]);
+		player->setAnimationRow(Idle);
+		player->setAnimationLoop(true);
+		break;
+	case PlayerController::FreeFall:
+		player->setAnimationCount(animationCount[FreeFall]);
+		player->setAnimationRow(FreeFall);
+		player->setAnimationLoop(true);
+		break;
+	case PlayerController::Death:
+		player->setAnimationCount(animationCount[Death]);
+		player->setAnimationRow(Death);
+		player->setAnimationLoop(false);
+		break;
+	case PlayerController::GetHit:
+		player->setAnimationCount(animationCount[GetHit]);
+		player->setAnimationRow(GetHit);
+		player->setAnimationLoop(false);
+		break;
+	default:
+		break;
+	}
+
+	if (tempAState != aState)
+	{
+		player->setCurrentFrame(0);
+	}
+}
+
 
 PlayerController::~PlayerController()
 {
@@ -47,12 +116,21 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
-	player->Update();
+
 
 	switchWeapon();
 	action();
+	animationController();
 
-	if (aState == BlastOff || aState == Release)
+	std::cout << player->velocity.x << "|" << player->velocity.y << std::endl;
+	//std::cout << aState << std::endl;
+
+	if (player->velocity.y > 0)
+	{
+		aState = FreeFall;
+	}
+
+	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release)
 	{
 		float magnitude = 10.0f;
 		player->velocity = player->direction * magnitude;
@@ -91,6 +169,8 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		player->velocity *= 0;
 		player->direction = D3DXVECTOR3(sin(angleDegree), -cos(angleDegree), 0.0f);
 	}
+	player->Update();
+	tempAState = aState; // don't ask me how
 }
 
 
@@ -118,6 +198,7 @@ void PlayerController::action()
 	{
 		if (weaponState == blastCannon)
 		{
+			aState = BlastOff;
 			blastOff();
 		}
 		else if (weaponState == grappleGun)
@@ -142,9 +223,9 @@ void PlayerController::action()
 
 void PlayerController::blastOff()
 {
-	std::cout << "Blast Off" << std::endl;
+	//std::cout << "Blast Off" << std::endl;
 	float blastOffAngle = player->getBlastOffAngle();
-	std::cout << blastOffAngle << std::endl;
+	//std::cout << blastOffAngle << std::endl;
 	player->direction = D3DXVECTOR3(sin(blastOffAngle), -cos(blastOffAngle), 0.0f);
 }
 

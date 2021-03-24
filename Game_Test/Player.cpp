@@ -15,7 +15,7 @@ Player::Player()
 	size = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
 	//size = D3DXVECTOR3(128.0f, 128.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
-	position = D3DXVECTOR3(WIN_WIDTH/2, WIN_HEIGHT/2, 0);
+	position = D3DXVECTOR3(WIN_WIDTH / 2, WIN_HEIGHT / 2, 0);
 	mat = D3DMATRIX();
 	rotation = D3DXVECTOR3();
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -28,19 +28,18 @@ Player::Player()
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
 
+	animationCount = 8;
 	animationTimer = 0;
-	animationRate = 0.1f / 8;
+	animationRate = 0.5f / animationCount;
 	currentFrame = 0;
-	rotationRate = 0;
+	animationRow = 1;
+	animationLoop = true;
+	
 
-	//blastCannon.setPosition(position);
-	blastCannon = new BlastCannon; // true = blastCannon
-	grappleGun = new GrappleGun; // false = grappleGun
-
+	blastCannon = new BlastCannon;
+	grappleGun = new GrappleGun;
 	blastCannon->Initialize(GameGraphics::getInstance()->d3dDevice);
 	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
-
-
 }
 
 Player::~Player()
@@ -76,9 +75,22 @@ void Player::Update()
 	{
 		animationTimer -= animationRate;
 		currentFrame++;
-		currentFrame %= 8;
+
+		if (animationLoop)
+		{
+			currentFrame %= animationCount;
+		}
+		else
+		{
+			if (currentFrame >= animationCount-1)
+			{
+				currentFrame = animationCount-1;
+			}
+		}
+		
 	}
 
+	spriteRect.top = size.y * animationRow;
 	spriteRect.left = size.x * currentFrame;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;

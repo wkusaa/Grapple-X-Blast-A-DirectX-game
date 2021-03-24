@@ -21,11 +21,12 @@ protected:
 	D3DXMATRIX mat;
 	RECT bounding_box;
 
-
+	bool animationLoop;
 	int currentFrame;
+	int animationCount;
+	int animationRow;
 	float animationTimer;
 	float animationRate;
-	float rotationRate;
 	float rotationAngle;
 
 public:
@@ -64,5 +65,17 @@ public:
 
 	void setRotationAngle(float rotationAngle);
 	float getRotationAngle();
+
+	void setAnimationRow(int animationRow);
+	int getAnimationRow();
+
+	void setAnimationCount(int animationCount);
+	int getAnimationCount();
+
+	void setAnimationLoop(bool animationLoop);
+	bool getAnimationLoop();
+
+	void setCurrentFrame(int currentFrame);
+	int getCurrentFrame();
 };
 

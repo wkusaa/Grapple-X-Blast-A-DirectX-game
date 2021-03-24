@@ -23,7 +23,6 @@ GameObject::GameObject()
 	//animationTimer = 0;
 	//animationRate = 0;
 	//currentFrame = 0;
-	//rotationRate = 0;
 }
 
 GameObject::~GameObject()
@@ -123,6 +122,48 @@ D3DXVECTOR3 GameObject::getRotationCentre()
 {
 	return this->rotationCentre;
 }
+
+void GameObject::setAnimationRow(int animationRow)
+{
+	this->animationRow = animationRow;
+}
+
+int GameObject::getAnimationRow()
+{
+	return animationRow;
+}
+
+void GameObject::setAnimationCount(int animationCount)
+{
+	this->animationCount = animationCount;
+	this->animationRate = 0.5f / this->animationCount; //because animation rate is dependent on animationCount
+}
+
+int GameObject::getAnimationCount()
+{
+	return animationCount;
+}
+
+void GameObject::setAnimationLoop(bool animationLoop)
+{
+	this->animationLoop = animationLoop;
+}
+
+bool GameObject::getAnimationLoop()
+{
+	return animationLoop;
+}
+
+void GameObject::setCurrentFrame(int currentFrame)
+{
+	this->currentFrame = currentFrame;
+}
+
+int GameObject::getCurrentFrame()
+{
+	return currentFrame;
+}
+
 
 void GameObject::setRotationAngle(float rotationAngle)
 {

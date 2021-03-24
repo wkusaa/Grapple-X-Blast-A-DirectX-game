@@ -3,7 +3,7 @@
 #include "GrapplingPoint.h"
 #include "DXLine.h"
 #include <vector>
-class PlayerController
+class PlayerController : public GameObject
 {
 private:
 	static PlayerController* instance;
@@ -14,15 +14,20 @@ private:
 	float angleDegree;
 	bool isSwitched;
 	bool swingOppositeDirection;
+	int animationCount[8];
+	int tempAState;
 
 public:
 	enum ActionState
 	{
-		BlastOff,
-		Hook,
-		Swinging,
-		Release,
-		Idle
+		BlastOff = 6,
+		Hook = 7,
+		Swinging = 3,
+		Release = 4,
+		Idle = 0,
+		FreeFall = 1,
+		Death = 2,
+		GetHit = 5
 
 	}aState;
 
@@ -51,6 +56,8 @@ public:
 	void releaseSwing();
 	void switchWeapon();
 	void grappleDrawLaserLine();
+
+	void animationController();
 
 };
 

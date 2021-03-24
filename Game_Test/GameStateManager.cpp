@@ -9,16 +9,21 @@ GameStateManager::GameStateManager()
 	TestLevel* testLevel = new TestLevel;
 	TestLevel2* testLevel2 = new TestLevel2;
 	TestLevel3* testLevel3 = new TestLevel3;
+	TestLevel4* testLevel4 = new TestLevel4;
 	TestLevel99* testLevel99 = new TestLevel99;
 	level1->init();
 	testLevel->init();
 	testLevel2->init();
 	testLevel3->init();
+	testLevel4->init();
 	testLevel99->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
 	gameLevels.push_back(testLevel2);
 	gameLevels.push_back(testLevel3);
+	gameLevels.push_back(testLevel4);
+
+	//heheh
 	gameLevels.push_back(testLevel99);
 	currentGameState = gameLevels[4];
 
@@ -27,6 +32,8 @@ GameStateManager::GameStateManager()
 
 	elapsedTime = 0;
 
+	playerController = PlayerController::getInstance();
+	playerController->Initialize();
 }
 
 GameStateManager::~GameStateManager()
@@ -41,7 +48,7 @@ GameStateManager::~GameStateManager()
 	currentGameState = NULL;
 	delete gTimer;
 	gTimer = NULL;
-	Player::getInstance()->ReleaseInstance();
+	playerController->ReleaseInstance();
 }
 
 GameStateManager* GameStateManager::getInstance()
@@ -63,7 +70,6 @@ void GameStateManager::fixedUpdate()
 	{
 		elapsedTime += (1.0f / FPS);
 		currentGameState->fixedUpdate();
-		//std::cout << elapsedTime << std::endl;
 	}
 }
 

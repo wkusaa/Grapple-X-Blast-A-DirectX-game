@@ -12,7 +12,7 @@ BlastCannon::BlastCannon()
 
 	rotationCentre = D3DXVECTOR3(0, 0, 0);
 
-	scaling = D3DXVECTOR3(0.5f, 0.5f, 1.0f);
+	scaling = D3DXVECTOR3(0.1f, 0.1f, 1.0f);
 	size = D3DXVECTOR3(128.0f, 64.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x/2, size.y/2, 0.0f);
 	position = D3DXVECTOR3(0, 0, 0);
@@ -33,6 +33,14 @@ BlastCannon::~BlastCannon()
 	delete laserLine;
 }
 
+//BlastCannon* BlastCannon::getInstance()
+//{
+//	if (!instance)
+//	{
+//		instance = new BlastCannon;
+//	}
+//	return instance;
+//}
 
 
 void BlastCannon::rotateGunBasedMouse()
@@ -78,6 +86,12 @@ void BlastCannon::drawLaserLine()
 	float mouseY = GameInput::getInstance()->mousePosition.y;
 	float scalarX = cannonPos.x + (mouseX - cannonPos.x) * lineScaling;
 	float scalarY = cannonPos.y + (mouseY - cannonPos.y) * lineScaling;
+
+	//if (scalarX < 0) { scalarX = 0; }
+	//if (scalarY < 0) { scalarY = 0; }
+	//if (scalarX > WIN_WIDTH) { scalarX = WIN_WIDTH; }
+	//if (scalarY > WIN_HEIGHT) { scalarY = WIN_HEIGHT; }
+
 	D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(cannonPos.x, cannonPos.y), D3DXVECTOR2(scalarX, scalarY) };
 	laserLine->draw(lineVertices, 2, D3DCOLOR_XRGB(255, 77, 77)); // bright red
 }

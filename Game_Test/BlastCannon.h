@@ -11,8 +11,10 @@ private:
 	DXLine* laserLine;
 
 public:
+	//BlastCannon* getInstance();
 	BlastCannon();
 	~BlastCannon();
+
 	void rotateGunBasedMouse();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Update();

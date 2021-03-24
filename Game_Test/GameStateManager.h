@@ -7,6 +7,7 @@
 #include "TestLevel3.h"
 #include "TestLevel4.h"
 #include "PlayerController.h"
+#include "TestLevel99.h"
 #include <vector>
 #include <iostream>
 #define FPS 60.0f

@@ -65,7 +65,7 @@ void GameObject::Draw()
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
-	sprite->Draw(texture, &spriteRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
 }
 

@@ -4,7 +4,7 @@ TestLevel99::TestLevel99()
 {
 	std::cout << "TestLevel2 created" << std::endl;
 	Player* player = Player::getInstance();
-	player->setPosition(D3DXVECTOR3(00.0f, 00.0f, 0.0f));
+	player->setPosition(D3DXVECTOR3(100.0f, 200.0f, 0.0f));
 	sprite = NULL;
 	texture = NULL;
 	texture_brick = NULL;

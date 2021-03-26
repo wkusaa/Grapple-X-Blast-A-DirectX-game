@@ -2,14 +2,16 @@
 #include "Player.h"
 #include "GrapplingPoint.h"
 #include "DXLine.h"
+#include "Explosion.h"
 #include <vector>
-class PlayerController : public GameObject
+class PlayerController
 {
 private:
 	static PlayerController* instance;
 	D3DXVECTOR3 gravity;
 	DXLine* line;
 	GrapplingPoint* onHook;
+	Explosion* explosion;
 
 	float angleDegree;
 	bool isSwitched;

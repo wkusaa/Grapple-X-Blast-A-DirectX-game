@@ -12,11 +12,12 @@ BlastCannon::BlastCannon()
 
 	rotationCentre = D3DXVECTOR3(0, 0, 0);
 
-	scaling = D3DXVECTOR3(0.1f, 0.1f, 1.0f);
+	scaling = D3DXVECTOR3(0.2f, 0.2f, 1.0f);
 	size = D3DXVECTOR3(128.0f, 64.0f, 1.0f);
 	spriteCentre = D3DXVECTOR3(size.x/2, size.y/2, 0.0f);
 	position = D3DXVECTOR3(0, 0, 0);
 	mat = D3DMATRIX();
+	//rotationCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 
 	spriteRect.top = 0;
 	spriteRect.left = 0;

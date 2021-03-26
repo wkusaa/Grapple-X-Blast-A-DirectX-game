@@ -40,7 +40,7 @@ public:
 	void fixedUpdate();
 	void draw();
 	void release();
-
+	
 	bool checkCollision(D3DXVECTOR3 pos1,RECT rect1, D3DXVECTOR3 pos2, RECT rect2); 
-	int checkSideCollide(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2); //1 = top, 2 = bottom, 3= left, 4 = right
+	int checkSideCollide(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2); //1 = right, 2 = top, 3= bottom, 4 = left
 };

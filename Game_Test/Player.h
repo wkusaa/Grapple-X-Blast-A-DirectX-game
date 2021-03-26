@@ -11,7 +11,7 @@ private:
 	static Player* instance;
 	float speed;
 	bool isSwitched;
-
+	
 	Player();
 	~Player();
 
@@ -27,5 +27,6 @@ public:
 	float getBlastOffAngle();
 	//void switchWeapon();
 	//void action();
+	
 };
 

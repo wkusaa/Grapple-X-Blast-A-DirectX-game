@@ -77,5 +77,7 @@ public:
 
 	void setCurrentFrame(int currentFrame);
 	int getCurrentFrame();
+
+	RECT getBounding_Box();
 };
 

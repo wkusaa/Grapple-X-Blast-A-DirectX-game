@@ -4,7 +4,7 @@ TestLevel99::TestLevel99()
 {
 	std::cout << "TestLevel2 created" << std::endl;
 	Player* player = Player::getInstance();
-	player->setPosition(D3DXVECTOR3(00.0f, 00.0f, 0.0f));
+	player->setPosition(D3DXVECTOR3(100.0f, 100.0f, 0.0f));
 	sprite = NULL;
 	texture = NULL;
 	texture_brick = NULL;
@@ -71,39 +71,52 @@ void TestLevel99::fixedUpdate()
 	Player* player = Player::getInstance();
 	player->Update();
 	
+	if (player->position.x < 0)
+		player->position.x = 1;
+
+	if (player->position.y < 0)
+		player->position.y = 1;
+
+	if (player->position.x > 1280)
+		player->position.x = 1200;
+
+	if (player->position.y > 720)
+		player->position.y = 650;
+
 	for (int i = 0; i < 10; i++)
 	{
-
-		if (checkCollision(player->position, player->spriteRect, brick_pos[i], rect_brick))
+		if (checkCollision(player->position, player->getBounding_Box(), brick_pos[i], rect_brick))
 		{
 			//printf("collide\n");
-			player->position -= (player->velocity*1.2);
-			isMoving = false;
-
-			/*int side = checkSideCollide(player->position, brick_pos[i]);
+			//player->velocity = D3DXVECTOR3(0.0f,0,0);
+			//player->position -= (player->velocity);
+			
+			int side = checkSideCollide(player->position, brick_pos[i]);
 			printf("%d\n", side);
 			
-			if (side == 1) 
+			if (side == 1) //right
 			{
-				player->velocity.x = 2.0f;
-				player->position -= (player->velocity);
-			}	
-			else if (side == 2)
-			{
-				player->velocity.x = 0.0f;
-				player->velocity.y = 0.0f;
+				player->velocity = D3DXVECTOR3(7.0f, 0.0f, 0);
 				player->position += (player->velocity);
-			}
-			else if (side == 3)
+				isMoving = true;
+			}	
+			else if (side == 2)//top
 			{
-				player->velocity.y = 2.0f;
 				player->position -= (player->velocity);
+				isMoving = false;
+			}
+			else if (side == 3)//bottom
+			{
+				player->velocity = D3DXVECTOR3(0.0f, 7.0f, 0);
+				player->position += (player->velocity);
+				isMoving = true;
 			}
 			else
 			{
-				player->velocity.x = -2.0f;
-				player->position -= (player->velocity);
-			}*/
+				player->velocity = D3DXVECTOR3(-7.0f, 0.0f, 0);
+				player->position += (player->velocity);
+				isMoving = true;
+			}
 				
 		}
 		
@@ -119,21 +132,22 @@ void TestLevel99::fixedUpdate()
 	}
 	
 	//if (GameInput::getInstance()->KeyboardKeyHold(DIK_W))
-	if(isMoving == true)
+	if (isMoving == true)
 	{
 		float speed = 2.0f;
 		player->velocity = direction * speed;
 		direction += gravity;
 		player->velocity += gravity;
+
+		if (player->velocity.x > 10)
+			player->velocity.x = 10;
+
+		if (player->velocity.y > 10)
+			player->velocity.y = 10;
+
 		player->position += player->velocity;
 	}
-	else
-	{
-		player->velocity.x = 0;
-		player->velocity.y = 0;
-	}
 	
-
 }
 
 void TestLevel99::draw()
@@ -154,9 +168,11 @@ void TestLevel99::release()
 
 }
 
+
 bool TestLevel99::checkCollision(D3DXVECTOR3 pos1, RECT rect1, D3DXVECTOR3 pos2, RECT rect2)
 {
-	characterCenter = Player::getInstance()->getSpriteCentre();
+	characterCenter.x = (rect1.right - rect1.left) / 2;
+	characterCenter.y = (rect1.bottom - rect1.top) / 2;
 	rect1.right = pos1.x + rect1.right - rect1.left - characterCenter.x;
 	rect1.left = pos1.x - characterCenter.x;
 	rect1.bottom = pos1.y + rect1.bottom - rect1.top - characterCenter.y;

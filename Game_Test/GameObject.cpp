@@ -164,6 +164,11 @@ int GameObject::getCurrentFrame()
 	return currentFrame;
 }
 
+RECT GameObject::getBounding_Box()
+{
+	return bounding_box;
+}
+
 
 void GameObject::setRotationAngle(float rotationAngle)
 {

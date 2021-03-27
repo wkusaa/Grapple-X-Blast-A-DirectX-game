@@ -2,12 +2,15 @@
 #include <Windows.h>
 #include "GameState.h"
 #include "Player.h"
+#include "PlayerController.h"
 #include "GameStateManager.h"
 #include "DXLine.h"
 #include <iostream>
-#include "Brick.h"
+#include <vector>
+#include "Tile.h"
 #define BACKGROUND "assets/bg.png"
-#define BRICK "assets/tile.png"
+#define GRASS "assets/grass.png"
+#define BRICK "assets/brick.png"
 
 class TestLevel99 :public GameState
 {
@@ -21,10 +24,18 @@ private:
 	LPD3DXSPRITE sprite;
 	RECT rect_bg;
 	RECT rect_brick;
-	D3DXVECTOR3 brick_pos[10];
+	//D3DXVECTOR3 brick_pos[10];
 	D3DXVECTOR3 characterCenter;
+	std::vector<Brick*> brickObject;
+	std::vector<Grass*> grassObject;
+	std::vector<Lava*> lavaObject;
+	std::vector<Trap*> trapObject;
+	Door* doorObject;
+	
 	//std::vector<GAMEOBJECT> gameObjects;
 	bool isMoving;
+	
+	//std::vector<GrapplingPoint*> grapplePointArray;
 
 public:
 	TestLevel99();
@@ -42,5 +53,5 @@ public:
 	void release();
 	
 	bool checkCollision(D3DXVECTOR3 pos1,RECT rect1, D3DXVECTOR3 pos2, RECT rect2); 
-	int checkSideCollide(D3DXVECTOR3 pos1, D3DXVECTOR3 pos2); //1 = right, 2 = top, 3= bottom, 4 = left
+	int checkSideCollide(D3DXVECTOR3 player, D3DXVECTOR3 object); //1 = right, 2 = top, 3= bottom, 4 = left
 };

@@ -4,14 +4,19 @@
 #include "PlayerController.h"
 #include <vector>
 #include "GrapplingPoint.h"
+#include "Key.h"
+#include "Ammo.h"
+#include "Gems.h"
 #include <iostream>
 
 class TestLevel4 :public GameState
 {
 private:
 	PlayerController* playerCon;
-	//GrapplingPoint graplePoint;
 	std::vector<GrapplingPoint*> grapplePointArray;
+	Key* key1;
+	std::vector<Ammo*> ammoArray;
+	std::vector<Gems*> gemsArray;
 public:
 	TestLevel4();
 	~TestLevel4();

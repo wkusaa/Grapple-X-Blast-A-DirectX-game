@@ -16,7 +16,6 @@ protected:
 	D3DXVECTOR3 rotation;//not sure where to use
 	D3DXVECTOR3 rotationCentre;
 	D3DXVECTOR3 spriteCentre;
-	D3DXVECTOR3 scaling;
 	D3DXVECTOR3 size;
 	D3DXMATRIX mat;
 	RECT bounding_box;
@@ -25,9 +24,11 @@ protected:
 	int currentFrame;
 	int animationCount;
 	int animationRow;
+	int animationCountCol;
 	float animationTimer;
 	float animationRate;
 	float rotationAngle;
+	bool animationComplete;
 
 public:
 
@@ -44,6 +45,7 @@ public:
 	D3DXVECTOR3 velocity;
 	D3DXVECTOR3 acceleration;
 	D3DXVECTOR3 direction;
+	D3DXVECTOR3 scaling;
 
 	void setPosition(D3DXVECTOR3 position);
 	D3DXVECTOR3 getPosition();

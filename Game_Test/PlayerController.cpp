@@ -7,8 +7,12 @@ PlayerController::PlayerController()
 {
 	std::cout << "PlayerController created" << std::endl;
 	player = Player::getInstance();
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
 	line = new DXLine;
 	line->createLine(GameGraphics::getInstance()->d3dDevice);
+
+	explosion = new Explosion;
+	explosion->setPosition(player->blastCannon->position);
 	
 
 	gravity = D3DXVECTOR3(0.0f, 0.02f, 0.0f);
@@ -97,6 +101,7 @@ PlayerController::~PlayerController()
 	std::cout << "PlayerController destroyed" << std::endl;
 	player->ReleaseInstance();
 	delete line;
+	delete explosion;
 }
 
 PlayerController* PlayerController::getInstance()
@@ -111,36 +116,53 @@ PlayerController* PlayerController::getInstance()
 
 void PlayerController::Initialize()
 {
-	player->Initialize(GameGraphics::getInstance()->d3dDevice);
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	player->Initialize(gameGraphics->d3dDevice);
+	explosion->Initialize(gameGraphics->d3dDevice);
 }
 
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
-
+	if (player->velocity.y > 0 && aState != Hook)
+	{
+		aState = FreeFall;
+	}
+	if (player->velocity.x > 0)
+	{
+		player->scaling.x = abs(player->scaling.x);
+	} 
+	else if (player->velocity.x < 0)
+	{
+		player->scaling.x = -abs(player->scaling.x);
+	}
 
 	switchWeapon();
 	action();
 	animationController();
 
-	std::cout << player->velocity.x << "|" << player->velocity.y << std::endl;
-	//std::cout << aState << std::endl;
 
-	if (player->velocity.y > 0)
-	{
-		aState = FreeFall;
-	}
-
-	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release)
+	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState==Hook)
 	{
 		float magnitude = 10.0f;
 		player->velocity = player->direction * magnitude;
 		player->direction += gravity;
 		player->velocity += gravity;
 		player->position += player->velocity;
+
+		if(aState == Hook)
+		{
+			onHook = grapplePointArray[1]; // set the currently hooked point
+		}
 	}
 	else if (aState == Swinging)
 	{
-		float distanceFromPoint = 400.0f;
+		//onHook = grapplePointArray[1]; // set the currently hooked point
+		//D3DXVECTOR3 normalize;
+		//D3DXVECTOR3 direction = onHook->position - player->position;
+		//D3DXVec3Normalize(&normalize, &direction);
+		//float angle = asin(normalize.x);
+
+		float distanceFromPoint = 200.0f;
 		if (angleDegree > 270)
 		{
 			swingOppositeDirection = false;
@@ -163,13 +185,19 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		float offsetX = (sin(angle)) * distanceFromPoint;
 		float offsetY = (-cos(angle)) * distanceFromPoint;
 
+		D3DXVECTOR3 prevPosition = player->position;
 		D3DXVECTOR3 currentPosition = D3DXVECTOR3(grapplePointArray[1]->getPosition().x + offsetX, grapplePointArray[1]->getPosition().y + offsetY, 1.0f);
-		onHook = grapplePointArray[1]; // set the currently hooked point
+		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
+
+
 		player->setPosition(currentPosition);
 		player->velocity *= 0;
-		player->direction = D3DXVECTOR3(sin(angleDegree), -cos(angleDegree), 0.0f);
+		player->direction = D3DXVECTOR3(difPosition.x / 5, difPosition.y / 5, 0.0f);
 	}
+
 	player->Update();
+	explosion->setPosition(player->blastCannon->position);
+	explosion->Update();
 	tempAState = aState; // don't ask me how
 }
 
@@ -182,6 +210,8 @@ void PlayerController::Draw()
 	{
 		grappleDrawLaserLine();
 	}
+
+	explosion->Draw();
 }
 
 void PlayerController::ReleaseInstance()
@@ -205,14 +235,17 @@ void PlayerController::action()
 		{
 			switch (aState)
 			{
-			case BlastOff:
+			case FreeFall:
+				aState = Hook;
+				break;
+			case Hook:
 				aState = Swinging;
 				break;
 			case Swinging:
 				aState = Release;
 				break;
 			case Release:
-				aState = BlastOff;
+				aState = FreeFall;
 				break;
 			default:
 				break;
@@ -223,10 +256,13 @@ void PlayerController::action()
 
 void PlayerController::blastOff()
 {
-	//std::cout << "Blast Off" << std::endl;
 	float blastOffAngle = player->getBlastOffAngle();
-	//std::cout << blastOffAngle << std::endl;
 	player->direction = D3DXVECTOR3(sin(blastOffAngle), -cos(blastOffAngle), 0.0f);
+	std::cout << explosion->getCurrentFrame() << std::endl;
+	explosion->setCurrentFrame(0);//reset
+	explosion->setAnimationRow(0);
+
+	std::cout << explosion->getCurrentFrame() << std::endl;
 }
 
 void PlayerController::hook()

@@ -378,7 +378,7 @@ void TestLevel99::fixedUpdate()
 	/*if (GameInput::getInstance()->KeyboardKeyHold(DIK_W))*/
 	if (isMoving == true)
 	{
-		float speed = 3.0f;
+		float speed = 10.0f;
 		player->velocity = direction * speed;
 		direction += gravity;
 		player->velocity += gravity;

@@ -13,6 +13,11 @@ GrapplingPoint::GrapplingPoint()
 	position = D3DXVECTOR3(0, 0, 0);
 	mat = D3DMATRIX();
 
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
@@ -31,6 +36,11 @@ GrapplingPoint::GrapplingPoint(D3DXVECTOR3 position)
 	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position = position;
 	mat = D3DMATRIX();
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
 
 	spriteRect.top = 0;
 	spriteRect.left = 0;

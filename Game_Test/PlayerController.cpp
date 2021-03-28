@@ -136,9 +136,18 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		player->scaling.x = -abs(player->scaling.x);
 	}
 
+
 	switchWeapon();
+
+	if (weaponState == grappleGun)
+	{
+		hook(grapplePointArray);
+	}
+
 	action();
 	animationController();
+
+
 
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState==Hook)
@@ -148,11 +157,6 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		player->direction += gravity;
 		player->velocity += gravity;
 		player->position += player->velocity;
-
-		if(aState == Hook)
-		{
-			hook(grapplePointArray);
-		}
 
 	}
 	else if (aState == Swinging)
@@ -192,11 +196,12 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	}
 
 	player->Update();
+
 	explosion->setPosition(player->blastCannon->position);
 	explosion->Update();
-	tempAState = aState; // don't ask me how
 
 
+	tempAState = aState; // it just works and i don't really understand myself
 }
 
 
@@ -234,7 +239,14 @@ void PlayerController::action()
 			switch (aState)
 			{
 			case FreeFall:
-				aState = Hook;
+				if (onHook != NULL)
+				{
+					aState = Hook;
+				}
+				else
+				{
+					aState = FreeFall;
+				}
 				break;
 			case Hook:
 				aState = Swinging;
@@ -242,11 +254,7 @@ void PlayerController::action()
 			case Swinging:
 				aState = Release;
 				releaseSwing();
-				break;
 			case Release:
-				aState = FreeFall;
-				break;
-			case HookMiss:
 				aState = FreeFall;
 				break;
 			default:
@@ -269,14 +277,12 @@ void PlayerController::blastOff()
 
 void PlayerController::hook(std::vector<GrapplingPoint*> grapplePointArray)
 {
-	bool hooks = false;
 	for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		RECT relative = relativeRect(grapplePointArray[i]->position, grapplePointArray[i]->getBounding_Box(), grapplePointArray[i]->getSpriteCentre());
 		if (checkMousePointCollision(relative))
 		{
 			onHook = grapplePointArray[i];
-			hooks = true;
 			break;
 		}
 	}
@@ -301,7 +307,7 @@ void PlayerController::switchWeapon()
 			player->currentWeapon = player->grappleGun;
 			weaponState = grappleGun;
 		}
-		else if (weaponState == grappleGun && aState == Release)
+		else if (weaponState == grappleGun && aState == FreeFall)
 		{
 			player->currentWeapon = player->blastCannon;
 			weaponState = blastCannon;

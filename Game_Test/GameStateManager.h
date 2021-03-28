@@ -8,6 +8,7 @@
 #include "TestLevel4.h"
 #include "PlayerController.h"
 #include "TestLevel99.h"
+#include "Crosshair.h"
 #include <vector>
 #include <iostream>
 #define FPS 60.0f
@@ -20,6 +21,7 @@ private:
 	PlayerController* playerController;
 	GameStateManager();
 	~GameStateManager();
+	Crosshair crosshair;
 public:
 	static GameStateManager* getInstance();
 	void fixedUpdate();

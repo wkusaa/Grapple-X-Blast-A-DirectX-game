@@ -25,7 +25,7 @@ GameStateManager::GameStateManager()
 
 	//heheh
 	gameLevels.push_back(testLevel99);
-	currentGameState = gameLevels[5];
+	currentGameState = gameLevels[4];
 
 	gTimer = new GameTimer;
 	gTimer->init(FPS);
@@ -34,6 +34,8 @@ GameStateManager::GameStateManager()
 
 	playerController = PlayerController::getInstance();
 	playerController->Initialize();
+
+	crosshair.Initialize(GameGraphics::getInstance()->d3dDevice);
 }
 
 GameStateManager::~GameStateManager()
@@ -71,6 +73,8 @@ void GameStateManager::fixedUpdate()
 		elapsedTime += (1.0f / FPS);
 		currentGameState->fixedUpdate();
 	}
+
+	crosshair.Update();
 }
 
 void GameStateManager::update()
@@ -81,6 +85,7 @@ void GameStateManager::update()
 void GameStateManager::draw()
 {
 	currentGameState->draw();
+	crosshair.Draw();
 }
 
 void GameStateManager::release()

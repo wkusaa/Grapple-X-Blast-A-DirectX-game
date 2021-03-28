@@ -10,6 +10,7 @@ Brick::Brick(float x, float y, float z)
 	spriteRect.left = 0;
 	spriteRect.bottom = 32;
 	spriteRect.right = 32;
+	size = D3DXVECTOR3(32.0f ,32.0f ,0);
 }
 
 void Brick::Initialize(LPDIRECT3DDEVICE9 device)
@@ -51,6 +52,7 @@ Lava::Lava(float x, float y, float z)
 	spriteRect.left = 0;
 	spriteRect.bottom = 32;
 	spriteRect.right = 32;
+	size = D3DXVECTOR3(32.0f, 32.0f, 0);
 }
 
 void Lava::Initialize(LPDIRECT3DDEVICE9 device)
@@ -92,6 +94,7 @@ Grass::Grass(float x, float y, float z)
 	spriteRect.left = 0;
 	spriteRect.bottom = 32;
 	spriteRect.right = 32;
+	size = D3DXVECTOR3(32.0f, 32.0f, 0);
 }
 
 void Grass::Initialize(LPDIRECT3DDEVICE9 device)
@@ -133,6 +136,7 @@ Door::Door(float x, float y, float z)
 	spriteRect.left = 0;
 	spriteRect.bottom = 64;
 	spriteRect.right = 64;
+	size = D3DXVECTOR3(64.0f, 64.0f, 0);
 }
 
 void Door::Initialize(LPDIRECT3DDEVICE9 device)
@@ -178,6 +182,7 @@ Trap::Trap(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = 32/2;
 	bounding_box.right = 32;
+	size = D3DXVECTOR3(32.0f, 16.0f, 0);
 }
 
 void Trap::Initialize(LPDIRECT3DDEVICE9 device)

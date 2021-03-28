@@ -168,6 +168,8 @@ TestLevel99::~TestLevel99()
 	texture->Release();
 	texture = NULL;
 
+	delete collision;
+
 	for (int i = 0; i < brickObject.size(); i++)
 	{
 		delete brickObject[i];
@@ -210,6 +212,7 @@ void TestLevel99::fixedUpdate()
 	/*playerCon->Update(grapplePointArray);*/
 	Player* player = Player::getInstance();
 	player->Update();
+	CollisionManager* collision = new CollisionManager;
 	
 	if (player->position.x < 0)
 		player->position.x = 1;
@@ -225,11 +228,11 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		if (checkCollision(player->position, player->getBounding_Box(), grassObject[i]->position, grassObject[i]->spriteRect))
+		if (collision->checkCollision(player->position, player->getBounding_Box(), grassObject[i]->position, grassObject[i]->spriteRect))
 		{
 			//printf("collide\n");
 			
-			int side = checkSideCollide(player->position, grassObject[i]->position);
+			int side = collision->checkSideCollide(player->getPosition(), player->getPlayerBbSize(), grassObject[i]->getPosition(), grassObject[i]->getSize());
 			printf("%d\n", side);
 			
 			if (side == 1) //right
@@ -261,11 +264,11 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < brickObject.size(); i++)
 	{
-		if (checkCollision(player->position, player->getBounding_Box(), brickObject[i]->position, brickObject[i]->spriteRect))
+		if (collision->checkCollision(player->position, player->getBounding_Box(), brickObject[i]->position, brickObject[i]->spriteRect))
 		{
 			//printf("collide\n");
 
-			int side = checkSideCollide(player->position, brickObject[i]->position);
+			int side = collision->checkSideCollide(player->getPosition(), player->getPlayerBbSize(), brickObject[i]->getPosition(), brickObject[i]->getSize());
 			printf("%d\n", side);
 
 			if (side == 1) //right
@@ -296,11 +299,11 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < trapObject.size(); i++)
 	{
-		if (checkCollision(player->position, player->getBounding_Box(), trapObject[i]->position, trapObject[i]->getBounding_Box()))
+		if (collision->checkCollision(player->position, player->getBounding_Box(), trapObject[i]->position, trapObject[i]->getBounding_Box()))
 		{
 			//printf("collide\n");
 
-			int side = checkSideCollide(player->position, trapObject[i]->position);
+			int side = collision->checkSideCollide(player->getPosition(), player->getPlayerBbSize(), trapObject[i]->getPosition(), trapObject[i]->getSize());
 			printf("%d\n", side);
 
 			if (side == 1) //right
@@ -331,11 +334,11 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < lavaObject.size(); i++)
 	{
-		if (checkCollision(player->position, player->getBounding_Box(), lavaObject[i]->position, lavaObject[i]->spriteRect))
+		if (collision->checkCollision(player->position, player->getBounding_Box(), lavaObject[i]->position, lavaObject[i]->spriteRect))
 		{
-			printf("collide\n");
+			//printf("collide\n");
 
-			int side = checkSideCollide(player->position, lavaObject[i]->position);
+			int side = collision->checkSideCollide(player->getPosition(), player->getPlayerBbSize(), lavaObject[i]->getPosition(), lavaObject[i]->getSize());
 			printf("%d\n", side);
 
 			if (side == 1) //right
@@ -428,86 +431,86 @@ void TestLevel99::release()
 }
 
 
-bool TestLevel99::checkCollision(D3DXVECTOR3 pos1, RECT rect1, D3DXVECTOR3 pos2, RECT rect2)
-{
-	characterCenter.x = (rect1.right - rect1.left) / 2;
-	characterCenter.y = (rect1.bottom - rect1.top) / 2;
-	rect1.right = pos1.x + rect1.right - rect1.left - characterCenter.x;
-	rect1.left = pos1.x - characterCenter.x;
-	rect1.bottom = pos1.y + rect1.bottom - rect1.top - characterCenter.y;
-	rect1.top = pos1.y - characterCenter.y;
-
-	rect2.right = pos2.x + rect2.right - rect2.left;
-	rect2.left = pos2.x;
-	rect2.bottom = pos2.y + rect2.bottom - rect2.top;
-	rect2.top = pos2.y;
-	
-	if (rect1.bottom < rect2.top) return false;
-	if (rect1.top > rect2.bottom) return false;
-	if (rect1.right < rect2.left) return false;
-	if (rect1.left > rect2.right) return false;
-	
-	return true;
-}
-
-int TestLevel99::checkSideCollide(D3DXVECTOR3 player, D3DXVECTOR3 object)
-{
-	/*D3DXVECTOR3 offset = player - object;
-	D3DXVec3Normalize(&offset, &offset);
-
-	if (abs(offset.x) < abs(offset.y))
-	{
-		if (offset.x > 0)
-		{
-			return 3;
-		}
-		else
-		{
-			return 4;
-		}
-	}
-	else 
-	{
-		if (offset.y > 0)
-		{
-			return 1;
-		}
-		else
-		{
-			return 2;
-		}
-	}*/
-	
-	float player_bottom = player.y + 18;
-	float tiles_bottom = object.y + 32;
-	float player_right = player.x + 11;
-	float tiles_right = object.x + 32;
-
-	float b_collision = tiles_bottom - player.y - 18;
-	float t_collision = player_bottom - object.y;
-	float l_collision = player_right - object.x;
-	float r_collision = tiles_right - player.x - 11;
-
-	if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision)
-	{
-		return 2;
-		//Top collision
-	}
-	if (b_collision < t_collision && b_collision < l_collision && b_collision < r_collision)
-	{
-		return 3;
-		//bottom collision
-	}
-	if (l_collision < r_collision && l_collision < t_collision && l_collision < b_collision)
-	{
-		return 4;
-		//Left collision
-	}
-	if (r_collision < l_collision && r_collision < t_collision && r_collision < b_collision)
-	{
-		return 1;
-		//Right collision
-	}
-
-	return 0;
-}
+//bool TestLevel99::checkCollision(D3DXVECTOR3 pos1, RECT rect1, D3DXVECTOR3 pos2, RECT rect2)
+//{
+//	characterCenter.x = (rect1.right - rect1.left) / 2;
+//	characterCenter.y = (rect1.bottom - rect1.top) / 2;
+//	rect1.right = pos1.x + rect1.right - rect1.left - characterCenter.x;
+//	rect1.left = pos1.x - characterCenter.x;
+//	rect1.bottom = pos1.y + rect1.bottom - rect1.top - characterCenter.y;
+//	rect1.top = pos1.y - characterCenter.y;
+//
+//	rect2.right = pos2.x + rect2.right - rect2.left;
+//	rect2.left = pos2.x;
+//	rect2.bottom = pos2.y + rect2.bottom - rect2.top;
+//	rect2.top = pos2.y;
+//	
+//	if (rect1.bottom < rect2.top) return false;
+//	if (rect1.top > rect2.bottom) return false;
+//	if (rect1.right < rect2.left) return false;
+//	if (rect1.left > rect2.right) return false;
+//	
+//	return true;
+//}
+//
+//int TestLevel99::checkSideCollide(D3DXVECTOR3 player, D3DXVECTOR3 object)
+//{
+//	/*D3DXVECTOR3 offset = player - object;
+//	D3DXVec3Normalize(&offset, &offset);
+//
+//	if (abs(offset.x) < abs(offset.y))
+//	{
+//		if (offset.x > 0)
+//		{
+//			return 3;
+//		}
+//		else
+//		{
+//			return 4;
+//		}
+//	}
+//	else 
+//	{
+//		if (offset.y > 0)
+//		{
+//			return 1;
+//		}
+//		else
+//		{
+//			return 2;
+//		}
+//	}*/
+//	
+//	float player_bottom = player.y + 18;
+//	float tiles_bottom = object.y + 32;
+//	float player_right = player.x + 11;
+//	float tiles_right = object.x + 32;
+//
+//	float b_collision = tiles_bottom - player.y - 18;
+//	float t_collision = player_bottom - object.y;
+//	float l_collision = player_right - object.x;
+//	float r_collision = tiles_right - player.x - 11;
+//
+//	if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision)
+//	{
+//		return 2;
+//		//Top collision
+//	}
+//	if (b_collision < t_collision && b_collision < l_collision && b_collision < r_collision)
+//	{
+//		return 3;
+//		//bottom collision
+//	}
+//	if (l_collision < r_collision && l_collision < t_collision && l_collision < b_collision)
+//	{
+//		return 4;
+//		//Left collision
+//	}
+//	if (r_collision < l_collision && r_collision < t_collision && r_collision < b_collision)
+//	{
+//		return 1;
+//		//Right collision
+//	}
+//
+//	return 0;
+//}

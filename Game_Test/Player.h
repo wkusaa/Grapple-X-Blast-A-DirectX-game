@@ -11,6 +11,7 @@ private:
 	static Player* instance;
 	float speed;
 	bool isSwitched;
+	D3DXVECTOR3 playerBbSize;
 	
 	Player();
 	~Player();
@@ -25,6 +26,7 @@ public:
 	void Draw();
 	void ReleaseInstance();
 	float getBlastOffAngle();
+	D3DXVECTOR3 getPlayerBbSize();
 	//void switchWeapon();
 	//void action();
 	

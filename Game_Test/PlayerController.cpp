@@ -123,19 +123,18 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
-	if (player->velocity.y > 0 && aState != Hook)
+	if (player->velocity.y > 0 && aState != Hook && aState != Swinging)
 	{
 		aState = FreeFall;
 	}
 	if (player->velocity.x > 0)
 	{
 		player->scaling.x = abs(player->scaling.x);
-	} 
+	}
 	else if (player->velocity.x < 0)
 	{
 		player->scaling.x = -abs(player->scaling.x);
 	}
-
 
 	switchWeapon();
 
@@ -147,7 +146,10 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	action();
 	animationController();
 
-
+	//if (player->velocity.x == 0 && player->velocity.y == 0)
+	//{
+	//	aState = Idle;
+	//}
 
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState==Hook)
@@ -186,13 +188,20 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		float offsetY = (-cos(angle)) * distanceFromPoint;
 
 		D3DXVECTOR3 prevPosition = player->position;
-		D3DXVECTOR3 currentPosition = D3DXVECTOR3(grapplePointArray[1]->getPosition().x + offsetX, grapplePointArray[1]->getPosition().y + offsetY, 1.0f);
+		D3DXVECTOR3 currentPosition = D3DXVECTOR3(onHook->position.x + offsetX, onHook->position.y + offsetY, 1.0f);
 		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
 
 
-		player->setPosition(currentPosition);
-		player->velocity *= 0;
-		player->direction = D3DXVECTOR3(difPosition.x / 5, difPosition.y / 5, 0.0f);
+		//player->setPosition(currentPosition);
+		//player->velocity *= 0;
+		player->direction = D3DXVECTOR3(difPosition.x / 10, difPosition.y / 10, 0.0f);
+
+		player->velocity = player->direction * 1;
+		//player->direction += gravity;
+		//player->velocity += gravity;
+		player->position += player->velocity;
+		//player->velocity *= 0;
+		player->direction *= 0.30;
 	}
 
 	player->Update();

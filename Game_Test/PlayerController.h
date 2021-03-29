@@ -18,6 +18,7 @@ private:
 	bool swingOppositeDirection;
 	int animationCount[8];
 	int tempAState;
+	float magnitude;
 
 public:
 	enum ActionState

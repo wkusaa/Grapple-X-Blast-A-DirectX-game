@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "Tile.h"
+#include "CollisionManager.h"
 #define BACKGROUND "assets/bg.png"
 #define GRASS "assets/grass.png"
 #define BRICK "assets/brick.png"
@@ -31,6 +32,7 @@ private:
 	std::vector<Lava*> lavaObject;
 	std::vector<Trap*> trapObject;
 	Door* doorObject;
+	CollisionManager* collision;
 	
 	//std::vector<GAMEOBJECT> gameObjects;
 	bool isMoving;

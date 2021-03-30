@@ -7,6 +7,8 @@
 #include "Key.h"
 #include "Ammo.h"
 #include "Gems.h"
+#include "Tile.h"
+#include "Gate.h"
 #include <iostream>
 
 class TestLevel4 :public GameState
@@ -17,6 +19,10 @@ private:
 	Key* key1;
 	std::vector<Ammo*> ammoArray;
 	std::vector<Gems*> gemsArray;
+	std::vector<Platform*> platformArray;
+	std::vector<Spike*> spikeArray;
+	std::vector<Brazier*> brazierArray;
+	Gate* gate;
 public:
 	TestLevel4();
 	~TestLevel4();

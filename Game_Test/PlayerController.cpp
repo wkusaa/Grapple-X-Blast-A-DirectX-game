@@ -123,6 +123,91 @@ void PlayerController::Initialize()
 	explosion->Initialize(gameGraphics->d3dDevice);
 }
 
+//void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
+//{
+//	if (player->velocity.y > 0 && aState != Hook && aState != Swinging)
+//	{
+//		aState = FreeFall;
+//	}
+//	if (player->velocity.x > 0)
+//	{
+//		player->scaling.x = abs(player->scaling.x);
+//	}
+//	else if (player->velocity.x < 0)
+//	{
+//		player->scaling.x = -abs(player->scaling.x);
+//	}
+//
+//	switchWeapon();
+//
+//	if (weaponState == grappleGun && onHook == NULL)
+//	{
+//		hook(grapplePointArray);
+//	}
+//
+//	action();
+//	animationController();
+//
+//	//if (player->velocity.x == 0 && player->velocity.y == 0)
+//	//{
+//	//	aState = Idle;
+//	//}
+//
+//
+//	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
+//	{
+//		float magnitude = 10.0f;
+//		player->velocity = player->direction * magnitude;
+//		player->direction += gravity;
+//		player->velocity += gravity;
+//		player->position += player->velocity;
+//
+//	}
+//	else if (aState == Swinging)
+//	{
+//
+//		float distanceFromPoint = 200.0f;
+//		if (angleDegree > 270)
+//		{
+//			swingOppositeDirection = false;
+//		}
+//		else if (angleDegree < 90)
+//		{
+//			swingOppositeDirection = true;
+//		}
+//
+//		if (swingOppositeDirection)
+//		{
+//			angleDegree += 1;
+//		}
+//		else
+//		{
+//			angleDegree -= 1;
+//		}
+//
+//		float angle = D3DXToRadian(angleDegree);
+//		float offsetX = (sin(angle)) * distanceFromPoint;
+//		float offsetY = (-cos(angle)) * distanceFromPoint;
+//
+//		D3DXVECTOR3 prevPosition = player->position;
+//		D3DXVECTOR3 currentPosition = D3DXVECTOR3(onHook->position.x + offsetX, onHook->position.y + offsetY, 1.0f);
+//		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
+//
+//
+//		player->setPosition(currentPosition);
+//		player->velocity *= 0;
+//		player->direction = D3DXVECTOR3(difPosition.x / 5, difPosition.y / 5, 0.0f);
+//	}
+//
+//	player->Update();
+//
+//	explosion->setPosition(player->blastCannon->position);
+//	explosion->Update();
+//
+//
+//	tempAState = aState; // it just works and i don't really understand myself
+//}
+
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
 	if (player->velocity.y > 0 && aState != Hook && aState != Swinging)
@@ -140,27 +225,30 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	switchWeapon();
 
-	if (weaponState == grappleGun && onHook == NULL)
+	if (weaponState == grappleGun)
 	{
-		hook(grapplePointArray);
+		if (onHook == NULL)
+		{
+			hook(grapplePointArray);
+		}
+
 	}
 
 	action();
 	animationController();
 
-	//if (player->velocity.x == 0 && player->velocity.y == 0)
-	//{
-	//	aState = Idle;
-	//}
+	if (player->velocity.x == 0 && player->velocity.y == 0)
+	{
+		aState = Idle;
+	}
 
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		float magnitude = 10.0f;
-		player->velocity = player->direction * magnitude;
+		//player->velocity = player->direction * magnitude;
 		player->direction += gravity;
 		player->velocity += gravity;
-		player->position += player->velocity;
+		//player->position += player->velocity;
 
 	}
 	else if (aState == Swinging)
@@ -193,13 +281,17 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		D3DXVECTOR3 currentPosition = D3DXVECTOR3(onHook->position.x + offsetX, onHook->position.y + offsetY, 1.0f);
 		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
 
+		player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
 
-		player->setPosition(currentPosition);
-		player->velocity *= 0;
-		player->direction = D3DXVECTOR3(difPosition.x / 5, difPosition.y / 5, 0.0f);
 	}
 
+	std::cout << player->direction.x << "|" << player->direction.y << std::endl;
+
+	player->velocity = player->direction * magnitude;
+	player->position += player->velocity;
+
 	player->Update();
+
 
 	explosion->setPosition(player->blastCannon->position);
 	explosion->Update();

@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-	std::cout << "GameObject created" << std::endl;
+	//std::cout << "GameObject created" << std::endl;
 
 	texture = NULL;
 	sprite = NULL;
@@ -27,7 +27,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	std::cout << "GameObject destroyed" << std::endl;
+	//std::cout << "GameObject destroyed" << std::endl;
 	//sprite->Release();
 	//sprite = NULL;
 

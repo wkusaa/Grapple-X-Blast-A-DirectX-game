@@ -12,21 +12,19 @@ TestLevel4::TestLevel4()
 
 	key1 = new Key;
 	key1->Initialize(gameGraphics->d3dDevice);
-	key1->setPosition(D3DXVECTOR3(400.0f, 500.0f, 0.0f));
+	key1->setPosition(D3DXVECTOR3(247.0f, 629.0f, 0.0f));
 
-	GrapplingPoint* gp1 = new GrapplingPoint(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
-	GrapplingPoint* gp2 = new GrapplingPoint(D3DXVECTOR3(400.0f, 720.0f / 2 - 200.0f, 0.0f));
-	gp1->Initialize(gameGraphics->d3dDevice);
-	gp2->Initialize(gameGraphics->d3dDevice);
-	grapplePointArray.push_back(gp1);
-	grapplePointArray.push_back(gp2);
+	//GrapplingPoint* gp1 = new GrapplingPoint(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
+	//GrapplingPoint* gp2 = new GrapplingPoint(D3DXVECTOR3(400.0f, 720.0f / 2 - 200.0f, 0.0f));
+	////GrapplingPoint* gp3 = new GrapplingPoint(D3DXVECTOR3(400.0f, 720.0f / 2 - 200.0f, 0.0f));
+	//gp1->Initialize(gameGraphics->d3dDevice);
+	//gp2->Initialize(gameGraphics->d3dDevice);
+	//grapplePointArray.push_back(gp1);
+	//grapplePointArray.push_back(gp2);
 
-	Ammo* am1 = new Ammo(D3DXVECTOR3(200.0f, 400.0f, 0.0f));
-	Ammo* am2 = new Ammo(D3DXVECTOR3(100.0f, 200.0f, 0.0f));
+	Ammo* am1 = new Ammo(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
 	am1->Initialize(gameGraphics->d3dDevice);
-	am2->Initialize(gameGraphics->d3dDevice);
 	ammoArray.push_back(am1);
-	ammoArray.push_back(am2);
 
 	Gems* gem1 = new Gems(D3DXVECTOR3(300.0f, 400.0f, 0.0f));
 	Gems* gem2 = new Gems(D3DXVECTOR3(500.0f, 400.0f, 0.0f));
@@ -35,21 +33,21 @@ TestLevel4::TestLevel4()
 	gemsArray.push_back(gem1);
 	gemsArray.push_back(gem2);
 
-	Platform* platform1 = new Platform(1, 100, 500, 0);
-	Platform* platform2 = new Platform(2, 200, 500, 0);
-	Platform* platform3 = new Platform(3, 300, 500, 0);
-	Platform* platform4 = new Platform(4, 400, 500, 0);
-	Platform* platform5 = new Platform(5, 500, 500, 0);
-	platform1->Initialize(gameGraphics->d3dDevice);
-	platform2->Initialize(gameGraphics->d3dDevice);
-	platform3->Initialize(gameGraphics->d3dDevice);
-	platform4->Initialize(gameGraphics->d3dDevice);
-	platform5->Initialize(gameGraphics->d3dDevice);
-	platformArray.push_back(platform1);
-	platformArray.push_back(platform2);
-	platformArray.push_back(platform3);
-	platformArray.push_back(platform4);
-	platformArray.push_back(platform5);
+	//Platform* platform1 = new Platform(1, 100, 500, 0);
+	//Platform* platform2 = new Platform(2, 200, 500, 0);
+	//Platform* platform3 = new Platform(3, 300, 500, 0);
+	//Platform* platform4 = new Platform(4, 400, 500, 0);
+	//Platform* platform5 = new Platform(5, 500, 500, 0);
+	//platform1->Initialize(gameGraphics->d3dDevice);
+	//platform2->Initialize(gameGraphics->d3dDevice);
+	//platform3->Initialize(gameGraphics->d3dDevice);
+	//platform4->Initialize(gameGraphics->d3dDevice);
+	//platform5->Initialize(gameGraphics->d3dDevice);
+	//platformArray.push_back(platform1);
+	//platformArray.push_back(platform2);
+	//platformArray.push_back(platform3);
+	//platformArray.push_back(platform4);
+	//platformArray.push_back(platform5);
 	
 	gate = new Gate();
 	gate->Initialize(gameGraphics->d3dDevice);
@@ -72,16 +70,144 @@ TestLevel4::TestLevel4()
 		platformArray.push_back(ceiling);
 	}
 
-	Platform* platform = new Platform(4, WIN_WIDTH - 200.0f, 80.0f, 0.0f);
-	platform->Initialize(gameGraphics->d3dDevice);
-	platformArray.push_back(platform);
-
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		Spike* spike = new Spike();
 		spike->Initialize(gameGraphics->d3dDevice);
-		spike->setPosition(D3DXVECTOR3(200.0f + spike->getSize().x * i, 350.0f, 0.0f));
+		spike->setPosition(D3DXVECTOR3(1004.0f - spike->getSize().x * i, 29.0f, 0.0f));
+		spike->scaling.y *= -1;
 		spikeArray.push_back(spike);
+	}
+
+	Platform* platform = new Platform(4, WIN_WIDTH - 200.0f, 60.0f, 0.0f);
+	platform->Initialize(gameGraphics->d3dDevice);
+	platformArray.push_back(platform);
+	
+	for (int i = 0; i < 3; i++)
+	{
+		Platform* platform = new Platform(3);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(WIN_WIDTH - 270.0f - platform->getSize().x * i, 160.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		Spike* spike = new Spike();
+		spike->Initialize(gameGraphics->d3dDevice);
+		spike->setPosition(D3DXVECTOR3(930.0f - spike->getSize().x * i, 140.0f, 0.0f));
+		spikeArray.push_back(spike);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(549.0f, 50.0f, 0.0f));
+		gp->Initialize(gameGraphics->d3dDevice);
+		grapplePointArray.push_back(gp);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		Platform* platform = new Platform(3);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(350.0f - platform->getSize().x * i, 160.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		Spike* spike = new Spike();
+		spike->Initialize(gameGraphics->d3dDevice);
+		spike->setPosition(D3DXVECTOR3(270.0f - spike->getSize().x * i, 140.0f, 0.0f));
+		spikeArray.push_back(spike);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Platform* platform = new Platform(4, 190.0f, 280.0f, 0.0f);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		Platform* platform = new Platform(3);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(374.0f + platform->getSize().x * i, 558.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i % 2 != 0)
+		{
+			Platform* platform = new Platform(5);
+			platform->Initialize(gameGraphics->d3dDevice);
+			platform->setPosition(D3DXVECTOR3(345.0f + platform->getSize().x * i, 515.0f, 0.0f));
+			platformArray.push_back(platform);
+		}
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(148.0f, 477.0f, 0.0f));
+		gp->Initialize(gameGraphics->d3dDevice);
+		grapplePointArray.push_back(gp);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		Platform* platform = new Platform(1);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(644.0f + platform->getSize().x * i, 621.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Platform* platform = new Platform(5);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(933.0f + platform->getSize().x * i, 610.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Platform* platform = new Platform(5);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(1033.0f + platform->getSize().x * i, 546.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Platform* platform = new Platform(5);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(1127.0f + platform->getSize().x * i, 490.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(1016.0f, 311.0f, 0.0f));
+		gp->Initialize(gameGraphics->d3dDevice);
+		grapplePointArray.push_back(gp);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Platform* platform = new Platform(5);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(821.0f + platform->getSize().x * i, 395.0f, 0.0f));
+		platformArray.push_back(platform);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		Platform* platform = new Platform(4);
+		platform->Initialize(gameGraphics->d3dDevice);
+		platform->setPosition(D3DXVECTOR3(0.0f, 0.0f + platform->getSize().y * i, 0.0f));
+		platformArray.push_back(platform);
 	}
 
 	for (int i = 0; i < 22; i++)
@@ -147,8 +273,10 @@ void TestLevel4::init()
 
 void TestLevel4::update()
 {
-	
+	float mouseX = GameInput::getInstance()->mousePosition.x;
+	float mouseY = GameInput::getInstance()->mousePosition.y;
 
+	std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel4::fixedUpdate()

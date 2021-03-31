@@ -15,7 +15,7 @@ PlayerController::PlayerController()
 	explosion->setPosition(player->blastCannon->position);
 	
 
-	gravity = D3DXVECTOR3(0.0f, 0.02f, 0.0f);
+	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
 
 	player->currentWeapon = player->blastCannon;
 	player->currentWeapon->setPosition(player->position);
@@ -254,7 +254,7 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	else if (aState == Swinging)
 	{
 
-		float distanceFromPoint = 200.0f;
+		float distanceFromPoint = 150.0f;
 		if (angleDegree > 270)
 		{
 			swingOppositeDirection = false;
@@ -285,7 +285,9 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	}
 
-	std::cout << player->direction.x << "|" << player->direction.y << std::endl;
+
+
+	//std::cout << player->direction.x << "|" << player->direction.y << std::endl;
 
 	player->velocity = player->direction * magnitude;
 	player->position += player->velocity;
@@ -350,6 +352,7 @@ void PlayerController::action()
 			case Swinging:
 				aState = Release;
 				releaseSwing();
+				player->direction *= 3.0;
 			case Release:
 				aState = FreeFall;
 				break;
@@ -418,6 +421,8 @@ void PlayerController::grappleDrawLaserLine()
 	float mouseX = GameInput::getInstance()->mousePosition.x;
 	float mouseY = GameInput::getInstance()->mousePosition.y;
 
+	//std::cout << mouseX << "|" << mouseY << std::endl;
+
 	if (aState == Swinging)
 	{
 		D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(grappleGunPos.x, grappleGunPos.y), D3DXVECTOR2(onHook->position.x,onHook->position.y) };
@@ -456,7 +461,7 @@ bool PlayerController::checkMousePointCollision(RECT colliderRect)
 
 	if (colliderRect.left > gameInput->mousePosition.x) return false;
 
-	std::cout << "Collide" << std::endl;
+	//std::cout << "Collide" << std::endl;
 
 	return true;
 }

@@ -8,6 +8,142 @@ TestLevel4::TestLevel4()
 	playerCon->player->direction = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
+
+
+	buildLevel();
+
+}
+
+TestLevel4::~TestLevel4()
+{
+	std::cout << "TestLevel4 destroyed" << std::endl;
+
+	for (int i = 0; i < grapplePointArray.size(); i++)
+	{
+		delete grapplePointArray[i];
+		grapplePointArray[i] = NULL;
+	}
+
+	for (int i = 0; i < ammoArray.size(); i++)
+	{
+		delete ammoArray[i];
+		ammoArray[i] = NULL;
+	}
+
+	for (int i = 0; i < gemsArray.size(); i++)
+	{
+		delete gemsArray[i];
+		gemsArray[i] = NULL;
+	}
+
+	for (int i = 0; i < platformArray.size(); i++)
+	{
+		delete platformArray[i];
+		platformArray[i] = NULL;
+	}
+
+	for (int i = 0; i < spikeArray.size(); i++)
+	{
+		delete spikeArray[i];
+		spikeArray[i] = NULL;
+	}
+
+	for (int i = 0; i < brazierArray.size(); i++)
+	{
+		delete brazierArray[i];
+		brazierArray[i] = NULL;
+	}
+
+	delete key1;
+	delete gate;
+}
+
+void TestLevel4::init()
+{
+
+}
+
+void TestLevel4::update()
+{
+	float mouseX = GameInput::getInstance()->mousePosition.x;
+	float mouseY = GameInput::getInstance()->mousePosition.y;
+
+	std::cout << mouseX << "|" << mouseY << std::endl;
+}
+
+void TestLevel4::fixedUpdate()
+{
+	playerCon->Update(grapplePointArray);
+	for (int i = 0; i < ammoArray.size(); i++)
+	{
+		ammoArray[i]->Update();
+	}
+
+	for (int i = 0; i < gemsArray.size(); i++)
+	{
+		gemsArray[i]->Update();
+	}
+
+	for (int i = 0; i < spikeArray.size(); i++)
+	{
+		spikeArray[i]->Update();
+	}
+
+	for (int i = 0; i < brazierArray.size(); i++)
+	{
+		brazierArray[i]->Update();
+	}
+
+	key1->Update();
+	gate->Update();
+}
+
+void TestLevel4::draw()
+{
+	
+
+	for (int i = 0; i < grapplePointArray.size(); i++)
+	{
+		grapplePointArray[i]->Draw();
+	}
+
+	for (int i = 0; i < ammoArray.size(); i++)
+	{
+		ammoArray[i]->Draw();
+	}
+
+	for (int i = 0; i < gemsArray.size(); i++)
+	{
+		gemsArray[i]->Draw();
+	}
+	key1->Draw();
+
+	for (int i = 0; i < platformArray.size(); i++)
+	{
+		platformArray[i]->Draw();
+	}
+
+	for (int i = 0; i < spikeArray.size(); i++)
+	{
+		spikeArray[i]->Draw();
+	}
+
+	for (int i = 0; i < brazierArray.size(); i++)
+	{
+		brazierArray[i]->Draw();
+	}
+
+	gate->Draw();
+	playerCon->Draw();
+}
+
+void TestLevel4::release()
+{
+
+}
+
+void TestLevel4::buildLevel()
+{
 	GameGraphics* gameGraphics = GameGraphics::getInstance();
 
 	key1 = new Key;
@@ -48,10 +184,10 @@ TestLevel4::TestLevel4()
 	//platformArray.push_back(platform3);
 	//platformArray.push_back(platform4);
 	//platformArray.push_back(platform5);
-	
+
 	gate = new Gate();
 	gate->Initialize(gameGraphics->d3dDevice);
-	gate->setPosition(D3DXVECTOR3(WIN_WIDTH - 20.0f, 0.0f + gate->getSize().y/2, 0.0f));
+	gate->setPosition(D3DXVECTOR3(WIN_WIDTH - 20.0f, 0.0f + gate->getSize().y / 2, 0.0f));
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -82,7 +218,7 @@ TestLevel4::TestLevel4()
 	Platform* platform = new Platform(4, WIN_WIDTH - 200.0f, 60.0f, 0.0f);
 	platform->Initialize(gameGraphics->d3dDevice);
 	platformArray.push_back(platform);
-	
+
 	for (int i = 0; i < 3; i++)
 	{
 		Platform* platform = new Platform(3);
@@ -217,134 +353,5 @@ TestLevel4::TestLevel4()
 		brazier->setPosition(D3DXVECTOR3(brazier->getSize().x * i, 720.0f, 0.0f));
 		brazierArray.push_back(brazier);
 	}
-
-
-
 }
 
-TestLevel4::~TestLevel4()
-{
-	std::cout << "TestLevel4 destroyed" << std::endl;
-
-	for (int i = 0; i < grapplePointArray.size(); i++)
-	{
-		delete grapplePointArray[i];
-		grapplePointArray[i] = NULL;
-	}
-
-	for (int i = 0; i < ammoArray.size(); i++)
-	{
-		delete ammoArray[i];
-		ammoArray[i] = NULL;
-	}
-
-	for (int i = 0; i < gemsArray.size(); i++)
-	{
-		delete gemsArray[i];
-		gemsArray[i] = NULL;
-	}
-
-	for (int i = 0; i < platformArray.size(); i++)
-	{
-		delete platformArray[i];
-		platformArray[i] = NULL;
-	}
-
-	for (int i = 0; i < spikeArray.size(); i++)
-	{
-		delete spikeArray[i];
-		spikeArray[i] = NULL;
-	}
-
-	for (int i = 0; i < brazierArray.size(); i++)
-	{
-		delete brazierArray[i];
-		brazierArray[i] = NULL;
-	}
-
-	delete key1;
-	delete gate;
-}
-
-void TestLevel4::init()
-{
-
-}
-
-void TestLevel4::update()
-{
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
-
-	std::cout << mouseX << "|" << mouseY << std::endl;
-}
-
-void TestLevel4::fixedUpdate()
-{
-	playerCon->Update(grapplePointArray);
-	for (int i = 0; i < ammoArray.size(); i++)
-	{
-		ammoArray[i]->Update();
-	}
-
-	for (int i = 0; i < gemsArray.size(); i++)
-	{
-		gemsArray[i]->Update();
-	}
-
-	for (int i = 0; i < spikeArray.size(); i++)
-	{
-		spikeArray[i]->Update();
-	}
-
-	for (int i = 0; i < brazierArray.size(); i++)
-	{
-		brazierArray[i]->Update();
-	}
-
-	key1->Update();
-	gate->Update();
-}
-
-void TestLevel4::draw()
-{
-	playerCon->Draw();
-
-	for (int i = 0; i < grapplePointArray.size(); i++)
-	{
-		grapplePointArray[i]->Draw();
-	}
-
-	for (int i = 0; i < ammoArray.size(); i++)
-	{
-		ammoArray[i]->Draw();
-	}
-
-	for (int i = 0; i < gemsArray.size(); i++)
-	{
-		gemsArray[i]->Draw();
-	}
-	key1->Draw();
-
-	for (int i = 0; i < platformArray.size(); i++)
-	{
-		platformArray[i]->Draw();
-	}
-
-	for (int i = 0; i < spikeArray.size(); i++)
-	{
-		spikeArray[i]->Draw();
-	}
-
-	for (int i = 0; i < brazierArray.size(); i++)
-	{
-		brazierArray[i]->Draw();
-	}
-
-	gate->Draw();
-}
-
-void TestLevel4::release()
-{
-
-}

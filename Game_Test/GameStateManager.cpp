@@ -22,10 +22,9 @@ GameStateManager::GameStateManager()
 	gameLevels.push_back(testLevel2);
 	gameLevels.push_back(testLevel3);
 	gameLevels.push_back(testLevel4);
-
-	//heheh
 	gameLevels.push_back(testLevel99);
-	currentGameState = gameLevels[4];
+
+	currentGameState = gameLevels[5];
 
 	gTimer = new GameTimer;
 	gTimer->init(FPS);

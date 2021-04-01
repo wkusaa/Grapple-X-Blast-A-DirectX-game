@@ -22,7 +22,7 @@ PlayerController::PlayerController()
 	isSwitched = true;
 
 	angleDegree = 90;
-	magnitude = 10;
+	magnitude = 5;
 
 	onHook = NULL;
 
@@ -39,7 +39,6 @@ PlayerController::PlayerController()
 	aState = Idle;
 	tempAState = aState;
 	
-
 }
 
 void PlayerController::animationController()
@@ -288,9 +287,19 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 
 	//std::cout << player->direction.x << "|" << player->direction.y << std::endl;
-
-	player->velocity = player->direction * magnitude;
-	player->position += player->velocity;
+	if (player->isMoving == true)
+	{
+		player->velocity = player->direction * magnitude;
+		if (player->velocity.y > 5) player->velocity.y = 5;
+		
+		player->position += player->velocity;
+		
+	}
+	else
+	{
+		player->velocity = D3DXVECTOR3(0,0,0);
+		player->position += player->velocity;
+	}
 
 	player->Update();
 
@@ -329,8 +338,10 @@ void PlayerController::action()
 	{
 		if (weaponState == blastCannon)
 		{
+			player->isMoving = true;
 			aState = BlastOff;
 			blastOff();
+		
 		}
 		else if (weaponState == grappleGun)
 		{
@@ -370,7 +381,6 @@ void PlayerController::blastOff()
 	std::cout << explosion->getCurrentFrame() << std::endl;
 	explosion->setCurrentFrame(0);//reset
 	explosion->setAnimationRow(0);
-
 	std::cout << explosion->getCurrentFrame() << std::endl;
 }
 

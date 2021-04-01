@@ -34,6 +34,7 @@ public:
 
 	GameTimer* gTimer;
 	GameState* currentGameState;
+	GameState* tempGameState;
 	std::vector<GameState*> gameLevels;
 
 };

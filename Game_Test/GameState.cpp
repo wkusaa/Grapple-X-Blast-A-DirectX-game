@@ -8,3 +8,8 @@ GameState::~GameState()
 void GameState::update()
 {
 }
+
+void GameState::loadScene()
+{
+
+}

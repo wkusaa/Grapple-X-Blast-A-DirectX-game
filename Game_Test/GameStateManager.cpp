@@ -26,6 +26,8 @@ GameStateManager::GameStateManager()
 	//heheh
 	gameLevels.push_back(testLevel99);
 	currentGameState = gameLevels[4];
+	tempGameState = currentGameState;
+	currentGameState->loadScene();
 
 	gTimer = new GameTimer;
 	gTimer->init(FPS);
@@ -66,7 +68,7 @@ GameStateManager* GameStateManager::getInstance()
 
 void GameStateManager::fixedUpdate()
 {
-
+	
 	int framesToUpdate = gTimer->framesToUpdate();
 	for (int i = 0; i < framesToUpdate; i++)
 	{
@@ -79,7 +81,19 @@ void GameStateManager::fixedUpdate()
 
 void GameStateManager::update()
 {
+
+	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_F))
+	{
+		currentGameState = gameLevels[5];
+	}
+
+	if (currentGameState != tempGameState)
+	{
+		currentGameState->loadScene();
+		tempGameState = currentGameState;
+	}
 	currentGameState->update();
+
 }
 
 void GameStateManager::draw()

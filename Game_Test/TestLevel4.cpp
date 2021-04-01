@@ -355,3 +355,8 @@ void TestLevel4::buildLevel()
 	}
 }
 
+void TestLevel4::loadScene()
+{
+	playerCon->player->setPosition(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
+}
+

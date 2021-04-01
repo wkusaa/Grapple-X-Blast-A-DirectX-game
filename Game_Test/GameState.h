@@ -13,5 +13,6 @@ public:
 	virtual void fixedUpdate() = 0;
 	virtual void draw() = 0;
 	virtual void release() = 0;
+	virtual void loadScene();
 
 };

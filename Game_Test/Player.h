@@ -29,6 +29,6 @@ public:
 	D3DXVECTOR3 getPlayerBbSize();
 	//void switchWeapon();
 	//void action();
-	
+	bool isMoving;
 };
 

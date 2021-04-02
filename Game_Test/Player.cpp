@@ -46,6 +46,8 @@ Player::Player()
 	grappleGun = new GrappleGun;
 	blastCannon->Initialize(GameGraphics::getInstance()->d3dDevice);
 	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
+
+	isMoving = true;
 }
 
 Player::~Player()

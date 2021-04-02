@@ -65,10 +65,10 @@ void TestLevel4::init()
 
 void TestLevel4::update()
 {
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
+	//float mouseX = GameInput::getInstance()->mousePosition.x;
+	//float mouseY = GameInput::getInstance()->mousePosition.y;
 
-	std::cout << mouseX << "|" << mouseY << std::endl;
+	//std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel4::fixedUpdate()
@@ -96,6 +96,8 @@ void TestLevel4::fixedUpdate()
 
 	key1->Update();
 	gate->Update();
+
+	std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 }
 
 void TestLevel4::draw()

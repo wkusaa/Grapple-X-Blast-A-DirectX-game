@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "GameStateManager.h"
 #include "Player.h"
 #include "PlayerController.h"
 #include <vector>
@@ -32,7 +33,7 @@ public:
 	//DXLine* line;
 
 	void init();
-	void update();
+	void update(); 
 	void fixedUpdate();
 	void draw();
 	void release();

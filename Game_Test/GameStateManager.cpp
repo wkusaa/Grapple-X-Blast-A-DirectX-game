@@ -11,18 +11,24 @@ GameStateManager::GameStateManager()
 	TestLevel3* testLevel3 = new TestLevel3;
 	TestLevel4* testLevel4 = new TestLevel4;
 	TestLevel99* testLevel99 = new TestLevel99;
+	StartScene* startScene = new StartScene;
+	GameOverScene* gameOver = new GameOverScene;
 	level1->init();
 	testLevel->init();
 	testLevel2->init();
 	testLevel3->init();
 	testLevel4->init();
 	testLevel99->init();
+	startScene->init();
+	gameOver->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
 	gameLevels.push_back(testLevel2);
 	gameLevels.push_back(testLevel3);
 	gameLevels.push_back(testLevel4);
 	gameLevels.push_back(testLevel99);
+	gameLevels.push_back(startScene);
+	gameLevels.push_back(gameOver);
 
 	currentGameState = gameLevels[4];
 	tempGameState = currentGameState;
@@ -110,4 +116,9 @@ void GameStateManager::release()
 		delete instance;
 		instance = 0;
 	}
+}
+
+void GameStateManager::changeGameState(int index)
+{
+	currentGameState = gameLevels[index];
 }

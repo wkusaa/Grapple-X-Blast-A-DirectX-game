@@ -11,10 +11,13 @@ bool CollisionManager::checkCollision(D3DXVECTOR3 pos1, RECT rect1, D3DXVECTOR3 
 	rect1.bottom = pos1.y + rect1.bottom - rect1.top - characterCenter.y;
 	rect1.top = pos1.y - characterCenter.y;
 
-	rect2.right = pos2.x + rect2.right - rect2.left;
-	rect2.left = pos2.x;
-	rect2.bottom = pos2.y + rect2.bottom - rect2.top;
-	rect2.top = pos2.y;
+	D3DXVECTOR3 objectCenter;
+	objectCenter.x = (rect2.right - rect2.left) / 2;
+	objectCenter.y = (rect2.bottom - rect2.top) / 2;
+	rect2.right = pos2.x + rect2.right - rect2.left - objectCenter.x;
+	rect2.left = pos2.x - objectCenter.x;
+	rect2.bottom = pos2.y + rect2.bottom - rect2.top - objectCenter.y;
+	rect2.top = pos2.y - objectCenter.y;
 
 	if (rect1.bottom < rect2.top) return false;
 	if (rect1.top > rect2.bottom) return false;
@@ -28,19 +31,19 @@ int CollisionManager::checkSideCollide(D3DXVECTOR3 playerPos, D3DXVECTOR3 player
 {
 	Player* player = Player::getInstance();
 	float player_bottom = playerPos.y + (playerBbSize.y/2);
-	float tiles_bottom = object.y + objectSize.y;
+	float tiles_bottom = object.y + (objectSize.y/2);
 	float player_right = playerPos.x + (playerBbSize.x/2);
-	float tiles_right = object.x + objectSize.x;
+	float tiles_right = object.x + (objectSize.x/2);
 
-	float b_collision = tiles_bottom - playerPos.y - 18;
-	float t_collision = player_bottom - object.y;
-	float l_collision = player_right - object.x;
-	float r_collision = tiles_right - playerPos.x - 11;
+	float b_collision = tiles_bottom - playerPos.y - (playerBbSize.y / 2);
+	float t_collision = player_bottom - object.y - (objectSize.y / 2);
+	float l_collision = player_right - object.x - (objectSize.x / 2);
+	float r_collision = tiles_right - playerPos.x - (playerBbSize.x / 2);
 
 	if (t_collision < b_collision && t_collision < l_collision && t_collision < r_collision)
 	{
 		player->position -= (player->velocity);
-		player->isMoving = false;
+		//player->isMoving = false;
 		return 1;
 		//Top collision
 	}
@@ -56,7 +59,7 @@ int CollisionManager::checkSideCollide(D3DXVECTOR3 playerPos, D3DXVECTOR3 player
 	{
 		player->velocity = D3DXVECTOR3(-7.0f, 0.0f, 0);
 		player->position += (player->velocity);
-		player->isMoving = true;
+		player->isMoving = false;
 		return 3;
 		//Left collision
 	}

@@ -32,8 +32,6 @@ private:
 public:
 	Lava(float x, float y, float z);
 	~Lava();
-	//void setPosition(float x, float y, float z);
-	void Render();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 };
 
@@ -44,8 +42,6 @@ private:
 public:
 	Grass(float x, float y, float z);
 	~Grass();
-	//void setPosition(float x, float y, float z);
-	void Render();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 };
 
@@ -56,8 +52,6 @@ private:
 public:
 	Door(float x, float y, float z);
 	~Door();
-	//void setPosition(float x, float y, float z);
-	void Render();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 };
 
@@ -68,8 +62,6 @@ private:
 public:
 	Trap(float x, float y, float z);
 	~Trap();
-	//void setPosition(float x, float y, float z);
-	void Render();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 };
 

@@ -100,6 +100,7 @@ void TestLevel4::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), platformArray[i]->position, platformArray[i]->spriteRect))
 		{
+			
 			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), platformArray[i]->getPosition(), platformArray[i]->getSize());
 		}
 	}
@@ -108,7 +109,7 @@ void TestLevel4::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), spikeArray[i]->position, spikeArray[i]->spriteRect))
 		{
-
+			
 			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), spikeArray[i]->getPosition(), spikeArray[i]->getSize());
 		}
 	}
@@ -117,7 +118,7 @@ void TestLevel4::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), brazierArray[i]->position, brazierArray[i]->spriteRect))
 		{
-
+			
 			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), brazierArray[i]->getPosition(), brazierArray[i]->getSize());
 		}
 	}

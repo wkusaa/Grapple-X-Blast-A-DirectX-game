@@ -9,6 +9,7 @@ TestLevel4::TestLevel4()
 
 	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
 
+	collision = new CollisionManager;
 
 	buildLevel();
 
@@ -56,6 +57,8 @@ TestLevel4::~TestLevel4()
 
 	delete key1;
 	delete gate;
+
+	delete collision;
 }
 
 void TestLevel4::init()
@@ -65,10 +68,7 @@ void TestLevel4::init()
 
 void TestLevel4::update()
 {
-	//float mouseX = GameInput::getInstance()->mousePosition.x;
-	//float mouseY = GameInput::getInstance()->mousePosition.y;
 
-	//std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel4::fixedUpdate()
@@ -93,6 +93,36 @@ void TestLevel4::fixedUpdate()
 	{
 		brazierArray[i]->Update();
 	}
+
+	//---------------------------------------------------------------------
+
+	for (int i = 0; i < platformArray.size(); i++)
+	{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), platformArray[i]->position, platformArray[i]->spriteRect))
+		{
+			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), platformArray[i]->getPosition(), platformArray[i]->getSize());
+		}
+	}
+
+	for (int i = 0; i < spikeArray.size(); i++)
+	{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), spikeArray[i]->position, spikeArray[i]->spriteRect))
+		{
+
+			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), spikeArray[i]->getPosition(), spikeArray[i]->getSize());
+		}
+	}
+
+	for (int i = 0; i < brazierArray.size(); i++)
+	{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), brazierArray[i]->position, brazierArray[i]->spriteRect))
+		{
+
+			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), brazierArray[i]->getPosition(), brazierArray[i]->getSize());
+		}
+	}
+
+
 
 	key1->Update();
 	gate->Update();
@@ -152,14 +182,6 @@ void TestLevel4::buildLevel()
 	key1->Initialize(gameGraphics->d3dDevice);
 	key1->setPosition(D3DXVECTOR3(247.0f, 629.0f, 0.0f));
 
-	//GrapplingPoint* gp1 = new GrapplingPoint(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
-	//GrapplingPoint* gp2 = new GrapplingPoint(D3DXVECTOR3(400.0f, 720.0f / 2 - 200.0f, 0.0f));
-	////GrapplingPoint* gp3 = new GrapplingPoint(D3DXVECTOR3(400.0f, 720.0f / 2 - 200.0f, 0.0f));
-	//gp1->Initialize(gameGraphics->d3dDevice);
-	//gp2->Initialize(gameGraphics->d3dDevice);
-	//grapplePointArray.push_back(gp1);
-	//grapplePointArray.push_back(gp2);
-
 	Ammo* am1 = new Ammo(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
 	am1->Initialize(gameGraphics->d3dDevice);
 	ammoArray.push_back(am1);
@@ -170,22 +192,6 @@ void TestLevel4::buildLevel()
 	gem2->Initialize(gameGraphics->d3dDevice);
 	gemsArray.push_back(gem1);
 	gemsArray.push_back(gem2);
-
-	//Platform* platform1 = new Platform(1, 100, 500, 0);
-	//Platform* platform2 = new Platform(2, 200, 500, 0);
-	//Platform* platform3 = new Platform(3, 300, 500, 0);
-	//Platform* platform4 = new Platform(4, 400, 500, 0);
-	//Platform* platform5 = new Platform(5, 500, 500, 0);
-	//platform1->Initialize(gameGraphics->d3dDevice);
-	//platform2->Initialize(gameGraphics->d3dDevice);
-	//platform3->Initialize(gameGraphics->d3dDevice);
-	//platform4->Initialize(gameGraphics->d3dDevice);
-	//platform5->Initialize(gameGraphics->d3dDevice);
-	//platformArray.push_back(platform1);
-	//platformArray.push_back(platform2);
-	//platformArray.push_back(platform3);
-	//platformArray.push_back(platform4);
-	//platformArray.push_back(platform5);
 
 	gate = new Gate();
 	gate->Initialize(gameGraphics->d3dDevice);

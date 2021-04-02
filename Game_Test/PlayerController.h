@@ -3,6 +3,7 @@
 #include "GrapplingPoint.h"
 #include "DXLine.h"
 #include "Explosion.h"
+#include "CollisionManager.h"
 #include <vector>
 class PlayerController
 {
@@ -12,6 +13,7 @@ private:
 	DXLine* line;
 	GrapplingPoint* onHook;
 	Explosion* explosion;
+	CollisionManager collision;
 
 	float angleDegree;
 	bool isSwitched;

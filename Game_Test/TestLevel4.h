@@ -10,6 +10,7 @@
 #include "Gems.h"
 #include "Tile.h"
 #include "Gate.h"
+#include "CollisionManager.h"
 #include <iostream>
 
 class TestLevel4 :public GameState
@@ -23,6 +24,7 @@ private:
 	std::vector<Platform*> platformArray;
 	std::vector<Spike*> spikeArray;
 	std::vector<Brazier*> brazierArray;
+	CollisionManager* collision;
 	Gate* gate;
 public:
 	TestLevel4();

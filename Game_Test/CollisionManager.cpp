@@ -71,10 +71,44 @@ int CollisionManager::checkSideCollide(D3DXVECTOR3 playerPos, D3DXVECTOR3 player
 	return 0;
 }
 
+RECT CollisionManager::relativeRect(D3DXVECTOR3 position, RECT rect, D3DXVECTOR3 centerPoint)
+{
+	rect.right = position.x + rect.right - rect.left - centerPoint.x;
+	rect.left = position.x - centerPoint.x;
+	rect.bottom = position.y + rect.bottom - rect.top - centerPoint.y;
+	rect.top = position.y - centerPoint.y;
+
+	return rect;
+}
+
+bool CollisionManager::checkMousePointCollision(RECT colliderRect)
+{
+	GameInput* gameInput = GameInput::getInstance();
+
+	if (colliderRect.bottom < gameInput->mousePosition.y) return false;
+
+	if (colliderRect.top > gameInput->mousePosition.y) return false;
+
+	if (colliderRect.right < gameInput->mousePosition.x) return false;
+
+	if (colliderRect.left > gameInput->mousePosition.x) return false;
+
+	//std::cout << "Collide" << std::endl;
+
+	return true;
+}
+
+
+
 CollisionManager::CollisionManager()
 {
+
 }
 
 CollisionManager::~CollisionManager()
 {
 }
+
+
+
+

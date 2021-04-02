@@ -291,6 +291,8 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	{
 		player->velocity = player->direction * magnitude;
 		if (player->velocity.y > 5) player->velocity.y = 5;
+		if (player->velocity.x > 5) player->velocity.x = 5;
+		if (player->velocity.x < -5) player->velocity.x = -5;
 		
 		player->position += player->velocity;
 		
@@ -388,8 +390,8 @@ void PlayerController::hook(std::vector<GrapplingPoint*> grapplePointArray)
 {
 	for (int i = 0; i < grapplePointArray.size(); i++)
 	{
-		RECT relative = relativeRect(grapplePointArray[i]->position, grapplePointArray[i]->getBounding_Box(), grapplePointArray[i]->getSpriteCentre());
-		if (checkMousePointCollision(relative))
+		RECT relative = collision.relativeRect(grapplePointArray[i]->position, grapplePointArray[i]->getBounding_Box(), grapplePointArray[i]->getSpriteCentre());
+		if (collision.checkMousePointCollision(relative))
 		{
 			onHook = grapplePointArray[i];
 			break;
@@ -446,32 +448,4 @@ void PlayerController::grappleDrawLaserLine()
 		D3DXVECTOR2 lineVertices[] = { D3DXVECTOR2(grappleGunPos.x, grappleGunPos.y), D3DXVECTOR2(scalarX, scalarY) };
 		line->draw(lineVertices, 2, D3DCOLOR_XRGB(0, 255, 255)); //bright blue
 	}
-}
-
-
-RECT PlayerController::relativeRect(D3DXVECTOR3 position, RECT rect, D3DXVECTOR3 centerPoint)
-{
-	rect.right = position.x + rect.right - rect.left - centerPoint.x;
-	rect.left = position.x - centerPoint.x;
-	rect.bottom = position.y + rect.bottom - rect.top - centerPoint.y;
-	rect.top = position.y - centerPoint.y;
-
-	return rect;
-}
-
-bool PlayerController::checkMousePointCollision(RECT colliderRect)
-{
-	GameInput* gameInput = GameInput::getInstance();
-	
-	if (colliderRect.bottom < gameInput->mousePosition.y) return false;
-
-	if (colliderRect.top > gameInput->mousePosition.y) return false;
-
-	if (colliderRect.right < gameInput->mousePosition.x) return false;
-
-	if (colliderRect.left > gameInput->mousePosition.x) return false;
-
-	//std::cout << "Collide" << std::endl;
-
-	return true;
 }

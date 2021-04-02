@@ -90,6 +90,7 @@ void GameStateManager::update()
 	{
 		currentGameState->loadScene();
 		tempGameState = currentGameState;
+		std::cout << "Switch" << std::endl;
 	}
 	currentGameState->update();
 

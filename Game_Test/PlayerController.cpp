@@ -418,7 +418,7 @@ void PlayerController::switchWeapon()
 			player->currentWeapon = player->grappleGun;
 			weaponState = grappleGun;
 		}
-		else if (weaponState == grappleGun && aState == FreeFall)
+		else if (weaponState == grappleGun)
 		{
 			player->currentWeapon = player->blastCannon;
 			weaponState = blastCannon;

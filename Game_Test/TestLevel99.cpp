@@ -5,17 +5,15 @@ TestLevel99::TestLevel99()
 	std::cout << "TestLevel99 created" << std::endl;
 	GameGraphics* gameGraphics = GameGraphics::getInstance();
 	playerCon = PlayerController::getInstance();
-	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 0.0f, 0.0f));
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0,0,0);
 	playerCon->player->velocity = D3DXVECTOR3(0, 0.3, 0);
 	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
 
-	//direction = D3DXVECTOR3(sin(D3DXToRadian(90)), -cos(D3DXToRadian(90)), 0.0f);
 	sprite = NULL;
 	texture = NULL;
 
 	device = GameGraphics::getInstance()->d3dDevice;
-
 	D3DXCreateSprite(device, &sprite);
 	D3DXCreateTextureFromFileEx(device, BACKGROUND, D3DX_DEFAULT, D3DX_DEFAULT,
 		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
@@ -71,7 +69,16 @@ TestLevel99::~TestLevel99()
 		grapplePointArray[i] = NULL;
 	}
 
+	for (int i = 0; i < ammoObject.size(); i++)
+	{
+		delete ammoObject[i];
+		ammoObject[i] = NULL;
+	}
+
 	delete doorObject;
+	delete keyUI;
+	delete ammoUI;
+	delete key;
 }
 
 void TestLevel99::init()
@@ -91,7 +98,6 @@ void TestLevel99::fixedUpdate()
 {
 	
 	playerCon->Update(grapplePointArray);
-	CollisionManager* collision = new CollisionManager;
 	
 	if (playerCon->player->position.x < 0)
 		playerCon->player->position.x = 1;
@@ -244,6 +250,15 @@ void TestLevel99::fixedUpdate()
 			//}
 		}
 	}
+	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect))
+	{
+		GameStateManager::getInstance()->changeGameState(7);
+	}
+
+	if (ammoUI->ammoAmount < 0)
+	{
+		GameStateManager::getInstance()->changeGameState(7);
+	}
 		
 }
 
@@ -254,28 +269,36 @@ void TestLevel99::draw()
 	sprite->End();
 
 	for (int i = 0; i < grassObject.size(); i++) {
-		grassObject[i]->Render();
+		grassObject[i]->Draw();
 	}
 	
 	for (int i = 0; i < brickObject.size(); i++) {
-		brickObject[i]->Render();
+		brickObject[i]->Draw();
 	}
 
 	for (int i = 0; i < lavaObject.size(); i++) {
-		lavaObject[i]->Render();
+		lavaObject[i]->Draw();
 	}
 
 	for (int i = 0; i < trapObject.size(); i++) {
-		trapObject[i]->Render();
+		trapObject[i]->Draw();
 	}
 
-	for (int i = 0; i < grapplePointArray.size(); i++)
+	/*for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		grapplePointArray[i]->Draw();
+	}*/
+
+	for (int i = 0; i < ammoObject.size(); i++)
+	{
+		ammoObject[i]->Draw();
 	}
 
-	doorObject->Render();
+	doorObject->Draw();
+	keyUI->render();
+	ammoUI->render();
 	playerCon->Draw();
+	key->Draw();
 
 }
 
@@ -290,90 +313,98 @@ void TestLevel99::buildLevel()
 
 	for (int i = 0; i < 8; i++)
 	{
-		Grass* grass = new Grass(i * 32, 688, 0);
+		Grass* grass = new Grass(16 + i * 32, 704, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		grass = new Grass(512 + i * 32, 688, 0);
+		grass = new Grass(528 + i * 32, 704, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		grass = new Grass(1024 + i * 32, 688, 0);
+		grass = new Grass(1040 + i * 32, 704, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		grass = new Grass(i * 32, 144, 0);
+		grass = new Grass(16 + i * 32, 160, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		Brick* brick = new Brick(256 + i * 32, 176, 0);
+		Brick* brick = new Brick(272 + i * 32, 192, 0);
 		brick->Initialize(gameGraphics->d3dDevice);
 		brickObject.push_back(brick);
 
-		Trap* trap = new Trap(i * 32, 176, 0);
+		Trap* trap = new Trap(16 + i * 32, 192, 0);
 		trap->Initialize(gameGraphics->d3dDevice);
 		trapObject.push_back(trap);
 
-		trap = new Trap(256 + i * 32, 64, 0);
+		trap = new Trap(272 + i * 32, 80, 0);
 		trap->Initialize(gameGraphics->d3dDevice);
 		trapObject.push_back(trap);
 
 		for (int j = 0; j < 2; j++)
 		{
-			Brick* brick = new Brick(256 + i * 32, j * 32, 0);
+			Brick* brick = new Brick(272 + i * 32, 16 + j * 32, 0);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
 		}
 
 
-		Lava* lava = new Lava(256 + i * 32, 688, 0);
+		Lava* lava = new Lava(272 + i * 32, 704, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		lava = new Lava(256 + i * 32, 144, 0);
+		lava = new Lava(272 + i * 32, 160, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		lava = new Lava(768 + i * 32, 688, 0);
+		lava = new Lava(784 + i * 32, 704, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 	}
 
 	for (int i = 0; i < 4; i++)
 	{
-		Grass* grass = new Grass(640 + i * 32, 400, 0);
+		Grass* grass = new Grass(656 + i * 32, 416, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		grass = new Grass(896 + i * 32, 112, 0);
+		grass = new Grass(912 + i * 32, 128, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		Lava* lava = new Lava(768 + i * 32, 496, 0);
+		Lava* lava = new Lava(784 + i * 32, 512, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		lava = new Lava(1024 + i * 32, 496, 0);
+		lava = new Lava(1024 + 16 + i * 32, 496 + 16, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
+
+		Ammo* ammo = new Ammo(D3DXVECTOR3(80 + i*96, 448.0f, 0.0f));
+		ammo->Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
+
+		ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96, 0.0f));
+		ammo->Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
 
 		for (int j = 0; j < 10; j++)
 		{
-			Brick* brick = new Brick(640 + i * 32, j * 32, 0);
+			Brick* brick = new Brick(640 + 16 + i * 32, j * 32 + 16, 0);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
 		}
 
 		for (int j = 0; j < 12; j++)
 		{
-			Brick* brick = new Brick(896 + i * 32, 144 + j * 32, 0);
+			Brick* brick = new Brick(896 + 16 + i * 32, 144 + 16 + j * 32, 0);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
 		}
 
 		for (int k = 0; k < 3; k++)
 		{
-			Brick* brick = new Brick(640 + i * 32, 432 + k * 32, 0);
+			Brick* brick = new Brick(640 + 16 + i * 32, 432 + 16 + k * 32, 0);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
 		}
@@ -381,29 +412,29 @@ void TestLevel99::buildLevel()
 
 	for (int i = 0; i < 37; i++)
 	{
-		Brick* brick = new Brick(i * 32, 528, 0);
+		Brick* brick = new Brick(i * 32 + 16, 528 + 16, 0);
 		brick->Initialize(gameGraphics->d3dDevice);
 		brickObject.push_back(brick);
 	}
 
 	for (int i = 0; i < 20; i++)
 	{
-		Lava* lava = new Lava(i * 32, 496, 0);
+		Lava* lava = new Lava(i * 32 + 16, 496 + 16, 0);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		Brick* brick = new Brick(128 + i * 32, 320, 0);
+		Brick* brick = new Brick(128 + 16 + i * 32, 320 + 16, 0);
 		brick->Initialize(gameGraphics->d3dDevice);
 		brickObject.push_back(brick);
 	}
 
 	for (int i = 0; i < 16; i++)
 	{
-		Grass* grass = new Grass(128 + i * 32, 288, 0);
+		Grass* grass = new Grass(128 + 16 + i * 32, 288 + 16, 0);
 		grass->Initialize(gameGraphics->d3dDevice);
 		grassObject.push_back(grass);
 
-		Trap* trap = new Trap(768 + i * 32, 0, 0);
+		Trap* trap = new Trap(768 + 16 + i * 32, 0 + 16, 0);
 		trap->Initialize(gameGraphics->d3dDevice);
 		trapObject.push_back(trap);
 	}
@@ -415,12 +446,21 @@ void TestLevel99::buildLevel()
 		grapplePointArray.push_back(gp);
 	}
 
-	Grass* grass = new Grass(1152, 496, 0);
+	Grass* grass = new Grass(1152 + 16, 496 + 16, 0);
 	grass->Initialize(gameGraphics->d3dDevice);
 	grassObject.push_back(grass);
 
-	doorObject = new Door(20, 80, 0);
+	doorObject = new Door(50 + 16, 80 + 16, 0);
 	doorObject->Initialize(gameGraphics->d3dDevice);
 
+	key = new Key();
+	key->setPosition(D3DXVECTOR3(832, 448, 0));
+	key->Initialize(gameGraphics->d3dDevice);
+
+	keyUI = new KeyUI(D3DXVECTOR3(128.0f, 16.0f, 0.0f));
+	keyUI->Initialize(gameGraphics->d3dDevice);
+
+	ammoUI = new AmmoUI(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
+	ammoUI->Initialize(gameGraphics->d3dDevice);
 }
 

@@ -2,6 +2,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <iostream>
+#include <string>
 
 //typedef GameObject * GAMEOBJECT;
 
@@ -19,6 +20,8 @@ protected:
 	D3DXVECTOR3 size;
 	D3DXMATRIX mat;
 	RECT bounding_box;
+	LPD3DXFONT font;
+	RECT textRect;
 
 	bool animationLoop;
 	int currentFrame;

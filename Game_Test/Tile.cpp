@@ -2,216 +2,168 @@
 
 Brick::Brick(float x, float y, float z)
 {
-	std::cout << "Bricks created" << std::endl;
+	texture = NULL;
+	sprite = NULL;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = 32;
-	spriteRect.right = 32;
-	size = D3DXVECTOR3(32.0f ,32.0f ,0);
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
+
 }
 
 void Brick::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
-
-	D3DXCreateTextureFromFileEx(device, BRICK, D3DX_DEFAULT, D3DX_DEFAULT,
-		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
-		NULL, NULL, &texture);
+	D3DXCreateTextureFromFile(device, BRICK, &texture);
 }
 
 Brick::~Brick()
 {
 }
 
-//void Brick::setPosition(float x, float y, float z)
-//{
-//	this->position.x = x;
-//	this->position.y = y;
-//	this->position.z = z;
-//}
-
-void Brick::Render()
-{
-	D3DXVECTOR3 p = position;
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(texture, &spriteRect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
-	sprite->End();
-}
-
 Lava::Lava(float x, float y, float z)
 {
-	std::cout << "Lava created" << std::endl;
+	texture = NULL;
+	sprite = NULL;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = 32;
-	spriteRect.right = 32;
-	size = D3DXVECTOR3(32.0f, 32.0f, 0);
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
 }
 
 void Lava::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
-
-	D3DXCreateTextureFromFileEx(device, LAVA, D3DX_DEFAULT, D3DX_DEFAULT,
-		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
-		NULL, NULL, &texture);
+	D3DXCreateTextureFromFile(device, LAVA, &texture);
 }
 
 Lava::~Lava()
 {
 }
 
-//void Lava::setPosition(float x, float y, float z)
-//{
-//	this->position.x = x;
-//	this->position.y = y;
-//	this->position.z = z;
-//}
-
-void Lava::Render()
-{
-	D3DXVECTOR3 p = position;
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(texture, &spriteRect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
-	sprite->End();
-}
-
 Grass::Grass(float x, float y, float z)
 {
-	std::cout << "Grass created" << std::endl;
+	texture = NULL;
+	sprite = NULL;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = 32;
-	spriteRect.right = 32;
-	size = D3DXVECTOR3(32.0f, 32.0f, 0);
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
 }
 
 void Grass::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
-
-	D3DXCreateTextureFromFileEx(device, GRASS, D3DX_DEFAULT, D3DX_DEFAULT,
-		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
-		NULL, NULL, &texture);
+	D3DXCreateTextureFromFile(device, GRASS, &texture);
 }
 
 Grass::~Grass()
 {
 }
 
-//void Grass::setPosition(float x, float y, float z)
-//{
-//	this->position.x = x;
-//	this->position.y = y;
-//	this->position.z = z;
-//}
-
-void Grass::Render()
-{
-	D3DXVECTOR3 p = position;
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(texture, &spriteRect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
-	sprite->End();
-}
-
 Door::Door(float x, float y, float z)
 {
-	std::cout << "Door created" << std::endl;
+	texture = NULL;
+	sprite = NULL;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(64.0f, 64.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = 64;
-	spriteRect.right = 64;
-	size = D3DXVECTOR3(64.0f, 64.0f, 0);
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
 }
 
 void Door::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
-
-	D3DXCreateTextureFromFileEx(device, WINDOW, D3DX_DEFAULT, D3DX_DEFAULT,
-		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
-		NULL, NULL, &texture);
+	D3DXCreateTextureFromFile(device, WINDOW, &texture);
 }
 
 Door::~Door()
 {
 }
 
-//void Window::setPosition(float x, float y, float z)
-//{
-//	this->position.x = x;
-//	this->position.y = y;
-//	this->position.z = z;
-//}
-
-void Door::Render()
-{
-	D3DXVECTOR3 p = position;
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(texture, &spriteRect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
-	sprite->End();
-}
-
 Trap::Trap(float x, float y, float z)
 {
-	std::cout << "Trap created" << std::endl;
+	texture = NULL;
+	sprite = NULL;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
 	this->position.x = x;
 	this->position.y = y;
 	this->position.z = z;
+
 	spriteRect.top = 0;
 	spriteRect.left = 0;
-	spriteRect.bottom = 32;
-	spriteRect.right = 32;
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
+
 	bounding_box.top = 0;
 	bounding_box.left = 0;
-	bounding_box.bottom = 32/2;
-	bounding_box.right = 32;
-	size = D3DXVECTOR3(32.0f, 16.0f, 0);
+	bounding_box.bottom = (bounding_box.top + size.y)/2;
+	bounding_box.right = bounding_box.left + size.x;
 }
 
 void Trap::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
-
-	D3DXCreateTextureFromFileEx(device, TRAP, D3DX_DEFAULT, D3DX_DEFAULT,
-		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
-		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
-		NULL, NULL, &texture);
+	D3DXCreateTextureFromFile(device, TRAP, &texture);
 }
 
 Trap::~Trap()
 {
-}
-
-//void Window::setPosition(float x, float y, float z)
-//{
-//	this->position.x = x;
-//	this->position.y = y;
-//	this->position.z = z;
-//}
-
-void Trap::Render()
-{
-	D3DXVECTOR3 p = position;
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	sprite->Draw(texture, &spriteRect, NULL, &p, D3DCOLOR_XRGB(255, 255, 255));
-	sprite->End();
 }
 
 Platform::Platform()

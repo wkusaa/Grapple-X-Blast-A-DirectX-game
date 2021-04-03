@@ -2,8 +2,7 @@
 
 TestLevel99::TestLevel99()
 {
-	std::cout << "TestLevel99 created" << std::endl;
-	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	/*GameGraphics* gameGraphics = GameGraphics::getInstance();
 	playerCon = PlayerController::getInstance();
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0,0,0);
@@ -25,7 +24,7 @@ TestLevel99::TestLevel99()
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
 
-	buildLevel();
+	buildLevel();*/
 }
 
 TestLevel99::~TestLevel99()
@@ -88,6 +87,29 @@ TestLevel99::~TestLevel99()
 
 void TestLevel99::init()
 {
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	playerCon = PlayerController::getInstance();
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
+	playerCon->player->direction = D3DXVECTOR3(0, 0, 0);
+	playerCon->player->velocity = D3DXVECTOR3(0, 0.3, 0);
+	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
+
+	sprite = NULL;
+	texture = NULL;
+
+	device = GameGraphics::getInstance()->d3dDevice;
+	D3DXCreateSprite(device, &sprite);
+	D3DXCreateTextureFromFileEx(device, BACKGROUND, D3DX_DEFAULT, D3DX_DEFAULT,
+		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
+		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
+		NULL, NULL, &texture);
+
+	rect_bg.left = 0;
+	rect_bg.top = 0;
+	rect_bg.right = 1280;
+	rect_bg.bottom = 720;
+
+	buildLevel();
 	
 }
 
@@ -102,6 +124,16 @@ void TestLevel99::fixedUpdate()
 	AmmoUI* ammoUI = AmmoUI::getInstance();
 	playerCon->Update(grapplePointArray);
 	
+	for (int i = 0; i < keyObject.size(); i++)
+	{
+		keyObject[i]->Update();
+	}
+
+	for (int i = 0; i < ammoObject.size(); i++)
+	{
+		ammoObject[i]->Update();
+	}
+
 	if (playerCon->player->position.x < 0)
 		playerCon->player->position.x = 1;
 
@@ -253,16 +285,16 @@ void TestLevel99::fixedUpdate()
 			//}
 		}
 	}
-	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect))
+	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect) && keyUI->keyAmount >= 1)
 	{
-		GameStateManager::getInstance()->changeGameState(7);
+		GameStateManager::getInstance()->changeGameState(8);
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), ammoObject[i]->position, ammoObject[i]->spriteRect))
 		{
-			ammoUI->ammoAmount += 10;
+			ammoUI->ammoAmount += 20;
 			ammoObject.erase(ammoObject.begin()+i);
 		}
 	}
@@ -281,7 +313,7 @@ void TestLevel99::fixedUpdate()
 		GameStateManager::getInstance()->changeGameState(7);
 		ammoUI->ammoAmount = 30;
 	}
-		
+
 }
 
 void TestLevel99::draw()
@@ -330,7 +362,7 @@ void TestLevel99::draw()
 
 void TestLevel99::release()
 {
-
+	
 }
 
 void TestLevel99::buildLevel()
@@ -491,4 +523,5 @@ void TestLevel99::buildLevel()
 	ammoUI->setPosition(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
 	ammoUI->Initialize(gameGraphics->d3dDevice);
 }
+
 

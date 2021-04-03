@@ -10,6 +10,7 @@
 #include "TestLevel99.h"
 #include "GameOverScene.h"
 #include "StartScene.h"
+#include "VictoryScene.h"
 #include "Crosshair.h"
 #include <vector>
 #include <iostream>
@@ -38,6 +39,6 @@ public:
 	GameState* currentGameState;
 	GameState* tempGameState;
 	std::vector<GameState*> gameLevels;
-	void changeGameState(int index);
+	void changeGameState(int nextLevel);
 
 };

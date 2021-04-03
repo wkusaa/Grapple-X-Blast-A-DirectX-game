@@ -1,6 +1,6 @@
-#include "GameOverScene.h"
+#include "VictoryScene.h"
 
-GameOverScene::GameOverScene()
+VictoryScene::VictoryScene()
 {
 	sprite = NULL;
 	texture = NULL;
@@ -8,7 +8,7 @@ GameOverScene::GameOverScene()
 	device = GameGraphics::getInstance()->d3dDevice;
 
 	D3DXCreateSprite(device, &sprite);
-	D3DXCreateTextureFromFileEx(device, GAMEOVER, D3DX_DEFAULT, D3DX_DEFAULT,
+	D3DXCreateTextureFromFileEx(device, VICTORY, D3DX_DEFAULT, D3DX_DEFAULT,
 		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
 		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
 		NULL, NULL, &texture);
@@ -19,33 +19,29 @@ GameOverScene::GameOverScene()
 	rect_bg.bottom = 720;
 }
 
-GameOverScene::~GameOverScene()
+VictoryScene::~VictoryScene()
 {
 }
 
-void GameOverScene::init()
+void VictoryScene::init()
 {
 }
 
-void GameOverScene::update()
+void VictoryScene::update()
 {
 }
 
-void GameOverScene::fixedUpdate()
+void VictoryScene::fixedUpdate()
 {
-	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
-	{
-		GameStateManager::getInstance()->changeGameState(6);
-	}
 }
 
-void GameOverScene::draw()
+void VictoryScene::draw()
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	sprite->Draw(texture, &rect_bg, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	sprite->End();
 }
 
-void GameOverScene::release()
+void VictoryScene::release()
 {
 }

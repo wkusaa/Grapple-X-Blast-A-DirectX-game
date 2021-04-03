@@ -13,6 +13,7 @@ GameStateManager::GameStateManager()
 	TestLevel99* testLevel99 = new TestLevel99;
 	StartScene* startScene = new StartScene;
 	GameOverScene* gameOver = new GameOverScene;
+	VictoryScene* victory = new VictoryScene;
 	level1->init();
 	testLevel->init();
 	testLevel2->init();
@@ -21,6 +22,7 @@ GameStateManager::GameStateManager()
 	testLevel99->init();
 	startScene->init();
 	gameOver->init();
+	victory->init();
 	gameLevels.push_back(level1);
 	gameLevels.push_back(testLevel);
 	gameLevels.push_back(testLevel2);
@@ -29,6 +31,7 @@ GameStateManager::GameStateManager()
 	gameLevels.push_back(testLevel99);
 	gameLevels.push_back(startScene);
 	gameLevels.push_back(gameOver);
+	gameLevels.push_back(victory);
 
 	currentGameState = gameLevels[6];
 	tempGameState = currentGameState;

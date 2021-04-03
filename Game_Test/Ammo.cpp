@@ -68,6 +68,21 @@ void Ammo::Initialize(LPDIRECT3DDEVICE9 device)
 
 void Ammo::Update()
 {
+	animationTimer += 1 / 60.0f;
+	if (animationTimer >= animationRate)
+	{
+		animationTimer -= animationRate;
+		currentFrame++;
+		if (animationLoop)
+		{
+			currentFrame %= animationCount;
+		}
+	}
+
+	spriteRect.top = size.y * animationRow;
+	spriteRect.left = size.x * currentFrame;
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
 	
 }
 

@@ -71,11 +71,9 @@ void Ammo::Update()
 	
 }
 
-AmmoUI::AmmoUI()
-{
-}
+AmmoUI* AmmoUI::instance = 0;
 
-AmmoUI::AmmoUI(D3DXVECTOR3 position)
+AmmoUI::AmmoUI()
 {
 	texture = NULL;
 	sprite = NULL;
@@ -93,10 +91,29 @@ AmmoUI::AmmoUI(D3DXVECTOR3 position)
 	spriteRect.right = spriteRect.left + size.x;
 }
 
+AmmoUI::AmmoUI(D3DXVECTOR3 position)
+{
+
+}
+
 AmmoUI::~AmmoUI()
 {
 	font->Release();
 	font = NULL;
+	if (instance)
+	{
+		delete instance;
+	}
+}
+
+AmmoUI * AmmoUI::getInstance()
+{
+	if (!instance)
+	{
+		instance = new AmmoUI;
+	}
+
+	return instance;
 }
 
 void AmmoUI::Initialize(LPDIRECT3DDEVICE9 device)

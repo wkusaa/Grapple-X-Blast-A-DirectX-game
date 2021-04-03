@@ -343,7 +343,7 @@ void PlayerController::action()
 			player->isMoving = true;
 			aState = BlastOff;
 			blastOff();
-			
+			AmmoUI::getInstance()->ammoAmount -= 1;
 		}
 		else if (weaponState == grappleGun)
 		{

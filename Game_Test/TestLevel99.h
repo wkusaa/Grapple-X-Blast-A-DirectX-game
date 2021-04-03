@@ -28,10 +28,9 @@ private:
 	std::vector<Lava*> lavaObject;
 	std::vector<Trap*> trapObject;
 	std::vector<Ammo*> ammoObject;
+	std::vector<Key*> keyObject;
 	Door* doorObject;
-	Key* key;
 	KeyUI* keyUI;
-	AmmoUI* ammoUI;
 	CollisionManager* collision;
 	bool isMoving;
 	

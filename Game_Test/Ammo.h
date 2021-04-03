@@ -19,12 +19,12 @@ public:
 class AmmoUI : public GameObject
 {
 private:
-
+	static AmmoUI* instance;
 public:
 	AmmoUI();
 	AmmoUI(D3DXVECTOR3 position);
 	~AmmoUI();
-
+	static AmmoUI* getInstance();
 	int ammoAmount;
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Update();

@@ -364,7 +364,7 @@ void PlayerController::action()
 			case Hook:
 				aState = Swinging;
 				player->isMoving = true;
-				player->position.y += 1;
+				player->position.y -= 20;
 				break;
 			case Swinging:
 				aState = Release;

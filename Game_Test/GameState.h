@@ -5,8 +5,9 @@
 class GameState
 {
 private:
-
+	
 public:
+	static GameState* currentScene;
 	virtual ~GameState();
 	virtual void init() = 0;
 	virtual void update() = 0;

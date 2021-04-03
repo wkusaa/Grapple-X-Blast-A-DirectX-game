@@ -2,8 +2,7 @@
 
 TestLevel99::TestLevel99()
 {
-	std::cout << "TestLevel99 created" << std::endl;
-	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	/*GameGraphics* gameGraphics = GameGraphics::getInstance();
 	playerCon = PlayerController::getInstance();
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0,0,0);
@@ -25,7 +24,7 @@ TestLevel99::TestLevel99()
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
 
-	buildLevel();
+	buildLevel();*/
 }
 
 TestLevel99::~TestLevel99()
@@ -75,14 +74,42 @@ TestLevel99::~TestLevel99()
 		ammoObject[i] = NULL;
 	}
 
+	for (int i = 0; i < keyObject.size(); i++)
+	{
+		delete keyObject[i];
+		keyObject[i] = NULL;
+	}
+
 	delete doorObject;
 	delete keyUI;
-	delete ammoUI;
-	delete key;
+	
 }
 
 void TestLevel99::init()
 {
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	playerCon = PlayerController::getInstance();
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
+	playerCon->player->direction = D3DXVECTOR3(0, 0, 0);
+	playerCon->player->velocity = D3DXVECTOR3(0, 0.3, 0);
+	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
+
+	sprite = NULL;
+	texture = NULL;
+
+	device = GameGraphics::getInstance()->d3dDevice;
+	D3DXCreateSprite(device, &sprite);
+	D3DXCreateTextureFromFileEx(device, BACKGROUND, D3DX_DEFAULT, D3DX_DEFAULT,
+		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
+		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
+		NULL, NULL, &texture);
+
+	rect_bg.left = 0;
+	rect_bg.top = 0;
+	rect_bg.right = 1280;
+	rect_bg.bottom = 720;
+
+	buildLevel();
 	
 }
 
@@ -90,15 +117,23 @@ void TestLevel99::update()
 {
 	float mouseX = GameInput::getInstance()->mousePosition.x;
 	float mouseY = GameInput::getInstance()->mousePosition.y;
-	
-	//std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel99::fixedUpdate()
 {
-	
+	AmmoUI* ammoUI = AmmoUI::getInstance();
 	playerCon->Update(grapplePointArray);
 	
+	for (int i = 0; i < keyObject.size(); i++)
+	{
+		keyObject[i]->Update();
+	}
+
+	for (int i = 0; i < ammoObject.size(); i++)
+	{
+		ammoObject[i]->Update();
+	}
+
 	if (playerCon->player->position.x < 0)
 		playerCon->player->position.x = 1;
 
@@ -250,16 +285,35 @@ void TestLevel99::fixedUpdate()
 			//}
 		}
 	}
-	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect))
+	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect) && keyUI->keyAmount >= 1)
 	{
-		GameStateManager::getInstance()->changeGameState(7);
+		GameStateManager::getInstance()->changeGameState(8);
+	}
+
+	for (int i = 0; i < ammoObject.size(); i++)
+	{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), ammoObject[i]->position, ammoObject[i]->spriteRect))
+		{
+			ammoUI->ammoAmount += 20;
+			ammoObject.erase(ammoObject.begin()+i);
+		}
+	}
+
+	for (int i = 0; i < keyObject.size(); i++)
+	{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), keyObject[i]->position, keyObject[i]->spriteRect))
+		{
+			keyUI->keyAmount += 1;
+			keyObject.erase(keyObject.begin()+i);
+		}
 	}
 
 	if (ammoUI->ammoAmount < 0)
 	{
 		GameStateManager::getInstance()->changeGameState(7);
+		ammoUI->ammoAmount = 30;
 	}
-		
+
 }
 
 void TestLevel99::draw()
@@ -294,17 +348,21 @@ void TestLevel99::draw()
 		ammoObject[i]->Draw();
 	}
 
+	for (int i = 0; i < keyObject.size(); i++)
+	{
+		keyObject[i]->Draw();
+	}
+
 	doorObject->Draw();
 	keyUI->render();
-	ammoUI->render();
+	AmmoUI::getInstance()->render();
 	playerCon->Draw();
-	key->Draw();
-
+	
 }
 
 void TestLevel99::release()
 {
-
+	
 }
 
 void TestLevel99::buildLevel()
@@ -453,14 +511,17 @@ void TestLevel99::buildLevel()
 	doorObject = new Door(50 + 16, 80 + 16, 0);
 	doorObject->Initialize(gameGraphics->d3dDevice);
 
-	key = new Key();
+	Key* key = new Key();
 	key->setPosition(D3DXVECTOR3(832, 448, 0));
 	key->Initialize(gameGraphics->d3dDevice);
+	keyObject.push_back(key);
 
 	keyUI = new KeyUI(D3DXVECTOR3(128.0f, 16.0f, 0.0f));
 	keyUI->Initialize(gameGraphics->d3dDevice);
 
-	ammoUI = new AmmoUI(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
+	AmmoUI* ammoUI = AmmoUI::getInstance();
+	ammoUI->setPosition(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
 	ammoUI->Initialize(gameGraphics->d3dDevice);
 }
+
 

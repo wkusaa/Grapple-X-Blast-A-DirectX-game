@@ -4,6 +4,7 @@
 #include "DXLine.h"
 #include "Explosion.h"
 #include "CollisionManager.h"
+#include "Ammo.h"
 #include <vector>
 class PlayerController
 {

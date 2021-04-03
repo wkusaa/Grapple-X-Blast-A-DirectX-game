@@ -61,11 +61,6 @@ public:
 	void releaseSwing();
 	void switchWeapon();
 	void grappleDrawLaserLine();
-
-	RECT relativeRect(D3DXVECTOR3 position, RECT rect, D3DXVECTOR3 centerPoint);
-
-	bool checkMousePointCollision(RECT colliderRect);
-
 	void animationController();
 
 };

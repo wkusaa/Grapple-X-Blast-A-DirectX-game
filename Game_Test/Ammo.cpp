@@ -44,7 +44,7 @@ Ammo::Ammo(D3DXVECTOR3 position)
 	animationCount = 8;
 	animationCountCol = 2;
 	animationTimer = 0;
-	animationRate = 0.5f / animationCount * animationCountCol;
+	animationRate = 0.5f / animationCount*animationCountCol;
 	currentFrame = 0;
 	animationRow = 0;
 	animationLoop = true;
@@ -139,7 +139,7 @@ AmmoUI::~AmmoUI()
 	}
 }
 
-AmmoUI* AmmoUI::getInstance()
+AmmoUI * AmmoUI::getInstance()
 {
 	if (!instance)
 	{

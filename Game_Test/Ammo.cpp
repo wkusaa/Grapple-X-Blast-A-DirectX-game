@@ -44,7 +44,7 @@ Ammo::Ammo(D3DXVECTOR3 position)
 	animationCount = 8;
 	animationCountCol = 2;
 	animationTimer = 0;
-	animationRate = 0.5f / animationCount*animationCountCol;
+	animationRate = 0.5f / animationCount * animationCountCol;
 	currentFrame = 0;
 	animationRow = 0;
 	animationLoop = true;
@@ -90,8 +90,24 @@ void Ammo::Update()
 	spriteRect.right = spriteRect.left + size.x;
 }
 
+AmmoUI* AmmoUI::instance = 0;
+
 AmmoUI::AmmoUI()
 {
+	texture = NULL;
+	sprite = NULL;
+	font = NULL;
+	ammoAmount = 30;
+
+	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
+	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
+	this->position = position;
+
+	spriteRect.top = 0;
+	spriteRect.left = 0;
+	spriteRect.bottom = spriteRect.top + size.y;
+	spriteRect.right = spriteRect.left + size.x;
 }
 
 AmmoUI::AmmoUI(D3DXVECTOR3 position)
@@ -116,6 +132,21 @@ AmmoUI::~AmmoUI()
 {
 	font->Release();
 	font = NULL;
+
+	if (instance)
+	{
+		delete instance;
+	}
+}
+
+AmmoUI* AmmoUI::getInstance()
+{
+	if (!instance)
+	{
+		instance = new AmmoUI;
+	}
+
+	return instance;
 }
 
 void AmmoUI::Initialize(LPDIRECT3DDEVICE9 device)

@@ -209,10 +209,15 @@ void PlayerController::Initialize()
 
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
-	if (player->velocity.y > 0 && aState != Hook && aState != Swinging)
+	if (player->velocity.y > 0 && aState != Hook && aState != Swinging && aState != Release)
 	{
 		aState = FreeFall;
 	}
+	else if (player->velocity.x == 0 && player->velocity.y == 0 && aState != Hook && aState != Swinging && aState != Release)
+	{
+		aState = Idle;
+	}
+
 	if (player->velocity.x > 0)
 	{
 		player->scaling.x = abs(player->scaling.x);
@@ -233,22 +238,17 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	}
 
+	std::cout << aState << std::endl;
+
+
 	action();
 	animationController();
-
-	if (player->velocity.x == 0 && player->velocity.y == 0)
-	{
-		aState = Idle;
-	}
 
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		//player->velocity = player->direction * magnitude;
 		player->direction += gravity;
 		player->velocity += gravity;
-		//player->position += player->velocity;
-
 	}
 	else if (aState == Swinging)
 	{
@@ -265,11 +265,11 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 		if (swingOppositeDirection)
 		{
-			angleDegree += 1;
+			angleDegree += 2;
 		}
 		else
 		{
-			angleDegree -= 1;
+			angleDegree -= 2;
 		}
 
 		float angle = D3DXToRadian(angleDegree);
@@ -349,10 +349,12 @@ void PlayerController::action()
 		{
 			switch (aState)
 			{
+			case Idle:
 			case FreeFall:
 				if (onHook != NULL)
 				{
 					aState = Hook;
+					
 				}
 				else
 				{
@@ -361,6 +363,8 @@ void PlayerController::action()
 				break;
 			case Hook:
 				aState = Swinging;
+				player->isMoving = true;
+				player->position.y += 1;
 				break;
 			case Swinging:
 				aState = Release;
@@ -380,10 +384,8 @@ void PlayerController::blastOff()
 {
 	float blastOffAngle = player->getBlastOffAngle();
 	player->direction = D3DXVECTOR3(sin(blastOffAngle), -cos(blastOffAngle), 0.0f);
-	std::cout << explosion->getCurrentFrame() << std::endl;
 	explosion->setCurrentFrame(0);//reset
 	explosion->setAnimationRow(0);
-	std::cout << explosion->getCurrentFrame() << std::endl;
 }
 
 void PlayerController::hook(std::vector<GrapplingPoint*> grapplePointArray)

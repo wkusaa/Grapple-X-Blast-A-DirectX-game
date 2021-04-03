@@ -82,6 +82,8 @@ TestLevel99::~TestLevel99()
 
 	delete doorObject;
 	delete keyUI;
+
+
 	
 }
 

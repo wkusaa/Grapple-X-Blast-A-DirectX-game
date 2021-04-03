@@ -128,7 +128,7 @@ void TestLevel4::fixedUpdate()
 	key1->Update();
 	gate->Update();
 
-	std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
+	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 }
 
 void TestLevel4::draw()

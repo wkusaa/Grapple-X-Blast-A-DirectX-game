@@ -24,7 +24,7 @@ TestLevel99::TestLevel99()
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
 	
-	playerCon->player->setAmmoAmount(2);
+	playerCon->player->setAmmoAmount(200);
 	buildLevel();
 }
 

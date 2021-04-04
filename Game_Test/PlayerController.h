@@ -15,7 +15,7 @@ private:
 	GrapplingPoint* onHook;
 	Explosion* explosion;
 	CollisionManager collision;
-
+	
 	float angleDegree;
 	bool isSwitched;
 	bool swingOppositeDirection;
@@ -49,7 +49,7 @@ public:
 
 	Player* player;
 	static PlayerController* getInstance();
-
+	
 	void Initialize();
 	void Update(std::vector<GrapplingPoint*> grapplePointArray);
 	void Draw();

@@ -48,6 +48,8 @@ Player::Player()
 	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
 
 	isMoving = true;
+	ammoAmount = 10;
+	keyAmount = 0;
 }
 
 Player::~Player()
@@ -73,7 +75,6 @@ void Player::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
 	D3DXCreateTextureFromFile(device, PLAYER_SPRITE, &texture);
-
 }
 
 void Player::Update()

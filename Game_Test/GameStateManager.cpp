@@ -61,6 +61,7 @@ GameStateManager::~GameStateManager()
 	delete gTimer;
 	gTimer = NULL;
 	playerController->ReleaseInstance();
+
 }
 
 GameStateManager* GameStateManager::getInstance()
@@ -92,7 +93,7 @@ void GameStateManager::update()
 
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_F))
 	{
-		currentGameState = gameLevels[5];
+		currentGameState = gameLevels[7];
 	}
 
 	if (currentGameState != tempGameState)

@@ -14,7 +14,6 @@ PlayerController::PlayerController()
 	explosion = new Explosion;
 	explosion->setPosition(player->blastCannon->position);
 	
-
 	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
 
 	player->currentWeapon = player->blastCannon;
@@ -101,6 +100,7 @@ PlayerController::~PlayerController()
 {
 	std::cout << "PlayerController destroyed" << std::endl;
 	player->ReleaseInstance();
+
 	delete line;
 	delete explosion;
 }
@@ -343,7 +343,7 @@ void PlayerController::action()
 			player->isMoving = true;
 			aState = BlastOff;
 			blastOff();
-			AmmoUI::getInstance()->ammoAmount -= 1;
+			player->updateAmmoAmount(-1);
 		}
 		else if (weaponState == grappleGun)
 		{

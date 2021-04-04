@@ -23,6 +23,11 @@ StartScene::StartScene()
 
 StartScene::~StartScene()
 {
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void StartScene::init()
@@ -37,7 +42,7 @@ void StartScene::fixedUpdate()
 {
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
 	{
-		GameStateManager::getInstance()->changeGameState(5);
+		GameStateManager::getInstance()->changeGameState(4);
 	}
 }
 

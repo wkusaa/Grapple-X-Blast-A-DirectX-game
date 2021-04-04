@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Player.h"
 #define AMMO "assets/collectibles/ammo_spritesheet.png"
 #define BULLETUI "assets/bulletUI.png"
 
@@ -19,14 +20,13 @@ public:
 class AmmoUI : public GameObject
 {
 private:
-	static AmmoUI* instance;
+	
 public:
 	AmmoUI();
 	AmmoUI(D3DXVECTOR3 position);
 	~AmmoUI();
-	static AmmoUI* getInstance();
-	int ammoAmount;
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Update();
 	void render();
+
 };

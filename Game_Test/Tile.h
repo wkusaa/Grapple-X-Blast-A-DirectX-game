@@ -21,7 +21,6 @@ public:
 	Brick(float x, float y, float z);
 	~Brick();
 	//void setPosition(float x, float y, float z);
-	void Render();
 	void Initialize(LPDIRECT3DDEVICE9 device);
 };
 

@@ -21,6 +21,11 @@ VictoryScene::VictoryScene()
 
 VictoryScene::~VictoryScene()
 {
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void VictoryScene::init()

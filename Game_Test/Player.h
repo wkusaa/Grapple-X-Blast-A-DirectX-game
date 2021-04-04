@@ -12,7 +12,9 @@ private:
 	float speed;
 	bool isSwitched;
 	D3DXVECTOR3 playerBbSize;
-	
+	int ammoAmount;
+	int keyAmount;
+
 	Player();
 	~Player();
 
@@ -30,5 +32,11 @@ public:
 	//void switchWeapon();
 	//void action();
 	bool isMoving;
+	void setAmmoAmount(int num) { this->ammoAmount = num; };
+	void updateAmmoAmount(int num) { this->ammoAmount += num; };
+	int getAmmoAmount() { return ammoAmount; };
+	void updateKeyAmount(int num) { this->keyAmount += num; };
+	int getKeyAmount() { return keyAmount; };
+	
 };
 

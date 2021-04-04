@@ -90,24 +90,9 @@ void Ammo::Update()
 	spriteRect.right = spriteRect.left + size.x;
 }
 
-AmmoUI* AmmoUI::instance = 0;
-
 AmmoUI::AmmoUI()
 {
-	texture = NULL;
-	sprite = NULL;
-	font = NULL;
-	ammoAmount = 30;
-
-	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
-	spriteCentre = D3DXVECTOR3(size.x / 2, size.y / 2, 0.0f);
-	this->position = position;
-
-	spriteRect.top = 0;
-	spriteRect.left = 0;
-	spriteRect.bottom = spriteRect.top + size.y;
-	spriteRect.right = spriteRect.left + size.x;
+	
 }
 
 AmmoUI::AmmoUI(D3DXVECTOR3 position)
@@ -115,7 +100,6 @@ AmmoUI::AmmoUI(D3DXVECTOR3 position)
 	texture = NULL;
 	sprite = NULL;
 	font = NULL;
-	ammoAmount = 30;
 
 	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
@@ -133,20 +117,11 @@ AmmoUI::~AmmoUI()
 	font->Release();
 	font = NULL;
 
-	if (instance)
-	{
-		delete instance;
-	}
-}
+	sprite->Release();
+	sprite = NULL;
 
-AmmoUI * AmmoUI::getInstance()
-{
-	if (!instance)
-	{
-		instance = new AmmoUI;
-	}
-
-	return instance;
+	texture->Release();
+	texture = NULL;
 }
 
 void AmmoUI::Initialize(LPDIRECT3DDEVICE9 device)
@@ -170,10 +145,11 @@ void AmmoUI::Update()
 
 void AmmoUI::render()
 {
-	std::string strAmmoAmount = std::to_string(ammoAmount);
+	std::string strAmmoAmount = std::to_string(Player::getInstance()->getAmmoAmount());
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	font->DrawText(sprite, strAmmoAmount.c_str(), -1, &textRect, DT_NOCLIP, D3DCOLOR_XRGB(65, 8, 252));
 	sprite->End();
 }
+

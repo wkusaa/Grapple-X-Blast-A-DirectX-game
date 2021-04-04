@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-GameState* GameState::currentScene = 0;
+//GameState* GameState::currentScene = 0;
 
 GameState::~GameState()
 {

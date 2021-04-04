@@ -21,6 +21,11 @@ GameOverScene::GameOverScene()
 
 GameOverScene::~GameOverScene()
 {
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void GameOverScene::init()
@@ -35,7 +40,7 @@ void GameOverScene::fixedUpdate()
 {
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
 	{
-		GameStateManager::getInstance()->changeGameState(6);
+		GameStateManager::getInstance()->changeGameState(5);
 	}
 }
 

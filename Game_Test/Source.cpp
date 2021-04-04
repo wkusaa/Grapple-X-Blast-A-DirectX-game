@@ -42,5 +42,6 @@ int main()
 	gWin->release();
 	gManager->release();
 
+	
 	return 0;
 }

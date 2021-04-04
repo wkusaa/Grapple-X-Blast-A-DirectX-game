@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+
 #include "GameState.h"
 #include "Player.h"
 #include "PlayerController.h"
@@ -31,15 +31,14 @@ private:
 	std::vector<Key*> keyObject;
 	Door* doorObject;
 	KeyUI* keyUI;
+	AmmoUI* ammoUI;
 	CollisionManager* collision;
-	bool isMoving;
 	
 public:
 	TestLevel99();
 	~TestLevel99();
 	
-	D3DXVECTOR3 gravity = D3DXVECTOR3(0.0f, 0.5f, 0.0f);
-	D3DXVECTOR3 direction = D3DXVECTOR3(4.0f, -2.0f, 0.0f);
+	D3DXVECTOR3 gravity;
 
 	void init();
 	void update();

@@ -62,7 +62,6 @@ KeyUI::KeyUI(D3DXVECTOR3 position)
 	texture = NULL;
 	sprite = NULL;
 	font = NULL;
-	keyAmount = 0;
 
 	scaling = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	size = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
@@ -79,6 +78,12 @@ KeyUI::~KeyUI()
 {
 	font->Release();
 	font = NULL;
+
+	sprite->Release();
+	sprite = NULL;
+
+	texture->Release();
+	texture = NULL;
 }
 
 void KeyUI::Initialize(LPDIRECT3DDEVICE9 device)
@@ -103,7 +108,7 @@ void KeyUI::Update()
 
 void KeyUI::render()
 {
-	std::string strKeyAmount = std::to_string(keyAmount);
+	std::string strKeyAmount = std::to_string(Player::getInstance()->getKeyAmount());
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));

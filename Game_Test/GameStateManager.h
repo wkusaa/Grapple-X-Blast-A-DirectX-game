@@ -39,6 +39,6 @@ public:
 	GameState* currentGameState;
 	GameState* tempGameState;
 	std::vector<GameState*> gameLevels;
-	void changeGameState(int nextLevel);
+	void changeGameState(int index);
 
 };

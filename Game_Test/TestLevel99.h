@@ -27,11 +27,13 @@ private:
 	std::vector<Grass*> grassObject;
 	std::vector<Lava*> lavaObject;
 	std::vector<Trap*> trapObject;
-	std::vector<Ammo*> ammoObject;
-	std::vector<Key*> keyObject;
+	std::vector<Ammo> ammoObject;
+	std::vector<Key> keyObject;
 	Door* doorObject;
 	KeyUI* keyUI;
 	AmmoUI* ammoUI;
+	Key key;
+	Ammo ammo;
 	CollisionManager* collision;
 	
 public:

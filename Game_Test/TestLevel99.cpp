@@ -66,7 +66,7 @@ TestLevel99::~TestLevel99()
 		grapplePointArray[i] = NULL;
 	}
 
-	for (int i = 0; i < ammoObject.size(); i++)
+	/*for (int i = 0; i < ammoObject.size(); i++)
 	{
 		delete ammoObject[i];
 		ammoObject[i] = NULL;
@@ -76,8 +76,8 @@ TestLevel99::~TestLevel99()
 	{
 		delete keyObject[i];
 		keyObject[i] = NULL;
-	}
-
+	}*/
+	
 	delete doorObject;
 	delete keyUI;
 	delete ammoUI;
@@ -103,12 +103,12 @@ void TestLevel99::fixedUpdate()
 	
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		keyObject[i]->Update();
+		keyObject[i].Update();
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		ammoObject[i]->Update();
+		ammoObject[i].Update();
 	}
 
 	if (playerCon->player->position.x < 0)
@@ -168,7 +168,7 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), ammoObject[i]->position, ammoObject[i]->spriteRect))
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), ammoObject[i].position, ammoObject[i].spriteRect))
 		{
 			playerCon->player->updateAmmoAmount(20);
 			ammoObject.erase(ammoObject.begin()+i);
@@ -177,8 +177,7 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), keyObject[i]->position, keyObject[i]->spriteRect))
-		{
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), keyObject[i].position, keyObject[i].spriteRect))		{
 			playerCon->player->updateKeyAmount(1);
 			keyObject.erase(keyObject.begin()+i);
 		}
@@ -221,12 +220,12 @@ void TestLevel99::draw()
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		ammoObject[i]->Draw();
+		ammoObject[i].Draw();
 	}
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		keyObject[i]->Draw();
+		keyObject[i].Draw();
 	}
 
 	doorObject->Draw();
@@ -312,12 +311,16 @@ void TestLevel99::buildLevel()
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		Ammo* ammo = new Ammo(D3DXVECTOR3(80.0f + i*96.0f, 448.0f, 0.0f));
-		ammo->Initialize(gameGraphics->d3dDevice);
+		//Ammo ammo = new Ammo(D3DXVECTOR3(80.0f + i*96.0f, 448.0f, 0.0f));
+		//ammo->Initialize(gameGraphics->d3dDevice);
+		ammo.setPosition(D3DXVECTOR3(80.0f + i * 96.0f, 448.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
 
-		ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
-		ammo->Initialize(gameGraphics->d3dDevice);
+		//ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
+		//ammo->Initialize(gameGraphics->d3dDevice);
+		ammo.setPosition(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
 
 		for (int j = 0; j < 10; j++)
@@ -385,9 +388,8 @@ void TestLevel99::buildLevel()
 	doorObject = new Door(50.0f + 16.0f, 80.0f + 16.0f, 0.0f);
 	doorObject->Initialize(gameGraphics->d3dDevice);
 
-	Key* key = new Key();
-	key->setPosition(D3DXVECTOR3(832.0f, 448.0f, 0.0f));
-	key->Initialize(gameGraphics->d3dDevice);
+	key.setPosition(D3DXVECTOR3(832.0f, 448.0f, 0.0f));
+	key.Initialize(gameGraphics->d3dDevice);
 	keyObject.push_back(key);
 
 	keyUI = new KeyUI(D3DXVECTOR3(128.0f, 16.0f, 0.0f));

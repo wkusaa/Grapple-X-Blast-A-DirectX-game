@@ -13,7 +13,7 @@ Ammo::Ammo()
 	mat = D3DMATRIX();
 
 
-	animationCount = 16;
+	animationCount = 8;
 	animationCountCol = 2;
 	animationTimer = 0;
 	animationRate = 1.0f / animationCount;

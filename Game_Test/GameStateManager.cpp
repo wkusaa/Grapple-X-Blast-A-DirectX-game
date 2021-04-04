@@ -33,7 +33,7 @@ GameStateManager::GameStateManager()
 	gameLevels.push_back(gameOver);
 	gameLevels.push_back(victory);
 
-	currentGameState = gameLevels[5];
+	currentGameState = gameLevels[4];
 	tempGameState = currentGameState;
 	currentGameState->loadScene();
 

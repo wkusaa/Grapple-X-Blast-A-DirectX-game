@@ -2,7 +2,7 @@
 #include "GameGraphics.h"
 #include "GameInput.h"
 #include "GameStateManager.h"
-#include <fmod.hpp>
+#include "GameSound.h"
 
 //ken edited
 //hello ken
@@ -25,19 +25,20 @@ int main()
 
 	GameStateManager* gManager = gManager->getInstance();
 
-	FMOD::System* system; //FMOD system object
-	FMOD::Channel* bgChannel;
-	FMOD::System_Create(&system); //Create FMOD system object
-	system->init(100, FMOD_INIT_NORMAL, 0); //Initialize FMOD system
+	GameSound::Initialize();
+	GameSound* myHero = new GameSound(1, "assets/sound/bgm/heroa.mp3", false);
+	//FMOD::System* system; //FMOD system object
+	//FMOD::Channel* bgChannel;
+	//FMOD::System_Create(&system); //Create FMOD system object
+	//system->init(100, FMOD_INIT_NORMAL, 0); //Initialize FMOD system
 
-	FMOD::Sound* bgMusic;
-	system->createStream("assets/sound/bgm/heroa.mp3", FMOD_DEFAULT, 0, &bgMusic);
-	bgMusic->setMode(FMOD_LOOP_NORMAL);
+	//FMOD::Sound* bgMusic;
+	//system->createStream("assets/sound/bgm/heroa.mp3", FMOD_DEFAULT, 0, &bgMusic);
+	//bgMusic->setMode(FMOD_LOOP_NORMAL);
+	//system->playSound(bgMusic, NULL, false, &bgChannel);
 
-	system->playSound(bgMusic, NULL, false, &bgChannel);
-
-
-
+	//bgChannel->setVolume(0.05);
+	myHero->play();
 
 	while (gWin->gameLoop())//it just works
 	{
@@ -46,7 +47,7 @@ int main()
 		gManager->update();
 		gManager->fixedUpdate();
 
-		system->update();
+		GameSound::Update();
 
 		gGraphics->beginScene();
 
@@ -59,8 +60,11 @@ int main()
 	gWin->release();
 	gManager->release();
 
-	bgMusic->release();
-	system->release();
+	//bgMusic->release();
+	//system->release();
+	delete myHero;
+	GameSound::Release();
+
 
 	return 0;
 }

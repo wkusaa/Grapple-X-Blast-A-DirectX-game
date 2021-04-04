@@ -27,18 +27,10 @@ int main()
 
 	GameSound::Initialize();
 	GameSound* myHero = new GameSound(1, "assets/sound/bgm/heroa.mp3", false);
-	//FMOD::System* system; //FMOD system object
-	//FMOD::Channel* bgChannel;
-	//FMOD::System_Create(&system); //Create FMOD system object
-	//system->init(100, FMOD_INIT_NORMAL, 0); //Initialize FMOD system
+	GameSound* bruh = new GameSound(0, "assets/sound/sfx/bruh.wav", true);
 
-	//FMOD::Sound* bgMusic;
-	//system->createStream("assets/sound/bgm/heroa.mp3", FMOD_DEFAULT, 0, &bgMusic);
-	//bgMusic->setMode(FMOD_LOOP_NORMAL);
-	//system->playSound(bgMusic, NULL, false, &bgChannel);
-
-	//bgChannel->setVolume(0.05);
 	myHero->play();
+	bruh->play();
 
 	while (gWin->gameLoop())//it just works
 	{
@@ -60,8 +52,7 @@ int main()
 	gWin->release();
 	gManager->release();
 
-	//bgMusic->release();
-	//system->release();
+	delete bruh;
 	delete myHero;
 	GameSound::Release();
 

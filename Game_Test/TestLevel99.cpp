@@ -6,7 +6,7 @@ TestLevel99::TestLevel99()
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0.0f,0.0f,0.0f);
 	playerCon->player->velocity = D3DXVECTOR3(0.0f, 0.3f, 0.0f);
-	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
+	gravity = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
 	collision = new CollisionManager;
 	
 	sprite = NULL;
@@ -25,6 +25,9 @@ TestLevel99::TestLevel99()
 	rect_bg.bottom = 720;
 	
 	playerCon->player->setAmmoAmount(200);
+
+	/*ammoObject.clear();
+	keyObject.clear();*/
 	buildLevel();
 }
 
@@ -101,6 +104,7 @@ void TestLevel99::fixedUpdate()
 	
 	playerCon->Update(grapplePointArray);
 	
+	
 	for (int i = 0; i < keyObject.size(); i++)
 	{
 		keyObject[i].Update();
@@ -125,50 +129,32 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), grassObject[i]->position, grassObject[i]->spriteRect))
-		{
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), grassObject[i]->getPosition(), grassObject[i]->getSize());
-			//printf("grass side %d\n", side);
-		}
-
+		collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), 1);
 	}
-
+	
 	for (int i = 0; i < brickObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), brickObject[i]->position, brickObject[i]->spriteRect))
-		{
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), brickObject[i]->getPosition(), brickObject[i]->getSize());
-			//printf("brick side %d\n", side);
-		}
+		collision->checkCollision(playerCon->player, brickObject[i]->position, brickObject[i]->getBounding_Box(), 1);
 	}
 
 	for (int i = 0; i < trapObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), trapObject[i]->position, trapObject[i]->getBounding_Box()))
-		{
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), trapObject[i]->getPosition(), trapObject[i]->getSize());
-			//printf("trap side %d\n", side);
-		}
+		collision->checkCollision(playerCon->player, trapObject[i]->position, trapObject[i]->getBounding_Box(), 0);
 	}
 
 	for (int i = 0; i < lavaObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), lavaObject[i]->position, lavaObject[i]->spriteRect))
-		{
-			//printf("collide\n");
-
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), lavaObject[i]->getPosition(), lavaObject[i]->getSize());
-			//printf("water side %d\n", side);
-		}
+		collision->checkCollision(playerCon->player, lavaObject[i]->position, lavaObject[i]->getBounding_Box(), 0);
 	}
-	if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), doorObject->position, doorObject->spriteRect) && playerCon->player->getKeyAmount() >= 1)
+
+	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 0))
 	{
 		GameStateManager::getInstance()->changeGameState(8);
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), ammoObject[i].position, ammoObject[i].spriteRect))
+		if (collision->checkCollision(playerCon->player, ammoObject[i].position, ammoObject[i].getBounding_Box(), 0))
 		{
 			playerCon->player->updateAmmoAmount(20);
 			ammoObject.erase(ammoObject.begin()+i);
@@ -177,7 +163,8 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), keyObject[i].position, keyObject[i].spriteRect))		{
+		if (collision->checkCollision(playerCon->player, keyObject[i].position, keyObject[i].getBounding_Box(), 0))
+		{
 			playerCon->player->updateKeyAmount(1);
 			keyObject.erase(keyObject.begin()+i);
 		}
@@ -188,7 +175,6 @@ void TestLevel99::fixedUpdate()
 		GameStateManager::getInstance()->changeGameState(7);
 		playerCon->player->setAmmoAmount(10);
 	}
-
 }
 
 void TestLevel99::draw()

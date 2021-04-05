@@ -93,7 +93,7 @@ void GameStateManager::update()
 
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_F))
 	{
-		currentGameState = gameLevels[7];
+		currentGameState = gameLevels[5];
 	}
 
 	if (currentGameState != tempGameState)

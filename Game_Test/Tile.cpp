@@ -22,6 +22,7 @@ Brick::Brick(float x, float y, float z)
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
 
+	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 void Brick::Initialize(LPDIRECT3DDEVICE9 device)
@@ -55,6 +56,8 @@ Lava::Lava(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+
+	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 void Lava::Initialize(LPDIRECT3DDEVICE9 device)
@@ -88,6 +91,8 @@ Grass::Grass(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+
+	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 void Grass::Initialize(LPDIRECT3DDEVICE9 device)
@@ -121,6 +126,8 @@ Door::Door(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+
+	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 void Door::Initialize(LPDIRECT3DDEVICE9 device)
@@ -154,6 +161,8 @@ Trap::Trap(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = (bounding_box.top + size.y)/2;
 	bounding_box.right = bounding_box.left + size.x;
+
+	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
 void Trap::Initialize(LPDIRECT3DDEVICE9 device)
@@ -338,8 +347,8 @@ Spike::Spike()
 
 	bounding_box.top = 0;
 	bounding_box.left = 0;
-	bounding_box.bottom = bounding_box.top + size.y;
-	bounding_box.right = bounding_box.left + size.x;
+	bounding_box.bottom = bounding_box.top + size.y +20;
+	bounding_box.right = bounding_box.left + size.x +16;
 }
 
 Spike::Spike(D3DXVECTOR3 position)
@@ -369,8 +378,8 @@ Spike::Spike(D3DXVECTOR3 position)
 
 	bounding_box.top = 0;
 	bounding_box.left = 0;
-	bounding_box.bottom = bounding_box.top + size.y;
-	bounding_box.right = bounding_box.left + size.x;
+	bounding_box.bottom = bounding_box.top + size.y +16;
+	bounding_box.right = bounding_box.left + size.x +16;
 }
 
 Spike::~Spike()

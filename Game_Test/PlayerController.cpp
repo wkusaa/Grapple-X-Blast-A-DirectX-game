@@ -286,7 +286,9 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
 
 		player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
-		player->direction *= 0.45;
+		player->direction *= 300/60;
+
+		player->velocity = player->direction;
 	}
 
 
@@ -372,6 +374,7 @@ void PlayerController::action()
 				aState = Swinging;
 				player->isMoving = true;
 				player->position.y -= 20;
+
 				break;
 			case Swinging:
 				aState = Release;

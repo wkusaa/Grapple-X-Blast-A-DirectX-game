@@ -11,9 +11,10 @@
 #include "Tile.h"
 #include "Gate.h"
 #include "CollisionManager.h"
+#include "GameSound.h"
 #include <iostream>
 
-class TestLevel4 :public GameState
+class TestLevel4 : public GameState
 {
 private:
 	PlayerController* playerCon;
@@ -30,6 +31,8 @@ private:
 	KeyUI* keyUI;
 	AmmoUI* ammoUI;
 
+	
+
 public:
 	TestLevel4();
 	~TestLevel4();
@@ -45,4 +48,5 @@ public:
 	void release();
 	void buildLevel();
 	void loadScene();
+	void nextScene();
 };

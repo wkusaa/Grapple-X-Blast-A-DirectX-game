@@ -90,12 +90,6 @@ void GameStateManager::fixedUpdate()
 
 void GameStateManager::update()
 {
-
-	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_F))
-	{
-		currentGameState = gameLevels[5];
-	}
-
 	if (currentGameState != tempGameState)
 	{
 		currentGameState->loadScene();

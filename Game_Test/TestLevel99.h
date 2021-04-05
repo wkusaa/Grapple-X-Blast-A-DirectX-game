@@ -48,4 +48,6 @@ public:
 	void draw();
 	void release();
 	void buildLevel();
+	void loadScene();
+	void nextScene();
 };

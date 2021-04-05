@@ -19,6 +19,7 @@ private:
 	
 	float angleDegree;
 	bool isSwitched;
+	bool isHooked;
 	bool swingOppositeDirection;
 	int animationCount[8];
 	int tempAState;
@@ -26,6 +27,10 @@ private:
 
 	GameSound* blastOffSound;
 	GameSound* hookSound;
+	GameSound* swingSound;
+	GameSound* releaseHookSound;
+	GameSound* cannon_load;
+	GameSound* grappling_load;
 
 public:
 	enum ActionState

@@ -73,7 +73,9 @@ void TestLevel4::update()
 
 void TestLevel4::fixedUpdate()
 {
+	
 	playerCon->Update(grapplePointArray);
+
 	for (int i = 0; i < ammoArray.size(); i++)
 	{
 		ammoArray[i]->Update();
@@ -98,32 +100,18 @@ void TestLevel4::fixedUpdate()
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), platformArray[i]->position, platformArray[i]->spriteRect))
-		{
-			
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), platformArray[i]->getPosition(), platformArray[i]->getSize());
-		}
+		collision->checkCollision(playerCon->player, platformArray[i]->position, platformArray[i]->getBounding_Box(), 1);
 	}
 
 	for (int i = 0; i < spikeArray.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), spikeArray[i]->position, spikeArray[i]->spriteRect))
-		{
-			
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), spikeArray[i]->getPosition(), spikeArray[i]->getSize());
-		}
+		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0);
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player->position, playerCon->player->getBounding_Box(), brazierArray[i]->position, brazierArray[i]->spriteRect))
-		{
-			
-			int side = collision->checkSideCollide(playerCon->player->getPosition(), playerCon->player->getPlayerBbSize(), brazierArray[i]->getPosition(), brazierArray[i]->getSize());
-		}
+		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0);
 	}
-
-
 
 	key1->Update();
 	gate->Update();

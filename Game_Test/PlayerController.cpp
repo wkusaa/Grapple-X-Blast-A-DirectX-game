@@ -14,7 +14,7 @@ PlayerController::PlayerController()
 	explosion = new Explosion;
 	explosion->setPosition(player->blastCannon->position);
 	
-	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
+	gravity = D3DXVECTOR3(0.0f, 0.15f, 0.0f);
 
 	player->currentWeapon = player->blastCannon;
 	player->currentWeapon->setPosition(player->position);
@@ -238,7 +238,7 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	}
 
-	std::cout << aState << std::endl;
+	//std::cout << aState << std::endl;
 
 
 	action();
@@ -247,7 +247,7 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		player->direction += gravity;
+		//player->direction += gravity;
 		player->velocity += gravity;
 	}
 	else if (aState == Swinging)
@@ -289,17 +289,18 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	//std::cout << player->direction.x << "|" << player->direction.y << std::endl;
 	if (player->isMoving == true)
 	{
-		player->velocity = player->direction * magnitude;
-		if (player->velocity.y > 5) player->velocity.y = 5;
+		//player->velocity = player->direction*magnitude;
+		/*if (player->velocity.y > 5) player->velocity.y = 5;
 		if (player->velocity.x > 5) player->velocity.x = 5;
-		if (player->velocity.x < -5) player->velocity.x = -5;
+		if (player->velocity.x < -5) player->velocity.x = -5;*/
 		
 		player->position += player->velocity;
 		
 	}
 	else
 	{
-		player->velocity = D3DXVECTOR3(0,0,0);
+		//gravity = D3DXVECTOR3(0, 0, 0);
+		player->velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		player->position += player->velocity;
 	}
 
@@ -384,6 +385,7 @@ void PlayerController::blastOff()
 {
 	float blastOffAngle = player->getBlastOffAngle();
 	player->direction = D3DXVECTOR3(sin(blastOffAngle), -cos(blastOffAngle), 0.0f);
+	player->velocity = player->direction* 300/60;
 	explosion->setCurrentFrame(0);//reset
 	explosion->setAnimationRow(0);
 }

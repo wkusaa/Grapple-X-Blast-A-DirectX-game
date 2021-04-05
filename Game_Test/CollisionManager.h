@@ -15,6 +15,6 @@ public:
 	bool checkMousePointCollision(RECT colliderRect);
 	CollisionManager();
 	~CollisionManager();
-	bool checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType);
+	bool checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType, int playerAction);
 };
 

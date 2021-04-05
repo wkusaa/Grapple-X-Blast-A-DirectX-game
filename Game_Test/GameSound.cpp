@@ -13,7 +13,7 @@ GameSound::GameSound(int soundType, std::string path, bool loop) {
         {
             system->createStream(path.c_str(), FMOD_LOOP_NORMAL, 0, &sound);
         }
-        
+
     }
     else {
         if (soundType == SOUND)
@@ -110,6 +110,13 @@ int GameSound::Update() {
     {
         system->update();
     }
+
+    return 0;
+}
+
+int GameSound::setVolume(float volume)
+{
+    channel->setVolume(volume);
 
     return 0;
 }

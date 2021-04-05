@@ -100,17 +100,17 @@ void TestLevel4::fixedUpdate()
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, platformArray[i]->position, platformArray[i]->getBounding_Box(), 1);
+		collision->checkCollision(playerCon->player, platformArray[i]->position, platformArray[i]->getBounding_Box(), 1, playerCon->aState);
 	}
 
 	for (int i = 0; i < spikeArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0);
+		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0);
+		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
 	key1->Update();

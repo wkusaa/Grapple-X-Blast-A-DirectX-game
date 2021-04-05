@@ -38,6 +38,20 @@ PlayerController::PlayerController()
 	aState = Idle;
 	tempAState = aState;
 	
+	blastOffSound = new GameSound(0, "assets/sound/sfx/explosion_27.wav", false);
+	hookSound = new GameSound(0, "assets/sound/sfx/explosion_14.wav", false);
+}
+
+PlayerController::~PlayerController()
+{
+	std::cout << "PlayerController destroyed" << std::endl;
+	player->ReleaseInstance();
+
+	delete line;
+	delete explosion;
+
+	delete blastOffSound;
+	delete hookSound;
 }
 
 void PlayerController::animationController()
@@ -95,15 +109,6 @@ void PlayerController::animationController()
 	}
 }
 
-
-PlayerController::~PlayerController()
-{
-	std::cout << "PlayerController destroyed" << std::endl;
-	player->ReleaseInstance();
-
-	delete line;
-	delete explosion;
-}
 
 PlayerController* PlayerController::getInstance()
 {
@@ -247,12 +252,12 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		player->direction += gravity;
+		//player->direction += gravity;
 		player->velocity += gravity;
 	}
 	else if (aState == Swinging)
 	{
-		
+
 		float distanceFromPoint = 150.0f;
 		if (angleDegree > 270)
 		{
@@ -281,8 +286,9 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
 
 		player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
-		//player->direction *= 0.4;
-		player->velocity = player->direction * 3;
+		player->direction *= 300/60;
+
+		player->velocity = player->direction;
 	}
 
 
@@ -294,6 +300,7 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		/*if (player->velocity.y > 5) player->velocity.y = 5;
 		if (player->velocity.x > 5) player->velocity.x = 5;
 		if (player->velocity.x < -5) player->velocity.x = -5;*/
+		
 		player->position += player->velocity;
 		
 	}
@@ -344,6 +351,7 @@ void PlayerController::action()
 			player->isMoving = true;
 			aState = BlastOff;
 			blastOff();
+			blastOffSound->play();
 			player->updateAmmoAmount(-1);
 		}
 		else if (weaponState == grappleGun)
@@ -355,7 +363,7 @@ void PlayerController::action()
 				if (onHook != NULL)
 				{
 					aState = Hook;
-					
+					hookSound->play();
 				}
 				else
 				{
@@ -366,6 +374,7 @@ void PlayerController::action()
 				aState = Swinging;
 				player->isMoving = true;
 				player->position.y -= 20;
+
 				break;
 			case Swinging:
 				aState = Release;

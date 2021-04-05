@@ -129,32 +129,32 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), 1);
+		collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), 1, playerCon->aState);
 	}
 	
 	for (int i = 0; i < brickObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, brickObject[i]->position, brickObject[i]->getBounding_Box(), 1);
+		collision->checkCollision(playerCon->player, brickObject[i]->position, brickObject[i]->getBounding_Box(), 1, playerCon->aState);
 	}
 
 	for (int i = 0; i < trapObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, trapObject[i]->position, trapObject[i]->getBounding_Box(), 0);
+		collision->checkCollision(playerCon->player, trapObject[i]->position, trapObject[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
 	for (int i = 0; i < lavaObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, lavaObject[i]->position, lavaObject[i]->getBounding_Box(), 0);
+		collision->checkCollision(playerCon->player, lavaObject[i]->position, lavaObject[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
-	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 0))
+	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 0, playerCon->aState))
 	{
 		GameStateManager::getInstance()->changeGameState(8);
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player, ammoObject[i].position, ammoObject[i].getBounding_Box(), 0))
+		if (collision->checkCollision(playerCon->player, ammoObject[i].position, ammoObject[i].getBounding_Box(), 0, playerCon->aState))
 		{
 			playerCon->player->updateAmmoAmount(20);
 			ammoObject.erase(ammoObject.begin()+i);
@@ -163,7 +163,7 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		if (collision->checkCollision(playerCon->player, keyObject[i].position, keyObject[i].getBounding_Box(), 0))
+		if (collision->checkCollision(playerCon->player, keyObject[i].position, keyObject[i].getBounding_Box(), 0, playerCon->aState))
 		{
 			playerCon->player->updateKeyAmount(1);
 			keyObject.erase(keyObject.begin()+i);

@@ -5,6 +5,7 @@
 #include "Explosion.h"
 #include "CollisionManager.h"
 #include "Ammo.h"
+#include "GameSound.h"
 #include <vector>
 class PlayerController
 {
@@ -22,6 +23,9 @@ private:
 	int animationCount[8];
 	int tempAState;
 	float magnitude;
+
+	GameSound* blastOffSound;
+	GameSound* hookSound;
 
 public:
 	enum ActionState

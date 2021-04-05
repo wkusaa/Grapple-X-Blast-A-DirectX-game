@@ -212,12 +212,14 @@ CollisionManager::~CollisionManager()
 //
 //}
 
-bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType)
+bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType, int playerAction)
 {
 	float w = 0.5 * (player->getPlayerBbSize().x + gameObjectBbSize.right);
 	float h = 0.5 * (player->getPlayerBbSize().y + gameObjectBbSize.bottom);
 	float dx = player->position.x - gameObjectPos.x;
 	float dy = player->position.y - gameObjectPos.y;
+
+	if (playerAction == 3) return false;
 
 	if (abs(dx) <= w && abs(dy) <= h)
 	{

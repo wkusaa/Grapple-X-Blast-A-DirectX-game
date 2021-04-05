@@ -219,10 +219,11 @@ bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos,
 	float dx = player->position.x - gameObjectPos.x;
 	float dy = player->position.y - gameObjectPos.y;
 
-	if (playerAction == 3) return false;
-
+	if (playerAction == 3) return false;//swinging action
+	
 	if (abs(dx) <= w && abs(dy) <= h)
 	{
+		if (tileType == 2) return true;//for collectible items
 		/* collision! */
 		float wy = w * dy;
 		float hx = h * dx;
@@ -254,7 +255,7 @@ bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos,
 				player->velocity.y = -player->velocity.y;
 				printf("top\n");/* at the top */
 
-				if (tileType == 1)
+				if (tileType == 1)//floor, so can stand on it
 				{
 					player->isMoving = false;
 				}

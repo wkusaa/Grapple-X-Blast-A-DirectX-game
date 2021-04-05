@@ -247,12 +247,12 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		//player->direction += gravity;
+		player->direction += gravity;
 		player->velocity += gravity;
 	}
 	else if (aState == Swinging)
 	{
-
+		
 		float distanceFromPoint = 150.0f;
 		if (angleDegree > 270)
 		{
@@ -281,7 +281,8 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
 
 		player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
-		player->direction *= 0.45;
+		//player->direction *= 0.4;
+		player->velocity = player->direction * 3;
 	}
 
 
@@ -293,7 +294,6 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		/*if (player->velocity.y > 5) player->velocity.y = 5;
 		if (player->velocity.x > 5) player->velocity.x = 5;
 		if (player->velocity.x < -5) player->velocity.x = -5;*/
-		
 		player->position += player->velocity;
 		
 	}

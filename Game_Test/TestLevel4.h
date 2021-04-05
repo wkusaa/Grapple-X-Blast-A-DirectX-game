@@ -18,14 +18,18 @@ class TestLevel4 :public GameState
 private:
 	PlayerController* playerCon;
 	std::vector<GrapplingPoint*> grapplePointArray;
-	Key* key1;
-	std::vector<Ammo*> ammoArray;
-	std::vector<Gems*> gemsArray;
+	
+	std::vector<Ammo> ammoArray;
+	std::vector<Gems> gemsArray;
+	std::vector<Key> keysArray;
 	std::vector<Platform*> platformArray;
 	std::vector<Spike*> spikeArray;
 	std::vector<Brazier*> brazierArray;
 	CollisionManager* collision;
 	Gate* gate;
+	KeyUI* keyUI;
+	AmmoUI* ammoUI;
+
 public:
 	TestLevel4();
 	~TestLevel4();

@@ -115,17 +115,7 @@ void TestLevel99::fixedUpdate()
 		ammoObject[i].Update();
 	}
 
-	if (playerCon->player->position.x < 0)
-		playerCon->player->position.x = 1;
-
-	if (playerCon->player->position.y < 0)
-		playerCon->player->position.y = 1;
-
-	if (playerCon->player->position.x > 1280)
-		playerCon->player->position.x = 1200;
-
-	if (playerCon->player->position.y > 720)
-		playerCon->player->position.y = 650;
+	
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{

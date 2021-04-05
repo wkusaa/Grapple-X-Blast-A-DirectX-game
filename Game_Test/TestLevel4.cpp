@@ -25,7 +25,7 @@ TestLevel4::~TestLevel4()
 		grapplePointArray[i] = NULL;
 	}
 
-	for (int i = 0; i < ammoArray.size(); i++)
+	/*for (int i = 0; i < ammoArray.size(); i++)
 	{
 		delete ammoArray[i];
 		ammoArray[i] = NULL;
@@ -35,7 +35,7 @@ TestLevel4::~TestLevel4()
 	{
 		delete gemsArray[i];
 		gemsArray[i] = NULL;
-	}
+	}*/
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
@@ -55,9 +55,10 @@ TestLevel4::~TestLevel4()
 		brazierArray[i] = NULL;
 	}
 
-	delete key1;
+	//delete key1;
 	delete gate;
-
+	delete ammoUI;
+	delete keyUI;
 	delete collision;
 }
 
@@ -73,27 +74,40 @@ void TestLevel4::update()
 
 void TestLevel4::fixedUpdate()
 {
-	
+
 	playerCon->Update(grapplePointArray);
 
 	for (int i = 0; i < ammoArray.size(); i++)
 	{
-		ammoArray[i]->Update();
+		ammoArray[i].Update();
+		if (collision->checkCollision(playerCon->player, ammoArray[i].position, ammoArray[i].getBounding_Box(), 2, playerCon->aState))
+		{
+			playerCon->player->updateAmmoAmount(20);
+			ammoArray.erase(ammoArray.begin() + i);
+		}
+
 	}
 
 	for (int i = 0; i < gemsArray.size(); i++)
 	{
-		gemsArray[i]->Update();
+		gemsArray[i].Update();
+		if (collision->checkCollision(playerCon->player, gemsArray[i].position, gemsArray[i].getBounding_Box(), 2, playerCon->aState))
+		{
+			gemsArray.erase(gemsArray.begin() + i);
+		}
+
 	}
 
 	for (int i = 0; i < spikeArray.size(); i++)
 	{
 		spikeArray[i]->Update();
+		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
 		brazierArray[i]->Update();
+		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0, playerCon->aState);
 	}
 
 	//---------------------------------------------------------------------
@@ -103,18 +117,32 @@ void TestLevel4::fixedUpdate()
 		collision->checkCollision(playerCon->player, platformArray[i]->position, platformArray[i]->getBounding_Box(), 1, playerCon->aState);
 	}
 
-	for (int i = 0; i < spikeArray.size(); i++)
+	/*for (int i = 0; i < spikeArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0, playerCon->aState);
+
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0, playerCon->aState);
+	}*/
+
+	for (int i = 0; i < keysArray.size(); i++)
+	{
+		keysArray[i].Update();
+		if (collision->checkCollision(playerCon->player, keysArray[i].position, keysArray[i].getBounding_Box(), 2, playerCon->aState))
+		{
+			playerCon->player->updateKeyAmount(1);
+			keysArray.erase(keysArray.begin() + i);
+		}
 	}
 
-	key1->Update();
+
 	gate->Update();
+	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
+	{
+		GameStateManager::getInstance()->changeGameState(5);
+	}
+
 
 	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 }
@@ -130,14 +158,18 @@ void TestLevel4::draw()
 
 	for (int i = 0; i < ammoArray.size(); i++)
 	{
-		ammoArray[i]->Draw();
+		ammoArray[i].Draw();
 	}
 
 	for (int i = 0; i < gemsArray.size(); i++)
 	{
-		gemsArray[i]->Draw();
+		gemsArray[i].Draw();
 	}
-	key1->Draw();
+
+	for (int i = 0; i < keysArray.size(); i++)
+	{
+		keysArray[i].Draw();
+	}
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
@@ -156,6 +188,8 @@ void TestLevel4::draw()
 
 	gate->Draw();
 	playerCon->Draw();
+	keyUI->render();
+	ammoUI->render();
 }
 
 void TestLevel4::release()
@@ -167,18 +201,21 @@ void TestLevel4::buildLevel()
 {
 	GameGraphics* gameGraphics = GameGraphics::getInstance();
 
-	key1 = new Key;
-	key1->Initialize(gameGraphics->d3dDevice);
-	key1->setPosition(D3DXVECTOR3(247.0f, 629.0f, 0.0f));
+	Key key1;
+	key1.Initialize(gameGraphics->d3dDevice);
+	key1.setPosition(D3DXVECTOR3(247.0f, 629.0f, 0.0f));
+	keysArray.push_back(key1);
 
-	Ammo* am1 = new Ammo(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
-	am1->Initialize(gameGraphics->d3dDevice);
+	Ammo am1;
+	am1.setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
+	am1.Initialize(gameGraphics->d3dDevice);
 	ammoArray.push_back(am1);
 
-	Gems* gem1 = new Gems(D3DXVECTOR3(300.0f, 400.0f, 0.0f));
-	Gems* gem2 = new Gems(D3DXVECTOR3(500.0f, 400.0f, 0.0f));
-	gem1->Initialize(gameGraphics->d3dDevice);
-	gem2->Initialize(gameGraphics->d3dDevice);
+	Gems gem1, gem2;
+	gem1.setPosition(D3DXVECTOR3(300.0f, 400.0f, 0.0f));
+	gem2.setPosition(D3DXVECTOR3(500.0f, 400.0f, 0.0f));
+	gem1.Initialize(gameGraphics->d3dDevice);
+	gem2.Initialize(gameGraphics->d3dDevice);
 	gemsArray.push_back(gem1);
 	gemsArray.push_back(gem2);
 
@@ -350,6 +387,12 @@ void TestLevel4::buildLevel()
 		brazier->setPosition(D3DXVECTOR3(brazier->getSize().x * i, 720.0f, 0.0f));
 		brazierArray.push_back(brazier);
 	}
+
+	keyUI = new KeyUI(D3DXVECTOR3(164.0f, 50.0f, 0.0f));
+	keyUI->Initialize(gameGraphics->d3dDevice);
+
+	ammoUI = new AmmoUI(D3DXVECTOR3(48.0f, 50.0f, 0.0f));
+	ammoUI->Initialize(gameGraphics->d3dDevice);
 }
 
 void TestLevel4::loadScene()

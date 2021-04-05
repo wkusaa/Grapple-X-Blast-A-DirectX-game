@@ -38,6 +38,20 @@ PlayerController::PlayerController()
 	aState = Idle;
 	tempAState = aState;
 	
+	blastOffSound = new GameSound(0, "assets/sound/sfx/explosion_27.wav", false);
+	hookSound = new GameSound(0, "assets/sound/sfx/explosion_14.wav", false);
+}
+
+PlayerController::~PlayerController()
+{
+	std::cout << "PlayerController destroyed" << std::endl;
+	player->ReleaseInstance();
+
+	delete line;
+	delete explosion;
+
+	delete blastOffSound;
+	delete hookSound;
 }
 
 void PlayerController::animationController()
@@ -95,15 +109,6 @@ void PlayerController::animationController()
 	}
 }
 
-
-PlayerController::~PlayerController()
-{
-	std::cout << "PlayerController destroyed" << std::endl;
-	player->ReleaseInstance();
-
-	delete line;
-	delete explosion;
-}
 
 PlayerController* PlayerController::getInstance()
 {
@@ -343,6 +348,7 @@ void PlayerController::action()
 			player->isMoving = true;
 			aState = BlastOff;
 			blastOff();
+			blastOffSound->play();
 			player->updateAmmoAmount(-1);
 		}
 		else if (weaponState == grappleGun)
@@ -354,7 +360,7 @@ void PlayerController::action()
 				if (onHook != NULL)
 				{
 					aState = Hook;
-					
+					hookSound->play();
 				}
 				else
 				{

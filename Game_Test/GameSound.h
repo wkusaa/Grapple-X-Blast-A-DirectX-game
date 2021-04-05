@@ -28,6 +28,8 @@ public:
 
     static int Initialize();
     static int Release();
+    static int Update();
+    //int Update();
 
     int play();
     int pause();
@@ -36,7 +38,9 @@ public:
     int volumeUp();
     int volumeDown();
 
-    static int Update();
+    int setVolume(float volume);
+
+
 };
 
 

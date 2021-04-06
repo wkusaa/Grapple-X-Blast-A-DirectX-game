@@ -214,13 +214,112 @@ CollisionManager::~CollisionManager()
 
 bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType, int playerAction)
 {
-	float w = 0.5 * (player->getPlayerBbSize().x + gameObjectBbSize.right);
-	float h = 0.5 * (player->getPlayerBbSize().y + gameObjectBbSize.bottom);
-	float dx = player->position.x - gameObjectPos.x;
-	float dy = player->position.y - gameObjectPos.y;
+	//calculate distance between center of hand & body bounding box and center of object 
+	float w = 0.5 * (player->getPlayerBbX().x + gameObjectBbSize.right);
+	float h = 0.5 * (player->getPlayerBbX().y + gameObjectBbSize.bottom);
 
-	if (playerAction == 3) return false;//swinging action
+	////calculate distance between center of head & feet bounding box and center of object 
+	//float w = 0.5 * (player->getPlayerBbY().x + gameObjectBbSize.right);
+	//float h = 0.5 * (player->getPlayerBbY().y + gameObjectBbSize.bottom);
+
+	//calculate distance between position of player and object
+	float dx =  player->position.x - gameObjectPos.x;
+	float dy =  player->position.y - gameObjectPos.y;
+
+	////calcalate player hand & body bounding box position
+	//float playerLeftPosX = player->position.x - player->getPlayerBbX().x / 2;
+	//float playerRightPosX = player->position.x + player->getPlayerBbX().x / 2;
+	//float playerTopPosX = player->position.y - player->getPlayerBbX().y / 2;
+	//float playerBottomPosX = player->position.y + player->getPlayerBbX().y / 2;
+
+	////calcalate player head & feet bounding box position
+	//float playerLeftPosY = player->position.x - player->getPlayerBbY().x / 2;
+	//float playerRightPosY = player->position.x + player->getPlayerBbY().x / 2;
+	//float playerTopPosY = player->position.y - player->getPlayerBbY().y / 2;
+	//float playerBottomPosY = player->position.y + player->getPlayerBbY().y / 2;
+
+	////calcalate object bounding box position
+	//float gameObjectLeftPos = gameObjectPos.x - gameObjectBbSize.right / 2;
+	//float gameObjectRightPos = gameObjectPos.x + gameObjectBbSize.right / 2;
+	//float gameObjectTopPos = gameObjectPos.y - gameObjectBbSize.bottom / 2;
+	//float gameObjectBottomPos = gameObjectPos.y + gameObjectBbSize.bottom / 2;
+	//
+	//if (playerAction == 3) return false;//swinging action no collision
+
+	//if (playerLeftPosX < gameObjectRightPos && playerRightPosX > gameObjectLeftPos && playerTopPosY < gameObjectBottomPos && playerBottomPosY > gameObjectTopPos)
+	//{
+	//	if (tileType == 2) return true;//for collectible items
+
+	//	if (playerLeftPosX < gameObjectRightPos && playerLeftPosY > gameObjectRightPos)
+	//	{
+	//		player->velocity.x = -player->velocity.x;
+	//		//			printf("right\n");/* on the right */
+	//	}
+	//	else if (playerRightPosX > gameObjectLeftPos && playerRightPosY < gameObjectLeftPos)
+	//	{
+	//		player->velocity.x = -player->velocity.x;
+	//				printf("left\n");
+	//				/* on the left */
+	//	}
+	//	else if (playerTopPosY < gameObjectBottomPos)
+	//	{
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("top\n");/* at the top */
+
+	//		if (tileType == 1)//floor, so can stand on it
+	//		{
+	//			player->isMoving = false;
+	//		}
+
+	//	}
+	//	else
+	//	{
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("top\n");/* at the top */
+
+	//		if (tileType == 1)//floor, so can stand on it
+	//		{
+	//			player->isMoving = false;
+	//		}
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("bottom\n");
+	//		//			/* collision at the bottom */
+	//	}
+	//	return true;
+	//}
 	
+	//if (playerLeftPosY < gameObjectRightPos && playerRightPosY > gameObjectLeftPos && playerTopPosY < gameObjectBottomPos && playerBottomPosY > gameObjectTopPos)
+	//{
+	//	if (tileType == 2) return true;//for collectible items
+	//	printf("collide\n");
+	//	if (playerTopPosY < gameObjectBottomPos)
+	//	{
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("top\n");/* at the top */
+
+	//		if (tileType == 1)//floor, so can stand on it
+	//		{
+	//			player->isMoving = false;
+	//		}
+	//		
+	//	}
+	//
+	//	else if (playerBottomPosY > gameObjectTopPos)
+	//	{
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("top\n");/* at the top */
+
+	//		if (tileType == 1)//floor, so can stand on it
+	//		{
+	//			player->isMoving = false;
+	//		}
+	//		player->velocity.y = -player->velocity.y;
+	//		printf("bottom\n");
+	//		//			/* collision at the bottom */
+	//	}
+	//	return true;
+	//}
+
 	if (abs(dx) <= w && abs(dy) <= h)
 	{
 		if (tileType == 2) return true;//for collectible items
@@ -262,6 +361,8 @@ bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos,
 				
 			}
 		}
+
+		
 		return true;
 	}
 	return false;

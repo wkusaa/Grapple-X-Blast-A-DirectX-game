@@ -32,7 +32,8 @@ Player::Player()
 	bounding_box.left = 52;
 	bounding_box.bottom = 82;
 	bounding_box.right = 74;
-	playerBbSize = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
+	playerBbX = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
+	playerBbY = D3DXVECTOR3(12.0f, 36.0f, 1.0f);
 
 	animationCount = 8;
 	animationTimer = 0;
@@ -140,8 +141,13 @@ float Player::getBlastOffAngle()
 	return blastOffAngle;
 }
 
-D3DXVECTOR3 Player::getPlayerBbSize()
+D3DXVECTOR3 Player::getPlayerBbX()
 {
-	return playerBbSize;
+	return playerBbX;
+}
+
+D3DXVECTOR3 Player::getPlayerBbY()
+{
+	return playerBbY;
 }
 

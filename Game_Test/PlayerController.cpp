@@ -252,7 +252,7 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		//player->direction += gravity;
+		player->direction += gravity;
 		player->velocity += gravity;
 	}
 	else if (aState == Swinging)
@@ -297,12 +297,10 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	if (player->isMoving == true)
 	{
 		//player->velocity = player->direction*magnitude;
-		/*if (player->velocity.y > 5) player->velocity.y = 5;
+		if (player->velocity.y > 5) player->velocity.y = 5;
 		if (player->velocity.x > 5) player->velocity.x = 5;
-		if (player->velocity.x < -5) player->velocity.x = -5;*/
-		
+		if (player->velocity.x < -5) player->velocity.x = -5;
 		player->position += player->velocity;
-		
 	}
 	else
 	{
@@ -312,12 +310,8 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	}
 
 	player->Update();
-
-
 	explosion->setPosition(player->blastCannon->position);
 	explosion->Update();
-
-
 	tempAState = aState; // it just works and i don't really understand myself
 }
 

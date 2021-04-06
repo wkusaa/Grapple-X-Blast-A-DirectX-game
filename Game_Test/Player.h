@@ -11,7 +11,8 @@ private:
 	static Player* instance;
 	float speed;
 	bool isSwitched;
-	D3DXVECTOR3 playerBbSize;
+	D3DXVECTOR3 playerBbY;//player head & feet bounding box size
+	D3DXVECTOR3 playerBbX;//player hand & body bouding box size
 	int ammoAmount;
 	int keyAmount;
 
@@ -28,7 +29,8 @@ public:
 	void Draw();
 	void ReleaseInstance();
 	float getBlastOffAngle();
-	D3DXVECTOR3 getPlayerBbSize();
+	D3DXVECTOR3 getPlayerBbX();
+	D3DXVECTOR3 getPlayerBbY();
 	//void switchWeapon();
 	//void action();
 	bool isMoving;

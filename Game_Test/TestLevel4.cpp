@@ -147,6 +147,12 @@ void TestLevel4::fixedUpdate()
 		nextScene();
 	}
 	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
+
+	if (playerCon->player->getAmmoAmount() < 0)
+	{
+		GameOver();
+	}
+
 }
 
 void TestLevel4::draw()
@@ -399,8 +405,11 @@ void TestLevel4::buildLevel()
 
 void TestLevel4::loadScene()
 {
+	restartLevel();
+	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(1002.0f, 124.0f, 0.0f));
 	playerCon->player->setAmmoAmount(20);
+	playerCon->player->resetKeyAmount();
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
 
@@ -415,4 +424,38 @@ void TestLevel4::nextScene()
 {
 	soundLevel->stop();
 	GameStateManager::getInstance()->changeGameState(3);
+}
+
+void TestLevel4::GameOver()
+{
+	playerCon->TriggerDeath();
+	soundLevel->stop();
+	releaseLevel();
+	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+	GameStateManager::getInstance()->levelContinue = 4;
+	GameStateManager::getInstance()->changeGameState(2);
+	playerCon->player->setAmmoAmount(1);
+}
+
+void TestLevel4::restartLevel()
+{
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	Key key;
+	key.Initialize(gameGraphics->d3dDevice);
+	key.setPosition(D3DXVECTOR3(249.0f, 551.0f, 0.0f));
+	keysArray.push_back(key);
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+}
+
+void TestLevel4::releaseLevel()
+{
+	ammoArray.clear();
+	keysArray.clear();
 }

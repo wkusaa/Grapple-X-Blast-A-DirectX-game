@@ -414,6 +414,7 @@ void TestLevel5::nextScene()
 void TestLevel5::GameOver()
 {
 	playerCon->TriggerDeath();
+	soundLevel->stop();
 	releaseLevel();
 	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
 	GameStateManager::getInstance()->levelContinue = 6;

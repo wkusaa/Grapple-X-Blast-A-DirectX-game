@@ -29,6 +29,7 @@ private:
 	std::vector<Trap*> trapObject;
 	std::vector<Ammo> ammoObject;
 	std::vector<Key> keyObject;
+	float timer;
 	Door* doorObject;
 	KeyUI* keyUI;
 	AmmoUI* ammoUI;

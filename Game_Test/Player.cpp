@@ -33,7 +33,6 @@ Player::Player()
 	bounding_box.bottom = 82;
 	bounding_box.right = 74;
 	bbSize = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
-	playerBbY = D3DXVECTOR3(12.0f, 36.0f, 1.0f);
 
 	animationCount = 8;
 	animationTimer = 0;
@@ -159,13 +158,13 @@ D3DXVECTOR3 Player::getPlayerBbSize()
 	return bbSize;
 }
 
-void Player::Draw(std::string msg)
+void Player::Draw(std::string msg, int r, int g, int b)
 {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	scaling.x = 1.0f;
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
-	font->DrawText(sprite, msg.c_str(), -1, &textRect, DT_NOCLIP, D3DCOLOR_XRGB(250, 170, 32));
+	font->DrawText(sprite, msg.c_str(), -1, &textRect, DT_NOCLIP, D3DCOLOR_XRGB(r, g, b));
 	sprite->End();
 	currentWeapon->Draw();
 }

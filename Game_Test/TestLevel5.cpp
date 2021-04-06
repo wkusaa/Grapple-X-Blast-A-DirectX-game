@@ -146,10 +146,15 @@ void TestLevel5::fixedUpdate()
 
 
 	gate->Update();
-	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
+	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState))
 	{
-		playerCon->player->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-		nextScene();
+		if (playerCon->player->getKeyAmount() > 0)
+		{
+			playerCon->player->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+			nextScene();
+		}
+		else
+			playerCon->player->setShowKeyMsg(true);
 	}
 
 
@@ -201,9 +206,17 @@ void TestLevel5::draw()
 	}
 
 	gate->Draw();
-	playerCon->Draw();
-	keyUI->render();
-	ammoUI->render();
+	if(playerCon->player->getShowKeyMsg()==true)
+	{ 
+		playerCon->player->Draw("No Door Key Detected!",255, 0, 0);
+	}
+	else
+	{
+		playerCon->Draw();
+	}
+	
+	keyUI->Draw();
+	ammoUI->Draw();
 }
 
 void TestLevel5::release()

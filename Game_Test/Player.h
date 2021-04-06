@@ -15,7 +15,6 @@ private:
 	int ammoAmount;
 	int keyAmount;
 	bool showKeyMsg;
-	int playerKeyStatus;
 	Player();
 	~Player();
 
@@ -31,7 +30,7 @@ public:
 	float getBlastOffAngle();
 	D3DXVECTOR3 getPlayerBbSize();
 
-	void Draw(std::string msg);
+	void Draw(std::string msg, int r, int g, int b);
 	
 	//void switchWeapon();
 	//void action();

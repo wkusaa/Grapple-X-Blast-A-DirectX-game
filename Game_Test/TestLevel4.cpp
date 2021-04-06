@@ -199,7 +199,7 @@ void TestLevel4::draw()
 	}
 
 	gate->Draw();
-	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!");
+	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!", 255, 183, 17);
 	else
 		playerCon->Draw();
 

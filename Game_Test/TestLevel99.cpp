@@ -23,7 +23,7 @@ TestLevel99::TestLevel99()
 	rect_bg.top = 0;
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
-	
+	timer = 0;
 	//playerCon->player->setAmmoAmount(200);
 
 	buildLevel();
@@ -103,6 +103,7 @@ void TestLevel99::fixedUpdate()
 {
 	playerCon->Update(grapplePointArray);
 	
+	timer += 1 / 60;
 	
 	
 	for (int i = 0; i < keyObject.size(); i++)
@@ -237,7 +238,7 @@ void TestLevel99::draw()
 	doorObject->Draw();
 	keyUI->Draw();
 	ammoUI->Draw();
-	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!");
+	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!", 255,0, 0);
 	else
 		playerCon->Draw();
 }
@@ -411,7 +412,7 @@ void TestLevel99::loadScene()
 {
 	restartLevel();
 	playerCon->SetPlayerIdle();
-	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
 	playerCon->player->setAmmoAmount(20);
 	playerCon->player->resetKeyAmount();
 	soundLevel->play();
@@ -431,13 +432,19 @@ void TestLevel99::nextScene()
 
 void TestLevel99::GameOver()
 {
+	timer = 0;
+	
 	playerCon->TriggerDeath();
+	
+	
 	soundLevel->stop();
 	releaseLevel();
 	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
 	GameStateManager::getInstance()->levelContinue = 5;
 	GameStateManager::getInstance()->changeGameState(2);
 	playerCon->player->setAmmoAmount(1);
+
+	
 }
 
 void TestLevel99::restartLevel()

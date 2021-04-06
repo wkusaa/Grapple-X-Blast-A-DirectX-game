@@ -8,7 +8,12 @@ private:
 	static GameGraphics* instance;
 	GameGraphics();
 	~GameGraphics();
+
 public:
+	int r;
+	int g;
+	int b;
+
 	static GameGraphics* getInstance();
 	D3DPRESENT_PARAMETERS d3dPP;
 	IDirect3D9* direct3D9;

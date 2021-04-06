@@ -5,20 +5,7 @@ GameInput* GameInput::instance = 0;
 GameInput::GameInput()
 {
 	std::cout << "GameInput constructed" << std::endl;
-	//HRESULT result;
-	//DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
 
-	//result = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);
-
-	//dInputKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
-	//dInputKeyboardDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-	//dInputKeyboardDevice->Acquire();
-
-	//result = dInput->CreateDevice(GUID_SysMouse, &dInputMouseDevice, NULL);
-
-	//dInputMouseDevice->SetDataFormat(&c_dfDIMouse);
-	//dInputMouseDevice->SetCooperativeLevel(GameWindows::getInstance()->getHWND(), DISCL_FOREGROUND | DISCL_EXCLUSIVE);
-	//dInputMouseDevice->Acquire();
 
 	mousePosition.x = 0;
 	mousePosition.y = 0;

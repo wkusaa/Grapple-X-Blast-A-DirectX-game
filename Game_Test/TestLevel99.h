@@ -50,4 +50,7 @@ public:
 	void buildLevel();
 	void loadScene();
 	void nextScene();
+	void GameOver();
+	void restartLevel();
+	void releaseLevel();
 };

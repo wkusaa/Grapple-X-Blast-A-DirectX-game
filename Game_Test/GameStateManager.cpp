@@ -5,37 +5,46 @@ GameStateManager* GameStateManager::instance = 0;
 GameStateManager::GameStateManager()
 {
 	std::cout << "GameStateManager constructed" << std::endl;
-	Level1* level1 = new Level1;
+	/*Level1* level1 = new Level1;
 	TestLevel* testLevel = new TestLevel;
 	TestLevel2* testLevel2 = new TestLevel2;
-	TestLevel3* testLevel3 = new TestLevel3;
+	TestLevel3* testLevel3 = new TestLevel3;*/
 	TestLevel4* testLevel4 = new TestLevel4;
 	TestLevel99* testLevel99 = new TestLevel99;
+	TestLevel5* testLevel5 = new TestLevel5;
 	StartScene* startScene = new StartScene;
 	GameOverScene* gameOver = new GameOverScene;
 	VictoryScene* victory = new VictoryScene;
-	level1->init();
-	testLevel->init();
-	testLevel2->init();
-	testLevel3->init();
+	TutorialScene* tutorial = new TutorialScene;
+	//level1->init();
+	//testLevel->init();
+	//testLevel2->init();
+	//testLevel3->init();
 	testLevel4->init();
 	testLevel99->init();
 	startScene->init();
 	gameOver->init();
 	victory->init();
-	gameLevels.push_back(level1);
-	gameLevels.push_back(testLevel);
-	gameLevels.push_back(testLevel2);
-	gameLevels.push_back(testLevel3);
-	gameLevels.push_back(testLevel4);
-	gameLevels.push_back(testLevel99);
-	gameLevels.push_back(startScene);
-	gameLevels.push_back(gameOver);
-	gameLevels.push_back(victory);
+	tutorial->init();
+	testLevel5->init();
+	//gameLevels.push_back(level1);
+	//gameLevels.push_back(testLevel);
+	//gameLevels.push_back(testLevel2);
+	//gameLevels.push_back(testLevel3);
+	gameLevels.push_back(startScene); //0
+	gameLevels.push_back(tutorial);//1
+	gameLevels.push_back(gameOver); //2
+	gameLevels.push_back(victory); //3
+	gameLevels.push_back(testLevel4); // 4 Level 3
+	gameLevels.push_back(testLevel99); // 5 Level 1
+	gameLevels.push_back(testLevel5); // 6 Level 2
+
 
 	currentGameState = gameLevels[5];
 	tempGameState = currentGameState;
 	currentGameState->loadScene();
+
+	levelContinue = 5;
 
 	gTimer = new GameTimer;
 	gTimer->init(FPS);
@@ -46,6 +55,8 @@ GameStateManager::GameStateManager()
 	playerController->Initialize();
 
 	crosshair.Initialize(GameGraphics::getInstance()->d3dDevice);
+
+
 }
 
 GameStateManager::~GameStateManager()

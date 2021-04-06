@@ -11,8 +11,7 @@ private:
 	static Player* instance;
 	float speed;
 	bool isSwitched;
-	D3DXVECTOR3 playerBbY;//player head & feet bounding box size
-	D3DXVECTOR3 playerBbX;//player hand & body bouding box size
+	D3DXVECTOR3 playerBbSize;
 	int ammoAmount;
 	int keyAmount;
 	bool showKeyMsg;
@@ -40,6 +39,7 @@ public:
 	void setAmmoAmount(int num) { this->ammoAmount = num; };
 	void updateAmmoAmount(int num) { this->ammoAmount += num; };
 	int getAmmoAmount() { return ammoAmount; };
+	void resetKeyAmount() { this->keyAmount = 0; };
 	void updateKeyAmount(int num) { this->keyAmount += num; };
 	int getKeyAmount() { return keyAmount; };
 	void setShowKeyMsg(bool i) { this->showKeyMsg = i; };

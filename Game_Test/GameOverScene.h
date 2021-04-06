@@ -10,6 +10,7 @@ private:
 	LPDIRECT3DDEVICE9 device;
 	LPD3DXSPRITE sprite;
 	RECT rect_bg;
+
 public:
 	GameOverScene();
 	~GameOverScene(); 

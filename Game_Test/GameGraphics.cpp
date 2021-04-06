@@ -7,12 +7,17 @@ GameGraphics::GameGraphics()
 	std::cout << "GameGraphics constructed" << std::endl;
 	direct3D9 = Direct3DCreate9(D3D_SDK_VERSION);
 	ZeroMemory(&d3dPP, sizeof(d3dPP));
+
+	r = 0;
+	g = 0;
+	b = 0;
 }
 
 GameGraphics::~GameGraphics()
 {
 	std::cout << "GameGraphics destroyed" << std::endl;
 }
+
 
 GameGraphics* GameGraphics::getInstance()
 {
@@ -44,8 +49,7 @@ void GameGraphics::createDevice()
 
 void GameGraphics::clear()
 {
-	GameWindows* gWin = gWin->getInstance();
-	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(gWin->r, gWin->g, gWin->b), 1.0f, 0);
+	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(r, g, b), 1.0f, 0);
 }
 
 void GameGraphics::beginScene()

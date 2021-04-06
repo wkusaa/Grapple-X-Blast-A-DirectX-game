@@ -24,6 +24,8 @@ private:
 	int animationCount[8];
 	int tempAState;
 	float magnitude;
+	float hookLength;
+	float swingLength;
 
 	GameSound* blastOffSound;
 	GameSound* hookSound;
@@ -31,6 +33,7 @@ private:
 	GameSound* releaseHookSound;
 	GameSound* cannon_load;
 	GameSound* grappling_load;
+	GameSound* deathSound;
 
 public:
 	enum ActionState
@@ -69,8 +72,11 @@ public:
 	void hook(std::vector<GrapplingPoint*> grapplePointArray);
 	void swing();
 	void releaseSwing();
+	bool checkHookLength(D3DXVECTOR3 pointPosition);
 	void switchWeapon();
 	void grappleDrawLaserLine();
+	void TriggerDeath();
+	void SetPlayerIdle();
 	void animationController();
 
 };

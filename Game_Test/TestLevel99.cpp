@@ -28,7 +28,7 @@ TestLevel99::TestLevel99()
 
 	buildLevel();
 
-	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", false);
+	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", true);
 }
 
 TestLevel99::~TestLevel99()
@@ -191,8 +191,7 @@ void TestLevel99::fixedUpdate()
 
 	if (playerCon->player->getAmmoAmount() < 0)
 	{
-		GameStateManager::getInstance()->changeGameState(7);
-		playerCon->player->setAmmoAmount(10);
+		GameOver();
 	}
 
 	
@@ -410,15 +409,64 @@ void TestLevel99::buildLevel()
 
 void TestLevel99::loadScene()
 {
+	restartLevel();
+	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
-	playerCon->player->setAmmoAmount(100);
+	playerCon->player->setAmmoAmount(20);
+	playerCon->player->resetKeyAmount();
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
+
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	gameGraphics->r = 24;
+	gameGraphics->g = 218;
+	gameGraphics->b = 225;
 }
 
 void TestLevel99::nextScene()
 {
 	soundLevel->stop();
-	GameStateManager::getInstance()->changeGameState(8);
+	GameStateManager::getInstance()->changeGameState(6);
 }
 
+void TestLevel99::GameOver()
+{
+	playerCon->TriggerDeath();
+	soundLevel->stop();
+	releaseLevel();
+	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+	GameStateManager::getInstance()->levelContinue = 5;
+	GameStateManager::getInstance()->changeGameState(2);
+	playerCon->player->setAmmoAmount(1);
+}
+
+void TestLevel99::restartLevel()
+{
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		//Ammo ammo = new Ammo(D3DXVECTOR3(80.0f + i*96.0f, 448.0f, 0.0f));
+		//ammo->Initialize(gameGraphics->d3dDevice);
+		ammo.setPosition(D3DXVECTOR3(80.0f + i * 96.0f, 448.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
+
+		//ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
+		//ammo->Initialize(gameGraphics->d3dDevice);
+		ammo.setPosition(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
+	}
+
+	key.setPosition(D3DXVECTOR3(832.0f, 448.0f, 0.0f));
+	key.Initialize(gameGraphics->d3dDevice);
+	keyObject.push_back(key);
+}
+
+void TestLevel99::releaseLevel()
+{
+	ammoObject.clear();
+	keyObject.clear();
+}

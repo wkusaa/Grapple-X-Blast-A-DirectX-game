@@ -413,10 +413,12 @@ void TestLevel5::nextScene()
 
 void TestLevel5::GameOver()
 {
-	releaseLevel();
 	playerCon->TriggerDeath();
+	releaseLevel();
 	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+	GameStateManager::getInstance()->levelContinue = 6;
 	GameStateManager::getInstance()->changeGameState(2);
+	playerCon->player->setAmmoAmount(1);
 }
 
 void TestLevel5::restartLevel()

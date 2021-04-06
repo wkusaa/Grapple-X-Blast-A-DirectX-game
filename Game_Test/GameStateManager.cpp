@@ -44,6 +44,8 @@ GameStateManager::GameStateManager()
 	tempGameState = currentGameState;
 	currentGameState->loadScene();
 
+	levelContinue = 5;
+
 	gTimer = new GameTimer;
 	gTimer->init(FPS);
 
@@ -53,6 +55,8 @@ GameStateManager::GameStateManager()
 	playerController->Initialize();
 
 	crosshair.Initialize(GameGraphics::getInstance()->d3dDevice);
+
+
 }
 
 GameStateManager::~GameStateManager()

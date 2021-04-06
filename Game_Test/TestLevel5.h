@@ -12,6 +12,7 @@
 #include "Gate.h"
 #include "CollisionManager.h"
 #include "GameSound.h"
+#include "GameOverScene.h"
 #include <iostream>
 
 class TestLevel5 : public GameState

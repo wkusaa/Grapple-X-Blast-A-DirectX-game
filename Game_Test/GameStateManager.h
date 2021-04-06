@@ -31,6 +31,7 @@ public:
 	void release();
 
 	float elapsedTime;
+	int levelContinue;
 	//test
 
 	GameTimer* gTimer;

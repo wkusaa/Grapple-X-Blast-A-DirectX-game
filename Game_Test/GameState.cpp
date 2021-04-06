@@ -13,5 +13,10 @@ void GameState::update()
 
 void GameState::loadScene()
 {
-
 }
+
+void GameState::nextScene()
+{
+}
+
+

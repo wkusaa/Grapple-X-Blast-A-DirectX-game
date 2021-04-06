@@ -11,6 +11,8 @@ TestLevel4::TestLevel4()
 
 	collision = new CollisionManager;
 
+	soundLevel = new GameSound(1, "assets/sound/bgm/suspense.mp3", false);
+
 	buildLevel();
 
 }
@@ -60,6 +62,8 @@ TestLevel4::~TestLevel4()
 	delete ammoUI;
 	delete keyUI;
 	delete collision;
+
+	delete soundLevel;
 }
 
 void TestLevel4::init()
@@ -69,7 +73,10 @@ void TestLevel4::init()
 
 void TestLevel4::update()
 {
+	float mouseX = GameInput::getInstance()->mousePosition.x;
+	float mouseY = GameInput::getInstance()->mousePosition.y;
 
+	std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel4::fixedUpdate()
@@ -140,10 +147,8 @@ void TestLevel4::fixedUpdate()
 	gate->Update();
 	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
 	{
-		GameStateManager::getInstance()->changeGameState(5);
+		nextScene();
 	}
-
-
 	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 }
 
@@ -397,6 +402,13 @@ void TestLevel4::buildLevel()
 
 void TestLevel4::loadScene()
 {
-	playerCon->player->setPosition(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
+	playerCon->player->setPosition(D3DXVECTOR3(1002.0f, 124.0f, 0.0f));
+	playerCon->player->setAmmoAmount(20);
+	soundLevel->play();
 }
 
+void TestLevel4::nextScene()
+{
+	soundLevel->stop();
+	GameStateManager::getInstance()->changeGameState(5);
+}

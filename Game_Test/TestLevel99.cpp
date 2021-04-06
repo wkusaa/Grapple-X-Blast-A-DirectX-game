@@ -3,7 +3,7 @@
 TestLevel99::TestLevel99()
 {
 	playerCon = PlayerController::getInstance();
-	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
+	//playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0.0f,0.0f,0.0f);
 	playerCon->player->velocity = D3DXVECTOR3(0.0f, 0.3f, 0.0f);
 	gravity = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
@@ -24,11 +24,13 @@ TestLevel99::TestLevel99()
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
 	
-	playerCon->player->setAmmoAmount(200);
+	//playerCon->player->setAmmoAmount(200);
 
 	/*ammoObject.clear();
 	keyObject.clear();*/
 	buildLevel();
+
+	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", false);
 }
 
 TestLevel99::~TestLevel99()
@@ -86,6 +88,7 @@ TestLevel99::~TestLevel99()
 	delete ammoUI;
 	delete collision;
 	
+	delete soundLevel;
 }
 
 void TestLevel99::init()
@@ -95,8 +98,7 @@ void TestLevel99::init()
 
 void TestLevel99::update()
 {
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
+
 }
 
 void TestLevel99::fixedUpdate()
@@ -139,7 +141,7 @@ void TestLevel99::fixedUpdate()
 
 	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
 	{
-		GameStateManager::getInstance()->changeGameState(8);
+		nextScene();
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
@@ -375,4 +377,17 @@ void TestLevel99::buildLevel()
 	ammoUI->Initialize(gameGraphics->d3dDevice);
 }
 
+void TestLevel99::loadScene()
+{
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
+	playerCon->player->setAmmoAmount(10);
+	soundLevel->play();
+	soundLevel->setVolume(0.3f);
+}
+
+void TestLevel99::nextScene()
+{
+	soundLevel->stop();
+	GameStateManager::getInstance()->changeGameState(8);
+}
 

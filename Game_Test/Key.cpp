@@ -24,7 +24,7 @@ Key::Key()
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
-
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Key::~Key()
@@ -106,7 +106,7 @@ void KeyUI::Update()
 {
 }
 
-void KeyUI::render()
+void KeyUI::Draw()
 {
 	std::string strKeyAmount = std::to_string(Player::getInstance()->getKeyAmount());
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);

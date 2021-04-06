@@ -26,6 +26,11 @@ Ammo::Ammo()
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
 
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Ammo::Ammo(D3DXVECTOR3 position)
@@ -53,6 +58,12 @@ Ammo::Ammo(D3DXVECTOR3 position)
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
+
+	bounding_box.top = 0;
+	bounding_box.left = 0;
+	bounding_box.bottom = bounding_box.top + size.y;
+	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Ammo::~Ammo()
@@ -143,7 +154,7 @@ void AmmoUI::Update()
 {
 }
 
-void AmmoUI::render()
+void AmmoUI::Draw()
 {
 	std::string strAmmoAmount = std::to_string(Player::getInstance()->getAmmoAmount());
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);

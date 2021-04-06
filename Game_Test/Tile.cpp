@@ -21,7 +21,7 @@ Brick::Brick(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
@@ -56,7 +56,7 @@ Lava::Lava(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
@@ -91,7 +91,7 @@ Grass::Grass(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
@@ -126,7 +126,7 @@ Door::Door(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(64.0f, 64.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
@@ -161,7 +161,7 @@ Trap::Trap(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = (bounding_box.top + size.y)/2;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(16.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
@@ -196,7 +196,7 @@ Platform::Platform()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Platform::Platform(int platformType)
@@ -287,6 +287,7 @@ Platform::Platform(int platformType, float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 
@@ -349,6 +350,7 @@ Spike::Spike()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y +20;
 	bounding_box.right = bounding_box.left + size.x +16;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Spike::Spike(D3DXVECTOR3 position)
@@ -380,6 +382,7 @@ Spike::Spike(D3DXVECTOR3 position)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y +16;
 	bounding_box.right = bounding_box.left + size.x +16;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Spike::~Spike()
@@ -464,6 +467,7 @@ Brazier::Brazier()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Brazier::Brazier(D3DXVECTOR3 position)
@@ -495,6 +499,7 @@ Brazier::Brazier(D3DXVECTOR3 position)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
 }
 
 Brazier::~Brazier()

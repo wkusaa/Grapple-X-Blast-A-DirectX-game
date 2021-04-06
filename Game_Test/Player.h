@@ -15,7 +15,8 @@ private:
 	D3DXVECTOR3 playerBbX;//player hand & body bouding box size
 	int ammoAmount;
 	int keyAmount;
-
+	bool showKeyMsg;
+	int playerKeyStatus;
 	Player();
 	~Player();
 
@@ -29,8 +30,10 @@ public:
 	void Draw();
 	void ReleaseInstance();
 	float getBlastOffAngle();
-	D3DXVECTOR3 getPlayerBbX();
-	D3DXVECTOR3 getPlayerBbY();
+	D3DXVECTOR3 getPlayerBbSize();
+
+	void Draw(std::string msg);
+	
 	//void switchWeapon();
 	//void action();
 	bool isMoving;
@@ -39,6 +42,8 @@ public:
 	int getAmmoAmount() { return ammoAmount; };
 	void updateKeyAmount(int num) { this->keyAmount += num; };
 	int getKeyAmount() { return keyAmount; };
+	void setShowKeyMsg(bool i) { this->showKeyMsg = i; };
+	bool getShowKeyMsg() { return showKeyMsg; };
 	
 };
 

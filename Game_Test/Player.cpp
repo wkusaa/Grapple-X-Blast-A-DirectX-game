@@ -32,7 +32,7 @@ Player::Player()
 	bounding_box.left = 52;
 	bounding_box.bottom = 82;
 	bounding_box.right = 74;
-	playerBbX = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
+	bbSize = D3DXVECTOR3(22.0f, 36.0f, 1.0f);
 	playerBbY = D3DXVECTOR3(12.0f, 36.0f, 1.0f);
 
 	animationCount = 8;
@@ -42,7 +42,6 @@ Player::Player()
 	animationRow = 1;
 	animationLoop = true;
 	
-
 	blastCannon = new BlastCannon;
 	grappleGun = new GrappleGun;
 	blastCannon->Initialize(GameGraphics::getInstance()->d3dDevice);
@@ -51,6 +50,8 @@ Player::Player()
 	isMoving = true;
 	ammoAmount = 10;
 	keyAmount = 0;
+	showKeyMsg = false;
+	
 }
 
 Player::~Player()
@@ -76,10 +77,22 @@ void Player::Initialize(LPDIRECT3DDEVICE9 device)
 {
 	D3DXCreateSprite(device, &sprite);
 	D3DXCreateTextureFromFile(device, PLAYER_SPRITE, &texture);
+
+	D3DXCreateFont(device, 18, 0, BOLD_FONTTYPE, 1, false,
+		DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);
+	
+	textRect.left = -80;
+	textRect.top = -30;
+	textRect.right = 80;
+	textRect.bottom = 0;
+
 }
 
 void Player::Update()
 {
+	setShowKeyMsg(false);
+
 	animationTimer += 1 / 60.0f;
 	if (animationTimer >= animationRate)
 	{
@@ -141,13 +154,19 @@ float Player::getBlastOffAngle()
 	return blastOffAngle;
 }
 
-D3DXVECTOR3 Player::getPlayerBbX()
+D3DXVECTOR3 Player::getPlayerBbSize()
 {
-	return playerBbX;
+	return bbSize;
 }
 
-D3DXVECTOR3 Player::getPlayerBbY()
+void Player::Draw(std::string msg)
 {
-	return playerBbY;
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+	scaling.x = 1.0f;
+	SetTransform();
+	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	font->DrawText(sprite, msg.c_str(), -1, &textRect, DT_NOCLIP, D3DCOLOR_XRGB(250, 170, 32));
+	sprite->End();
+	currentWeapon->Draw();
 }
 

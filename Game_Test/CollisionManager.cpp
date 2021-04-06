@@ -174,7 +174,7 @@ CollisionManager::~CollisionManager()
 //	{
 //		normalx = 0.0f;
 //		normaly = 0.0f;
-//		return 0;
+//		return 1.0f;
 //	}
 //	else // if there was a collision 
 //	{
@@ -214,111 +214,16 @@ CollisionManager::~CollisionManager()
 
 bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, int tileType, int playerAction)
 {
-	//calculate distance between center of hand & body bounding box and center of object 
-	float w = 0.5 * (player->getPlayerBbX().x + gameObjectBbSize.right);
-	float h = 0.5 * (player->getPlayerBbX().y + gameObjectBbSize.bottom);
-
-	////calculate distance between center of head & feet bounding box and center of object 
-	//float w = 0.5 * (player->getPlayerBbY().x + gameObjectBbSize.right);
-	//float h = 0.5 * (player->getPlayerBbY().y + gameObjectBbSize.bottom);
+	//calculate distance between center of bounding box and center of object 
+	float w = 0.5 * (player->getBbBoxSize().x + gameObjectBbSize.right);
+	float h = 0.5 * (player->getBbBoxSize().y + gameObjectBbSize.bottom);
 
 	//calculate distance between position of player and object
 	float dx =  player->position.x - gameObjectPos.x;
 	float dy =  player->position.y - gameObjectPos.y;
 
-	////calcalate player hand & body bounding box position
-	//float playerLeftPosX = player->position.x - player->getPlayerBbX().x / 2;
-	//float playerRightPosX = player->position.x + player->getPlayerBbX().x / 2;
-	//float playerTopPosX = player->position.y - player->getPlayerBbX().y / 2;
-	//float playerBottomPosX = player->position.y + player->getPlayerBbX().y / 2;
-
-	////calcalate player head & feet bounding box position
-	//float playerLeftPosY = player->position.x - player->getPlayerBbY().x / 2;
-	//float playerRightPosY = player->position.x + player->getPlayerBbY().x / 2;
-	//float playerTopPosY = player->position.y - player->getPlayerBbY().y / 2;
-	//float playerBottomPosY = player->position.y + player->getPlayerBbY().y / 2;
-
-	////calcalate object bounding box position
-	//float gameObjectLeftPos = gameObjectPos.x - gameObjectBbSize.right / 2;
-	//float gameObjectRightPos = gameObjectPos.x + gameObjectBbSize.right / 2;
-	//float gameObjectTopPos = gameObjectPos.y - gameObjectBbSize.bottom / 2;
-	//float gameObjectBottomPos = gameObjectPos.y + gameObjectBbSize.bottom / 2;
-	//
-	//if (playerAction == 3) return false;//swinging action no collision
-
-	//if (playerLeftPosX < gameObjectRightPos && playerRightPosX > gameObjectLeftPos && playerTopPosY < gameObjectBottomPos && playerBottomPosY > gameObjectTopPos)
-	//{
-	//	if (tileType == 2) return true;//for collectible items
-
-	//	if (playerLeftPosX < gameObjectRightPos && playerLeftPosY > gameObjectRightPos)
-	//	{
-	//		player->velocity.x = -player->velocity.x;
-	//		//			printf("right\n");/* on the right */
-	//	}
-	//	else if (playerRightPosX > gameObjectLeftPos && playerRightPosY < gameObjectLeftPos)
-	//	{
-	//		player->velocity.x = -player->velocity.x;
-	//				printf("left\n");
-	//				/* on the left */
-	//	}
-	//	else if (playerTopPosY < gameObjectBottomPos)
-	//	{
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("top\n");/* at the top */
-
-	//		if (tileType == 1)//floor, so can stand on it
-	//		{
-	//			player->isMoving = false;
-	//		}
-
-	//	}
-	//	else
-	//	{
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("top\n");/* at the top */
-
-	//		if (tileType == 1)//floor, so can stand on it
-	//		{
-	//			player->isMoving = false;
-	//		}
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("bottom\n");
-	//		//			/* collision at the bottom */
-	//	}
-	//	return true;
-	//}
-	
-	//if (playerLeftPosY < gameObjectRightPos && playerRightPosY > gameObjectLeftPos && playerTopPosY < gameObjectBottomPos && playerBottomPosY > gameObjectTopPos)
-	//{
-	//	if (tileType == 2) return true;//for collectible items
-	//	printf("collide\n");
-	//	if (playerTopPosY < gameObjectBottomPos)
-	//	{
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("top\n");/* at the top */
-
-	//		if (tileType == 1)//floor, so can stand on it
-	//		{
-	//			player->isMoving = false;
-	//		}
-	//		
-	//	}
-	//
-	//	else if (playerBottomPosY > gameObjectTopPos)
-	//	{
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("top\n");/* at the top */
-
-	//		if (tileType == 1)//floor, so can stand on it
-	//		{
-	//			player->isMoving = false;
-	//		}
-	//		player->velocity.y = -player->velocity.y;
-	//		printf("bottom\n");
-	//		//			/* collision at the bottom */
-	//	}
-	//	return true;
-	//}
+	if (playerAction == 3) return false;//swinging action no collision
+	if (playerAction == 2) return false;//player dead
 
 	if (abs(dx) <= w && abs(dy) <= h)
 	{
@@ -368,5 +273,130 @@ bool CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos,
 	return false;
 }
 
+//float CollisionManager::checkCollision(Player* player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize, float& normalx, float& normaly /*D3DXVECTOR3& contactPoint*/)
+//{
+//	float xInvEntry = 0, xInvExit = 0;
+//	float yInvEntry = 0, yInvExit = 0;
+//
+//	if (player->velocity.x > 0.0f)
+//	{
+//		xInvEntry = (gameObjectPos.x - gameObjectBbSize.right / 2) - (player->position.x + player->getBbBoxSize().x / 2);
+//		xInvExit = (gameObjectPos.x + gameObjectBbSize.right / 2) - (player->position.x - player->getBbBoxSize().x / 2);
+//	}
+//	else if (player->velocity.x < 0.0f)
+//	{
+//		xInvEntry = (gameObjectPos.x + gameObjectBbSize.right / 2) - (player->position.x - player->getBbBoxSize().x / 2);
+//		xInvExit = (gameObjectPos.x - gameObjectBbSize.right / 2) - (player->position.x + player->getBbBoxSize().x / 2);
+//	}
+//
+//	if (player->velocity.y > 0.0f)
+//	{
+//		yInvEntry = (gameObjectPos.y - (gameObjectBbSize.bottom / 2)) - (player->position.y + player->getBbBoxSize().y / 2);
+//		yInvExit = (gameObjectPos.y + (gameObjectBbSize.bottom / 2)) - (player->position.y - player->getBbBoxSize().y / 2);
+//
+//	}
+//	else if (player->velocity.y < 0.0f)
+//	{
+//		yInvEntry = (gameObjectPos.y + gameObjectBbSize.bottom / 2) - (player->position.y - player->getBbBoxSize().y / 2);
+//		yInvExit = (gameObjectPos.y - gameObjectBbSize.bottom / 2) - (player->position.y + player->getBbBoxSize().y / 2);
+//	}
+//
+//	float xEntry, xExit;
+//	float yEntry, yExit;
+//	printf("%f     %f     %f      %f\n", player->velocity.x, player->velocity.y, xInvEntry, yInvEntry);
+//	if (player->velocity.x == 0.0f)
+//	{
+//		xEntry = -99999999999;
+//		xExit = 99999999999;
+//	}
+//	else
+//	{
+//		xEntry = xInvEntry / player->velocity.x;
+//		xExit = xInvExit / player->velocity.x;
+//	}
+//
+//	if (player->velocity.y == 0.0f)
+//	{
+//		yEntry = -99999999999;
+//		yExit = 99999999999;
+//	}
+//	else
+//	{
+//		yEntry = yInvEntry / player->velocity.y;
+//		yExit = yInvExit / player->velocity.y;
+//	}
+//
+//	if (xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f) return 1.0f;
+//
+//	float entryTime = max(xEntry, yEntry);
+//	float exitTime = min(xExit, yExit);
+//	//contactPoint = entryTime * player->position;
+//	//printf("%f     %f\n", entryTime, exitTime);
+//	printf("%f     %f\n", xEntry, yEntry);
+//	// if there was no collision
+//	if (entryTime > exitTime)
+//	{
+//		normalx = 0.0f;
+//		normaly = 0.0f;
+//		return 1.0f;
+//	}
+//	else // if there was a collision 
+//	{
+//		// calculate normal of collided surface
+//		if (xEntry > yEntry)
+//		{
+//			if (xInvEntry < 0.0f)
+//			{
+//				normalx = 1.0f;
+//				normaly = 0.0f;
+//			}
+//			else
+//			{
+//				normalx = -1.0f;
+//				normaly = 0.0f;
+//			}
+//		}
+//		else
+//		{
+//			if (yInvEntry < 0.0f)
+//			{
+//				normalx = 0.0f;
+//				normaly = 1.0f;
+//			}
+//			else
+//			{
+//				normalx = 0.0f;
+//				normaly = -1.0f;
+//			}
+//		} 
+//	}
+//
+//	return entryTime;
+//}
+
+bool CollisionManager::collisionDetect(Player * player, D3DXVECTOR3 gameObjectPos, RECT gameObjectBbSize)
+{
+	float characterCenterX = player->getBbBoxSize().x / 2;
+	float characterCenterY = player->getBbBoxSize().y / 2;
+	float playerRight = player->position.x + characterCenterX;
+	float playerLeft = player->position.x - characterCenterX;
+	float playerBottom = player->position.y + characterCenterY;
+	float playerTop = player->position.y - characterCenterY;
+	
+	float objectCenterX = gameObjectBbSize.right / 2;
+	float objectCenterY = gameObjectBbSize.bottom / 2;
+	float objectRight = gameObjectPos.x + objectCenterX;
+	float objectLeft = gameObjectPos.x - objectCenterX;
+	float objectBottom = gameObjectPos.y + objectCenterY;
+	float objectTop = gameObjectPos.y - objectCenterY;
+	
+	if (playerBottom < objectTop) return false;
+	if (playerTop > objectBottom) return false;
+	if (playerRight < objectLeft) return false;
+	if (playerLeft > objectRight) return false;
+		
+	return true;
+}
 
 
+	

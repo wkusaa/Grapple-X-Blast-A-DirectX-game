@@ -26,5 +26,5 @@ public:
 	
 	void Initialize(LPDIRECT3DDEVICE9 device);
 	void Update();
-	void render();
+	void Draw();
 };

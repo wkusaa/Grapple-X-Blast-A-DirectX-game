@@ -26,8 +26,6 @@ TestLevel99::TestLevel99()
 	
 	//playerCon->player->setAmmoAmount(200);
 
-	/*ammoObject.clear();
-	keyObject.clear();*/
 	buildLevel();
 
 	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", false);
@@ -103,49 +101,76 @@ void TestLevel99::update()
 
 void TestLevel99::fixedUpdate()
 {
-	
 	playerCon->Update(grapplePointArray);
+	
 	
 	
 	for (int i = 0; i < keyObject.size(); i++)
 	{
-		keyObject[i].Update();
+		
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
-		ammoObject[i].Update();
+		
 	}
 
 	
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), 1, playerCon->aState);
+		collision->checkCollision(playerCon->player, brickObject[i]->position, grassObject[i]->getBounding_Box(), 1, playerCon->aState);
+
+		//float normalx, normaly;
+		///*if (collision->collisionDetect(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box())) {*/
+		//	//printf("collide %d\n",i+i+1);
+		//	float collisiontime = (collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), normalx, normaly));
+		//	//printf("%f\n", collisiontime);
+		//	if (collisiontime < 1.0f)
+		//		{
+		//			//printf("collide\n");
+		//			playerCon->player->position.x = playerCon->player->velocity.y * collisiontime;
+		//			playerCon->player->position.y = playerCon->player->velocity.x * collisiontime;
+		//			/*float remainingtime = 1.0f - collisiontime;
+		//			playerCon->player->velocity.x *= remainingtime;
+		//			playerCon->player->velocity.y *= remainingtime;
+		//			if (abs(normalx) > 0.0001f) playerCon->player->velocity.x = -playerCon->player->velocity.x;
+		//			if (abs(normaly) > 0.0001f) playerCon->player->velocity.y = -playerCon->player->velocity.y;*/
+		//		}
+		//
+		////}
 	}
 	
 	for (int i = 0; i < brickObject.size(); i++)
 	{
 		collision->checkCollision(playerCon->player, brickObject[i]->position, brickObject[i]->getBounding_Box(), 1, playerCon->aState);
+		
 	}
 
 	for (int i = 0; i < trapObject.size(); i++)
 	{
 		collision->checkCollision(playerCon->player, trapObject[i]->position, trapObject[i]->getBounding_Box(), 0, playerCon->aState);
+		
 	}
 
 	for (int i = 0; i < lavaObject.size(); i++)
 	{
 		collision->checkCollision(playerCon->player, lavaObject[i]->position, lavaObject[i]->getBounding_Box(), 0, playerCon->aState);
+		
 	}
 
-	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
+	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 2, playerCon->aState))
 	{
-		nextScene();
+		if (playerCon->player->getKeyAmount() > 0)
+			nextScene();
+		else
+			playerCon->player->setShowKeyMsg(true);
 	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
+		ammoObject[i].Update();
+
 		if (collision->checkCollision(playerCon->player, ammoObject[i].position, ammoObject[i].getBounding_Box(), 2, playerCon->aState))
 		{
 			playerCon->player->updateAmmoAmount(20);
@@ -155,6 +180,8 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
+		keyObject[i].Update();
+
 		if (collision->checkCollision(playerCon->player, keyObject[i].position, keyObject[i].getBounding_Box(), 2, playerCon->aState))
 		{
 			playerCon->player->updateKeyAmount(1);
@@ -167,6 +194,8 @@ void TestLevel99::fixedUpdate()
 		GameStateManager::getInstance()->changeGameState(7);
 		playerCon->player->setAmmoAmount(10);
 	}
+
+	
 }
 
 void TestLevel99::draw()
@@ -207,9 +236,11 @@ void TestLevel99::draw()
 	}
 
 	doorObject->Draw();
-	keyUI->render();
-	ammoUI->render();
-	playerCon->Draw();
+	keyUI->Draw();
+	ammoUI->Draw();
+	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!");
+	else
+		playerCon->Draw();
 }
 
 void TestLevel99::release()
@@ -380,7 +411,7 @@ void TestLevel99::buildLevel()
 void TestLevel99::loadScene()
 {
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
-	playerCon->player->setAmmoAmount(10);
+	playerCon->player->setAmmoAmount(100);
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
 }

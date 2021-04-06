@@ -145,9 +145,13 @@ void TestLevel4::fixedUpdate()
 
 
 	gate->Update();
-	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState) && playerCon->player->getKeyAmount() > 0)
+	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState))
 	{
-		nextScene();
+		if (playerCon->player->getKeyAmount() > 0)
+			nextScene();
+		else
+			playerCon->player->setShowKeyMsg(true);
+			
 	}
 	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 }
@@ -192,9 +196,12 @@ void TestLevel4::draw()
 	}
 
 	gate->Draw();
-	playerCon->Draw();
-	keyUI->render();
-	ammoUI->render();
+	if (playerCon->player->getShowKeyMsg() == true) playerCon->player->Draw("No Door Key Detected!");
+	else
+		playerCon->Draw();
+
+	keyUI->Draw();
+	ammoUI->Draw();
 }
 
 void TestLevel4::release()

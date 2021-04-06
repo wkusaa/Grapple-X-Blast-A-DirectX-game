@@ -18,6 +18,7 @@ protected:
 	D3DXVECTOR3 rotationCentre;
 	D3DXVECTOR3 spriteCentre;
 	D3DXVECTOR3 size;
+	D3DXVECTOR3 bbSize;
 	D3DXMATRIX mat;
 	RECT bounding_box;
 	LPD3DXFONT font;
@@ -84,5 +85,6 @@ public:
 	int getCurrentFrame();
 
 	RECT getBounding_Box();
+	D3DXVECTOR3 getBbBoxSize() { return bbSize; };
 };
 

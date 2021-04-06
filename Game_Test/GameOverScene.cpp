@@ -40,7 +40,7 @@ void GameOverScene::fixedUpdate()
 {
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
 	{
-		GameStateManager::getInstance()->changeGameState(5);
+		GameStateManager::getInstance()->changeGameState(6);
 	}
 }
 

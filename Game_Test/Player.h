@@ -29,12 +29,11 @@ public:
 	void ReleaseInstance();
 	float getBlastOffAngle();
 	D3DXVECTOR3 getPlayerBbSize();
-	//void switchWeapon();
-	//void action();
 	bool isMoving;
 	void setAmmoAmount(int num) { this->ammoAmount = num; };
 	void updateAmmoAmount(int num) { this->ammoAmount += num; };
 	int getAmmoAmount() { return ammoAmount; };
+	void resetKeyAmount() { this->keyAmount = 0; };
 	void updateKeyAmount(int num) { this->keyAmount += num; };
 	int getKeyAmount() { return keyAmount; };
 	

@@ -7,11 +7,8 @@ TestLevel4::TestLevel4()
 	playerCon->player->setPosition(D3DXVECTOR3(100.0f, 720.0f / 2, 0.0f));
 	playerCon->player->direction = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	gravity = D3DXVECTOR3(0.0f, 0.05f, 0.0f);
-
 	collision = new CollisionManager;
-
-	soundLevel = new GameSound(1, "assets/sound/bgm/suspense.mp3", false);
+	soundLevel = new GameSound(1, "assets/sound/bgm/suspense.mp3", true);
 
 	buildLevel();
 
@@ -208,7 +205,7 @@ void TestLevel4::buildLevel()
 
 	Key key1;
 	key1.Initialize(gameGraphics->d3dDevice);
-	key1.setPosition(D3DXVECTOR3(247.0f, 629.0f, 0.0f));
+	key1.setPosition(D3DXVECTOR3(249.0f, 551.0f, 0.0f));
 	keysArray.push_back(key1);
 
 	Ammo am1;
@@ -405,10 +402,17 @@ void TestLevel4::loadScene()
 	playerCon->player->setPosition(D3DXVECTOR3(1002.0f, 124.0f, 0.0f));
 	playerCon->player->setAmmoAmount(20);
 	soundLevel->play();
+	soundLevel->setVolume(0.3f);
+
+
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	gameGraphics->r = 163;
+	gameGraphics->g = 0;
+	gameGraphics->b = 0;
 }
 
 void TestLevel4::nextScene()
 {
 	soundLevel->stop();
-	GameStateManager::getInstance()->changeGameState(5);
+	GameStateManager::getInstance()->changeGameState(3);
 }

@@ -30,7 +30,7 @@ TestLevel99::TestLevel99()
 	keyObject.clear();*/
 	buildLevel();
 
-	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", false);
+	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", true);
 }
 
 TestLevel99::~TestLevel99()
@@ -164,8 +164,8 @@ void TestLevel99::fixedUpdate()
 
 	if (playerCon->player->getAmmoAmount() < 0)
 	{
-		GameStateManager::getInstance()->changeGameState(7);
-		playerCon->player->setAmmoAmount(10);
+		GameStateManager::getInstance()->changeGameState(2);
+		playerCon->player->setAmmoAmount(15);
 	}
 }
 
@@ -380,14 +380,19 @@ void TestLevel99::buildLevel()
 void TestLevel99::loadScene()
 {
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
-	playerCon->player->setAmmoAmount(10);
+	playerCon->player->setAmmoAmount(15);
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
+
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	gameGraphics->r = 24;
+	gameGraphics->g = 218;
+	gameGraphics->b = 225;
 }
 
 void TestLevel99::nextScene()
 {
 	soundLevel->stop();
-	GameStateManager::getInstance()->changeGameState(8);
+	GameStateManager::getInstance()->changeGameState(6);
 }
 

@@ -23,6 +23,8 @@ PlayerController::PlayerController()
 
 	angleDegree = 90;
 	magnitude = 5;
+	hookLength = 200.0f;
+	swingLength = 150.0f;
 
 	onHook = NULL;
 
@@ -45,6 +47,7 @@ PlayerController::PlayerController()
 	releaseHookSound = new GameSound(0, "assets/sound/sfx/jump_11.wav", false);
 	cannon_load = new GameSound(0, "assets/sound/sfx/cannon_switch.wav", false);
 	grappling_load = new GameSound(0, "assets/sound/sfx/hook_switch.wav", false);
+	deathSound = new GameSound(0, "assets/sound/sfx/snek_death.mp3", false);
 }
 
 PlayerController::~PlayerController()
@@ -61,6 +64,7 @@ PlayerController::~PlayerController()
 	delete releaseHookSound;
 	delete cannon_load;
 	delete grappling_load;
+	delete deathSound;
 }
 
 PlayerController* PlayerController::getInstance()
@@ -138,11 +142,11 @@ void PlayerController::animationController()
 
 void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 {
-	if (player->velocity.y > 0 && aState != Hook && aState != Swinging && aState != Release)
+	if (player->velocity.y > 0 && aState != Hook && aState != Swinging && aState != Release && aState != Death)
 	{
 		aState = FreeFall;
 	}
-	else if (player->velocity.x == 0 && player->velocity.y == 0 && aState != Hook && aState != Swinging && aState != Release)
+	else if (player->velocity.x == 0 && player->velocity.y == 0 && aState != Hook && aState != Swinging && aState != Release && aState != Death)
 	{
 		aState = Idle;
 	}
@@ -156,76 +160,42 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 		player->scaling.x = -abs(player->scaling.x);
 	}
 
-	switchWeapon();
-
-	if (weaponState == grappleGun)
+	if (aState != Death)
 	{
-		if (aState != Swinging && aState != Release)
+		switchWeapon();
+
+		if (weaponState == grappleGun)
 		{
-			hook(grapplePointArray);
+			if (aState != Swinging && aState != Release)
+			{
+				hook(grapplePointArray);
+			}
 		}
 
+		action();
 	}
 
-	//std::cout << aState << std::endl;
-
-
-	action();
 	animationController();
 
 
 	if (aState == Idle || aState == FreeFall || aState == BlastOff || aState == Release || aState == Hook)
 	{
-		//player->direction += gravity;
 		player->velocity += gravity;
 	}
 	else if (aState == Swinging)
 	{
-		
-		float distanceFromPoint = 150.0f;
-		if (angleDegree > 270)
-		{
-			swingOppositeDirection = false;
-			swingSound->play();
-		}
-		else if (angleDegree < 90)
-		{
-			swingOppositeDirection = true;
-			swingSound->play();
-		}
-
-		if (swingOppositeDirection)
-		{
-			angleDegree += 2;
-		}
-		else
-		{
-			angleDegree -= 2;
-		}
-
-		float angle = D3DXToRadian(angleDegree);
-		float offsetX = (sin(angle)) * distanceFromPoint;
-		float offsetY = (-cos(angle)) * distanceFromPoint;
-
-		D3DXVECTOR3 prevPosition = player->position;
-		D3DXVECTOR3 currentPosition = D3DXVECTOR3(onHook->position.x + offsetX, onHook->position.y + offsetY, 1.0f);
-		D3DXVECTOR3 difPosition = currentPosition - prevPosition;
-
-		player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
-		player->direction *= 300/60;
-
-		player->velocity = player->direction;
+		swing();
 	}
 
 
 
 	//std::cout << player->direction.x << "|" << player->direction.y << std::endl;
-	if (player->isMoving == true)
+	if (player->isMoving == true && aState != Death)
 	{
 		//player->velocity = player->direction*magnitude;
-		/*if (player->velocity.y > 5) player->velocity.y = 5;
+		if (player->velocity.y > 5) player->velocity.y = 5;
 		if (player->velocity.x > 5) player->velocity.x = 5;
-		if (player->velocity.x < -5) player->velocity.x = -5;*/
+		if (player->velocity.x < -5) player->velocity.x = -5;
 		
 		player->position += player->velocity;
 		
@@ -238,7 +208,6 @@ void PlayerController::Update(std::vector<GrapplingPoint*> grapplePointArray)
 	}
 
 	player->Update();
-
 
 	explosion->setPosition(player->blastCannon->position);
 	explosion->Update();
@@ -340,7 +309,7 @@ void PlayerController::hook(std::vector<GrapplingPoint*> grapplePointArray)
 	for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		RECT relative = collision.relativeRect(grapplePointArray[i]->position, grapplePointArray[i]->getBounding_Box(), grapplePointArray[i]->getSpriteCentre());
-		if (collision.checkMousePointCollision(relative))
+		if (collision.checkMousePointCollision(relative) && checkHookLength(grapplePointArray[i]->position))
 		{
 			tempNum = i;
 			break;
@@ -362,12 +331,55 @@ void PlayerController::hook(std::vector<GrapplingPoint*> grapplePointArray)
 
 void PlayerController::swing()
 {
+	if (angleDegree > 270)
+	{
+		swingOppositeDirection = false;
+		swingSound->play();
+	}
+	else if (angleDegree < 90)
+	{
+		swingOppositeDirection = true;
+		swingSound->play();
+	}
 
+	if (swingOppositeDirection)
+	{
+		angleDegree += 2;
+	}
+	else
+	{
+		angleDegree -= 2;
+	}
+
+	float angle = D3DXToRadian(angleDegree);
+	float offsetX = (sin(angle)) * swingLength;
+	float offsetY = (-cos(angle)) * swingLength;
+
+	D3DXVECTOR3 prevPosition = player->position;
+	D3DXVECTOR3 currentPosition = D3DXVECTOR3(onHook->position.x + offsetX, onHook->position.y + offsetY, 1.0f);
+	D3DXVECTOR3 difPosition = currentPosition - prevPosition;
+
+	player->direction = D3DXVECTOR3(difPosition.x / 100, difPosition.y / 100, 0.0f);
+	player->direction *= 300 / 60;//tweaks
+
+	player->velocity = player->direction;
 }
 
 void PlayerController::releaseSwing()
 {
 	onHook = NULL;
+}
+
+bool PlayerController::checkHookLength(D3DXVECTOR3 pointPosition)
+{
+	float length = D3DXVec3Length(&(player->position - pointPosition));
+
+	if (hookLength >= length)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void PlayerController::switchWeapon()
@@ -421,4 +433,19 @@ void PlayerController::grappleDrawLaserLine()
 		}
 		
 	}
+}
+
+void PlayerController::TriggerDeath()
+{
+	//if (GameInput::getInstance()->KeyboardKeyPressed(DIK_D))
+	{
+		aState = Death;
+		deathSound->play();
+		player->velocity *= 0;
+	}
+}
+
+void PlayerController::SetPlayerIdle()
+{
+	aState = Idle;
 }

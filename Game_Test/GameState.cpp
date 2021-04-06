@@ -9,6 +9,7 @@ GameState::~GameState()
 
 void GameState::update()
 {
+
 }
 
 void GameState::loadScene()
@@ -17,6 +18,8 @@ void GameState::loadScene()
 
 void GameState::nextScene()
 {
+
 }
+
 
 

@@ -92,16 +92,8 @@ void TestLevel99::fixedUpdate()
 {
 	playerCon->Update(grapplePointArray);
 	
-	/*for (int i = 0; i < colliderObject.size(); i++)
-	{
-		collision->checkCollision(playerCon->player, colliderObject[i]->getColliderBox(), colliderObject[i]->getObjectType(), playerCon->aState);
-	}*/
-
-	//printf("collide\n   %f \n", GameStateManager::getInstance()->elapsedTime);
-
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		
 		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), grassObject[i]->position, grassObject[i]->getBbBoxSize(), grassObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 		
 	}
@@ -143,13 +135,10 @@ void TestLevel99::fixedUpdate()
 		ammoObject[i].Update();
 
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoObject[i].position, ammoObject[i].getBbBoxSize(), ammoObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
-
 		{
 			ammoObject.erase(ammoObject.begin() + i);
 			playerCon->player->updateAmmoAmount(20);
-		}
-			
-			
+		}	
 	}
 
 	for (int i = 0; i < keyObject.size(); i++)

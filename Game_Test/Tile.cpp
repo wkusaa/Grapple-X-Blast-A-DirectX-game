@@ -57,7 +57,7 @@ Lava::Lava(float x, float y, float z)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-	bbSize = D3DXVECTOR3(26.0f, 32.0f, 1.0f);
+	bbSize = D3DXVECTOR3(26.0f, 16.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	objectType = 6;
 }

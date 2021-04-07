@@ -64,11 +64,11 @@ TestLevel99::~TestLevel99()
 		trapObject[i] = NULL;
 	}
 
-	/*for (int i = 0; i < grapplePointArray.size(); i++)
+	for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		delete grapplePointArray[i];
 		grapplePointArray[i] = NULL;
-	}*/
+	}
 	
 	delete doorObject;
 	delete keyUI;
@@ -187,10 +187,10 @@ void TestLevel99::draw()
 		trapObject[i]->Draw();
 	}
 
-	/*for (int i = 0; i < grapplePointArray.size(); i++)
+	for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		grapplePointArray[i]->Draw();
-	}*/
+	}
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
@@ -311,6 +311,9 @@ void TestLevel99::buildLevel()
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
 
+			Grass* grass = new Grass(256.0f + 16.0f + i * 32.0f, 288.0f + 16.0f, 0.0f);
+			grass->Initialize(gameGraphics->d3dDevice);
+			grassObject.push_back(grass);
 		}
 
 		for (int k = 0; k < 3; k++)
@@ -336,16 +339,13 @@ void TestLevel99::buildLevel()
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		Brick* brick = new Brick(128.0f + 16.0f + i * 32.0f, 320.0f + 16.0f, 0.0f);
-		brick->Initialize(gameGraphics->d3dDevice);
-		brickObject.push_back(brick);
 	}
 
 	for (int i = 0; i < 16; i++)
 	{
-		Grass* grass = new Grass(128.0f + 16.0f + i * 32.0f, 288.0f + 16.0f, 0.0f);
-		grass->Initialize(gameGraphics->d3dDevice);
-		grassObject.push_back(grass);
+		Brick* brick = new Brick(256.0f + 16.0f + i * 32.0f, 320.0f + 16.0f, 0.0f);
+		brick->Initialize(gameGraphics->d3dDevice);
+		brickObject.push_back(brick);
 
 		Trap* trap = new Trap(768.0f + 16.0f + i * 32.0f, 16.0f, 0);
 		trap->Initialize(gameGraphics->d3dDevice);
@@ -354,10 +354,6 @@ void TestLevel99::buildLevel()
 
 	for (int i = 0; i < 2; i++)
 	{
-		/*GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(i*32*16 + 384.0f, 496.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);*/
-
 		ammo.setPosition(D3DXVECTOR3(i * 32 * 16 + 384.0f, 624.0f, 0.0f));
 		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
@@ -380,7 +376,9 @@ void TestLevel99::buildLevel()
 	ammoUI = new AmmoUI(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
 	ammoUI->Initialize(gameGraphics->d3dDevice);
 
-
+	GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(128.0f, 208.0f, 0.0f));
+	gp->Initialize(gameGraphics->d3dDevice);
+	grapplePointArray.push_back(gp);
 }
 
 void TestLevel99::loadScene()
@@ -388,7 +386,7 @@ void TestLevel99::loadScene()
 	restartLevel();
 	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
-	playerCon->player->setAmmoAmount(20);
+	playerCon->player->setAmmoAmount(10);
 	playerCon->player->resetKeyAmount();
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
@@ -435,6 +433,13 @@ void TestLevel99::restartLevel()
 		//ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
 		//ammo->Initialize(gameGraphics->d3dDevice);
 		ammo.setPosition(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		ammo.setPosition(D3DXVECTOR3(i * 32 * 16 + 384.0f, 624.0f, 0.0f));
 		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
 	}

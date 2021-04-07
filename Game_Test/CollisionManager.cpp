@@ -232,7 +232,7 @@ bool CollisionManager::checkCollision(D3DXVECTOR3& playerPos, D3DXVECTOR3 player
 				{
 					if (wy < -hx)
 					{
-						playerVel.y = 5;
+						playerVel.y = -3;
 						printf("top\n");/* at the top */
 					}
 						

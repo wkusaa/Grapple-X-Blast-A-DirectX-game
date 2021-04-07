@@ -129,7 +129,7 @@ void TestLevel99::fixedUpdate()
 		}
 	}
 
-	/*if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), doorObject->position, doorObject->getBounding_Box(), doorObject->getObjectType(), playerCon->aState, playerCon->player->velocity))
+	if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), doorObject->position, doorObject->getBbBoxSize(), doorObject->getObjectType(), playerCon->aState, playerCon->player->velocity))
 	{
 		if (playerCon->player->getKeyAmount() > 0)
 			nextScene();
@@ -141,24 +141,26 @@ void TestLevel99::fixedUpdate()
 	{
 		ammoObject[i].Update();
 
-		if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoObject[i].position, ammoObject[i].getBounding_Box(), ammoObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
-			
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoObject[i].position, ammoObject[i].getBbBoxSize(), ammoObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
+
 		{
+			ammoObject.erase(ammoObject.begin() + i);
 			playerCon->player->updateAmmoAmount(20);
-			ammoObject.erase(ammoObject.begin()+i);
 		}
+			
+			
 	}
 
 	for (int i = 0; i < keyObject.size(); i++)
 	{
 		keyObject[i].Update();
 
-		if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), keyObject[i].position, keyObject[i].getBounding_Box(), keyObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), keyObject[i].position, keyObject[i].getBbBoxSize(), keyObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-			playerCon->player->updateKeyAmount(1);
 			keyObject.erase(keyObject.begin()+i);
+			playerCon->player->updateKeyAmount(1);
 		}
-	}*/
+	}
 
 	/*if (playerCon->player->getAmmoAmount() < 0)
 	{

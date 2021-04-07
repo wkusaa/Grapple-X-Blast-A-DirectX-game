@@ -100,7 +100,6 @@ void TestLevel99::fixedUpdate()
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		
 		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), grassObject[i]->position, grassObject[i]->getBbBoxSize(), grassObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 		
 	}

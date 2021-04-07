@@ -30,7 +30,7 @@ Ammo::Ammo()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-	bbSize = D3DXVECTOR3(size.x + 10, size.y, 1.0f);
+	bbSize = D3DXVECTOR3(size.x + 16, size.y+16, 1.0f);
 	objectType = 2;
 }
 
@@ -64,7 +64,7 @@ Ammo::Ammo(D3DXVECTOR3 position)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
-	bbSize = D3DXVECTOR3(size.x + 10, size.y, 1.0f);
+	bbSize = D3DXVECTOR3(size.x + 16, size.y+16, 1.0f);
 	objectType = 2;
 }
 

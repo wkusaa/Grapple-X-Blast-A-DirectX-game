@@ -24,7 +24,7 @@ Key::Key()
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
-	bbSize = D3DXVECTOR3(size.x + 10, size.y, 1.0f);
+	bbSize = D3DXVECTOR3(size.x + 16, size.y+16, 1.0f);
 	objectType = 2;
 }
 

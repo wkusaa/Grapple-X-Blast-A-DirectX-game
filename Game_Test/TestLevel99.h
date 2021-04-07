@@ -37,6 +37,8 @@ private:
 	Key key;
 	Ammo ammo;
 	CollisionManager* collision;
+
+	bool isGameOver;
 	
 public:
 	TestLevel99();

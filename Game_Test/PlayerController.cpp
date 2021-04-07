@@ -51,7 +51,7 @@ PlayerController::PlayerController()
 	releaseHookSound = new GameSound(0, "assets/sound/sfx/jump_11.wav", false);
 	cannon_load = new GameSound(0, "assets/sound/sfx/cannon_switch.wav", false);
 	grappling_load = new GameSound(0, "assets/sound/sfx/hook_switch.wav", false);
-	deathSound = new GameSound(0, "assets/sound/sfx/snek_death.mp3", false);
+	deathSound = new GameSound(0, "assets/sound/sfx/snaaakeeee.mp3", false);
 }
 
 PlayerController::~PlayerController()
@@ -439,13 +439,6 @@ void PlayerController::grappleDrawLaserLine()
 		
 	}
 }
-
-//void PlayerController::TriggerDeath()
-//{
-//	aState = Death;
-//	deathSound->play();
-//	player->velocity *= 0;
-//}
 
 void PlayerController::SetPlayerIdle()
 {

@@ -12,6 +12,7 @@ TestLevel5::TestLevel5()
 
 	buildLevel();
 
+	isGameOver = false;
 }
 
 TestLevel5::~TestLevel5()
@@ -23,18 +24,6 @@ TestLevel5::~TestLevel5()
 		delete grapplePointArray[i];
 		grapplePointArray[i] = NULL;
 	}
-
-	/*for (int i = 0; i < ammoArray.size(); i++)
-	{
-		delete ammoArray[i];
-		ammoArray[i] = NULL;
-	}
-
-	for (int i = 0; i < gemsArray.size(); i++)
-	{
-		delete gemsArray[i];
-		gemsArray[i] = NULL;
-	}*/
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
@@ -111,9 +100,9 @@ void TestLevel5::fixedUpdate()
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
 		brazierArray[i]->Update();
-		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brazierArray[i]->position, brazierArray[i]->getBbBoxSize(), brazierArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
+		if(collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brazierArray[i]->position, brazierArray[i]->getBbBoxSize(), brazierArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-
+			isGameOver = true;
 		}
 		
 	}
@@ -161,9 +150,13 @@ void TestLevel5::fixedUpdate()
 
 	if (playerCon->player->getAmmoAmount() < 0)
 	{
-		GameOver();
+		isGameOver = true;
 	}
 
+	if (isGameOver)
+	{
+		GameOver();
+	}
 
 }
 
@@ -365,6 +358,7 @@ void TestLevel5::buildLevel()
 
 void TestLevel5::loadScene()
 {
+
 	restartLevel();
 	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(106.0f, 562.0f, 0.0f));
@@ -391,9 +385,11 @@ void TestLevel5::GameOver()
 	{
 		releaseLevel();
 		playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+		isGameOver = false;
 		GameStateManager::getInstance()->levelContinue = 6;
 		GameStateManager::getInstance()->changeGameState(2);
 		playerCon->player->setAmmoAmount(5);
+
 	}
 
 }

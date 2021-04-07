@@ -88,7 +88,7 @@ void TestLevel4::fixedUpdate()
 		ammoArray[i].Update();
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoArray[i].position, ammoArray[i].getBbBoxSize(), ammoArray[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-			playerCon->player->updateAmmoAmount(20);
+			playerCon->player->updateAmmoAmount(3);
 			ammoArray.erase(ammoArray.begin() + i);
 		}
 
@@ -107,13 +107,19 @@ void TestLevel4::fixedUpdate()
 	for (int i = 0; i < spikeArray.size(); i++)
 	{
 		spikeArray[i]->Update();
-		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), spikeArray[i]->position, spikeArray[i]->getBbBoxSize(), spikeArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), spikeArray[i]->position, spikeArray[i]->getBbBoxSize(), spikeArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
+		{
+			isGameOver = true;
+		}
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
 		brazierArray[i]->Update();
-		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brazierArray[i]->position, brazierArray[i]->getBbBoxSize(), brazierArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brazierArray[i]->position, brazierArray[i]->getBbBoxSize(), brazierArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
+		{
+			isGameOver = true;
+		}
 	}
 
 	//---------------------------------------------------------------------
@@ -122,15 +128,6 @@ void TestLevel4::fixedUpdate()
 	{
 		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), platformArray[i]->position, platformArray[i]->getBbBoxSize(), platformArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 	}
-
-	/*for (int i = 0; i < spikeArray.size(); i++)
-	{
-
-	}
-
-	for (int i = 0; i < brazierArray.size(); i++)
-	{
-	}*/
 
 	for (int i = 0; i < keysArray.size(); i++)
 	{
@@ -155,7 +152,7 @@ void TestLevel4::fixedUpdate()
 
 	if (playerCon->player->getAmmoAmount() < 0)
 	{
-		//isGameOver = true;
+		isGameOver = true;
 	}
 
 	if (isGameOver)
@@ -221,24 +218,6 @@ void TestLevel4::release()
 void TestLevel4::buildLevel()
 {
 	GameGraphics* gameGraphics = GameGraphics::getInstance();
-
-	Key key1;
-	key1.Initialize(gameGraphics->d3dDevice);
-	key1.setPosition(D3DXVECTOR3(249.0f, 551.0f, 0.0f));
-	keysArray.push_back(key1);
-
-	Ammo am1;
-	am1.setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
-	am1.Initialize(gameGraphics->d3dDevice);
-	ammoArray.push_back(am1);
-
-	Gems gem1, gem2;
-	gem1.setPosition(D3DXVECTOR3(300.0f, 400.0f, 0.0f));
-	gem2.setPosition(D3DXVECTOR3(500.0f, 400.0f, 0.0f));
-	gem1.Initialize(gameGraphics->d3dDevice);
-	gem2.Initialize(gameGraphics->d3dDevice);
-	gemsArray.push_back(gem1);
-	gemsArray.push_back(gem2);
 
 	gate = new Gate();
 	gate->Initialize(gameGraphics->d3dDevice);
@@ -421,7 +400,7 @@ void TestLevel4::loadScene()
 	restartLevel();
 	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(1002.0f, 124.0f, 0.0f));
-	playerCon->player->setAmmoAmount(20);
+	playerCon->player->setAmmoAmount(5);
 	playerCon->player->resetKeyAmount();
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);
@@ -458,13 +437,54 @@ void TestLevel4::restartLevel()
 	GameGraphics* gameGraphics = GameGraphics::getInstance();
 	Key key;
 	key.Initialize(gameGraphics->d3dDevice);
-	key.setPosition(D3DXVECTOR3(249.0f, 551.0f, 0.0f));
+	key.setPosition(D3DXVECTOR3(150, 604, 0.0f));
 	keysArray.push_back(key);
 
 	for (int i = 0; i < 1; i++)
 	{
 		Ammo am;
-		am.setPosition(D3DXVECTOR3(200.0f, 500.0f, 0.0f));
+		am.setPosition(D3DXVECTOR3(555, 178, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(97, 98 + i*200, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(1032, 485, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(341, 512, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(930, 551, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(895, 278, 0.0f));
 		am.Initialize(gameGraphics->d3dDevice);
 		ammoArray.push_back(am);
 	}

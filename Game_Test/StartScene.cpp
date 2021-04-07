@@ -66,4 +66,9 @@ void StartScene::loadScene()
 {
 	mainMenuSound->play();
 	mainMenuSound->setVolume(0.3f);
+
+	GameGraphics* gameGraphics = GameGraphics::getInstance();
+	gameGraphics->r = 255;
+	gameGraphics->g = 255;
+	gameGraphics->b = 255;
 }

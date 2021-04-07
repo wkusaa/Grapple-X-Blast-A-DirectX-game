@@ -78,7 +78,7 @@ void GameWindows::createWindow()
 	rect.right = WIN_WIDTH;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
-	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
+	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Grapple X Blast", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
 	ShowWindow(g_hWnd, 1);
 
 	//	Some interesting function to try out.

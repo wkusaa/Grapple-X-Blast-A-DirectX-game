@@ -1,7 +1,7 @@
 #pragma once
 #include "GameStateManager.h"
 #include "GameState.h"
-#define VICTORY "assets/victoryScene.png"
+#define TUTORIAL "assets/mainScene.png"
 
 class TutorialScene :public GameState
 {

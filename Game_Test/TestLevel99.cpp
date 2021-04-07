@@ -289,17 +289,6 @@ void TestLevel99::buildLevel()
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		//Ammo ammo = new Ammo(D3DXVECTOR3(80.0f + i*96.0f, 448.0f, 0.0f));
-		//ammo->Initialize(gameGraphics->d3dDevice);
-		ammo.setPosition(D3DXVECTOR3(80.0f + i * 96.0f, 448.0f, 0.0f));
-		ammo.Initialize(gameGraphics->d3dDevice);
-		ammoObject.push_back(ammo);
-
-		//ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
-		//ammo->Initialize(gameGraphics->d3dDevice);
-		ammo.setPosition(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
-		ammo.Initialize(gameGraphics->d3dDevice);
-		ammoObject.push_back(ammo);
 
 		for (int j = 0; j < 10; j++)
 		{
@@ -372,10 +361,6 @@ void TestLevel99::buildLevel()
 
 	doorObject = new Door(50.0f + 16.0f, 80.0f + 16.0f, 0.0f);
 	doorObject->Initialize(gameGraphics->d3dDevice);
-
-	key.setPosition(D3DXVECTOR3(832.0f, 448.0f, 0.0f));
-	key.Initialize(gameGraphics->d3dDevice);
-	keyObject.push_back(key);
 
 	keyUI = new KeyUI(D3DXVECTOR3(128.0f, 16.0f, 0.0f));
 	keyUI->Initialize(gameGraphics->d3dDevice);

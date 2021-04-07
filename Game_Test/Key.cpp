@@ -55,6 +55,7 @@ void Key::Update()
 	spriteRect.left = size.x * currentFrame;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
+	objectType = 3;
 }
 
 KeyUI::KeyUI(D3DXVECTOR3 position)
@@ -72,6 +73,7 @@ KeyUI::KeyUI(D3DXVECTOR3 position)
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
+	objectType = 3;
 }
 
 KeyUI::~KeyUI()

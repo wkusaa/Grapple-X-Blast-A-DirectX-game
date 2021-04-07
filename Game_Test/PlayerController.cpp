@@ -14,7 +14,7 @@ PlayerController::PlayerController()
 	explosion = new Explosion;
 	explosion->setPosition(player->blastCannon->position);
 	
-	gravity = D3DXVECTOR3(0.0f, 0.15f, 0.0f);
+	gravity = D3DXVECTOR3(0.0f, 0.10f, 0.0f);
 
 	player->currentWeapon = player->blastCannon;
 	player->currentWeapon->setPosition(player->position);

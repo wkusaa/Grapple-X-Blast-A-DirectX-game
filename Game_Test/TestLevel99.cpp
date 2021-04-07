@@ -64,11 +64,11 @@ TestLevel99::~TestLevel99()
 		trapObject[i] = NULL;
 	}
 
-	for (int i = 0; i < grapplePointArray.size(); i++)
+	/*for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		delete grapplePointArray[i];
 		grapplePointArray[i] = NULL;
-	}
+	}*/
 	
 	delete doorObject;
 	delete keyUI;
@@ -110,7 +110,7 @@ void TestLevel99::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), trapObject[i]->position, trapObject[i]->getBbBoxSize(), trapObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-
+			isGameOver = true;
 		}
 	}
 
@@ -118,7 +118,7 @@ void TestLevel99::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), lavaObject[i]->position, lavaObject[i]->getBbBoxSize(), lavaObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-
+			isGameOver = true;
 		}
 	}
 
@@ -137,7 +137,7 @@ void TestLevel99::fixedUpdate()
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoObject[i].position, ammoObject[i].getBbBoxSize(), ammoObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
 			ammoObject.erase(ammoObject.begin() + i);
-			playerCon->player->updateAmmoAmount(20);
+			playerCon->player->updateAmmoAmount(5);
 		}	
 	}
 
@@ -152,10 +152,10 @@ void TestLevel99::fixedUpdate()
 		}
 	}
 
-	/*if (playerCon->player->getAmmoAmount() < 0)
+	if (playerCon->player->getAmmoAmount() < 0)
 	{
 		isGameOver = true;
-	}*/
+	}
 
 	if (isGameOver)
 	{
@@ -187,10 +187,10 @@ void TestLevel99::draw()
 		trapObject[i]->Draw();
 	}
 
-	for (int i = 0; i < grapplePointArray.size(); i++)
+	/*for (int i = 0; i < grapplePointArray.size(); i++)
 	{
 		grapplePointArray[i]->Draw();
-	}
+	}*/
 
 	for (int i = 0; i < ammoObject.size(); i++)
 	{
@@ -289,14 +289,10 @@ void TestLevel99::buildLevel()
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
 
-		//Ammo ammo = new Ammo(D3DXVECTOR3(80.0f + i*96.0f, 448.0f, 0.0f));
-		//ammo->Initialize(gameGraphics->d3dDevice);
 		ammo.setPosition(D3DXVECTOR3(80.0f + i * 96.0f, 448.0f, 0.0f));
 		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
 
-		//ammo = new Ammo(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
-		//ammo->Initialize(gameGraphics->d3dDevice);
 		ammo.setPosition(D3DXVECTOR3(1230.0f, 512.0f - i * 96.0f, 0.0f));
 		ammo.Initialize(gameGraphics->d3dDevice);
 		ammoObject.push_back(ammo);
@@ -356,19 +352,20 @@ void TestLevel99::buildLevel()
 		trapObject.push_back(trap);
 	}
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(549.0f, 50.0f, 0.0f));
+		/*GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(i*32*16 + 384.0f, 496.0f, 0.0f));
 		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
+		grapplePointArray.push_back(gp);*/
+
+		ammo.setPosition(D3DXVECTOR3(i * 32 * 16 + 384.0f, 624.0f, 0.0f));
+		ammo.Initialize(gameGraphics->d3dDevice);
+		ammoObject.push_back(ammo);
 	}
 
 	Grass* grass = new Grass(1152.0f + 16.0f, 496.0f + 16.0f, 0.0f);
 	grass->Initialize(gameGraphics->d3dDevice);
 	grassObject.push_back(grass);
-
-	/*grass->setColliderBox(688, 720, 0,256);
-	colliderObject.push_back(grass);*/
 
 	doorObject = new Door(50.0f + 16.0f, 80.0f + 16.0f, 0.0f);
 	doorObject->Initialize(gameGraphics->d3dDevice);

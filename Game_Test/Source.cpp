@@ -20,14 +20,9 @@ int main()
 	gInput->createInput();
 
 	GameSound::Initialize();
-	//GameSound* myHero = new GameSound(1, "assets/sound/bgm/heroa.mp3", false);
-	//GameSound* bruh = new GameSound(0, "assets/sound/sfx/bruh.wav", true);
 
 	GameStateManager* gManager = gManager->getInstance();
 
-
-	//myHero->play();
-	//bruh->play();
 
 	while (gWin->gameLoop())//it just works
 	{
@@ -49,8 +44,6 @@ int main()
 	gWin->release();
 	gManager->release();
 
-	//delete bruh;
-	//delete myHero;
 	GameSound::Release();
 
 

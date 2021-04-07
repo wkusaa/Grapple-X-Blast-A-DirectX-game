@@ -18,7 +18,10 @@ StartScene::StartScene()
 	rect_bg.right = 1280;
 	rect_bg.bottom = 720;
 
+	mainMenuSound = new GameSound(1, "assets/sound/bgm/Jorge Hernandez - Chopsticks NO COPYRIGHT 8-bit Music.mp3", true);
 
+	mainMenuSound->play();
+	mainMenuSound->setVolume(0.3f);
 }
 
 StartScene::~StartScene()
@@ -28,6 +31,8 @@ StartScene::~StartScene()
 
 	texture->Release();
 	texture = NULL;
+
+	delete mainMenuSound;
 }
 
 void StartScene::init()
@@ -42,7 +47,8 @@ void StartScene::fixedUpdate()
 {
 	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
 	{
-		GameStateManager::getInstance()->changeGameState(5);
+		mainMenuSound->stop();
+		GameStateManager::getInstance()->changeGameState(1);
 	}
 }
 
@@ -55,4 +61,5 @@ void StartScene::draw()
 
 void StartScene::release()
 {
+
 }

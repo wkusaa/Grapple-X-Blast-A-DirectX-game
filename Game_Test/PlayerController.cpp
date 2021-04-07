@@ -264,13 +264,14 @@ void PlayerController::action()
 				{
 					aState = FreeFall;
 				}
-				break;
+				//break;
 			case Hook:
 				if (onHook != NULL)
 				{
 					aState = Swinging;
 					player->isMoving = true;
-					player->position.y -= 20;
+					player->position.y -= 30;
+					player->updateAmmoAmount(-1);
 				}
 				else
 				{

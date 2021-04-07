@@ -9,7 +9,7 @@ TutorialScene::TutorialScene()
 	device = GameGraphics::getInstance()->d3dDevice;
 
 	D3DXCreateSprite(device, &sprite);
-	D3DXCreateTextureFromFileEx(device, VICTORY, D3DX_DEFAULT, D3DX_DEFAULT,
+	D3DXCreateTextureFromFileEx(device, TUTORIAL, D3DX_DEFAULT, D3DX_DEFAULT,
 		D3DX_DEFAULT, NULL, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED,
 		D3DX_DEFAULT, D3DX_DEFAULT, D3DCOLOR_XRGB(255, 255, 255),
 		NULL, NULL, &texture);
@@ -39,6 +39,10 @@ void TutorialScene::update()
 
 void TutorialScene::fixedUpdate()
 {
+	if (GameInput::getInstance()->KeyboardKeyPressed(DIK_RETURN))
+	{
+		GameStateManager::getInstance()->changeGameState(5);
+	}
 }
 
 void TutorialScene::draw()

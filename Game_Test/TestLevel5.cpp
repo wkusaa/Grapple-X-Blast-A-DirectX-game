@@ -86,7 +86,7 @@ void TestLevel5::fixedUpdate()
 		ammoArray[i].Update();
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoArray[i].position, ammoArray[i].getBbBoxSize(), ammoArray[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-			playerCon->player->updateAmmoAmount(20);
+			playerCon->player->updateAmmoAmount(5);
 			ammoArray.erase(ammoArray.begin() + i);
 		}
 
@@ -408,7 +408,7 @@ void TestLevel5::loadScene()
 	restartLevel();
 	playerCon->SetPlayerIdle();
 	playerCon->player->setPosition(D3DXVECTOR3(106.0f, 562.0f, 0.0f));
-	playerCon->player->setAmmoAmount(20);
+	playerCon->player->setAmmoAmount(5);
 	playerCon->player->resetKeyAmount();
 	soundLevel->play();
 	soundLevel->setVolume(0.3f);

@@ -1,7 +1,8 @@
 #pragma once
 #include "GameStateManager.h"
 #include "GameState.h"
-#define STARTSCENE "assets/mainScene.png"
+#include "GameSound.h"
+#define STARTSCENE "assets/GrapplexBlast.png"
 
 class StartScene:public GameState
 {
@@ -10,6 +11,8 @@ private:
 	LPDIRECT3DDEVICE9 device;
 	LPD3DXSPRITE sprite;
 	RECT rect_bg;
+
+	GameSound* mainMenuSound;
 public:
 	StartScene();
 	~StartScene();

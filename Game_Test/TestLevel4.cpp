@@ -435,13 +435,15 @@ void TestLevel4::nextScene()
 
 void TestLevel4::GameOver()
 {
-	playerCon->TriggerDeath();
 	soundLevel->stop();
-	releaseLevel();
-	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
-	GameStateManager::getInstance()->levelContinue = 4;
-	GameStateManager::getInstance()->changeGameState(2);
-	playerCon->player->setAmmoAmount(1);
+	if (playerCon->TriggerDeath(GameStateManager::getInstance()->elapsedTime))
+	{
+		releaseLevel();
+		playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+		GameStateManager::getInstance()->levelContinue = 4;
+		GameStateManager::getInstance()->changeGameState(2);
+		playerCon->player->setAmmoAmount(5);
+	}
 }
 
 void TestLevel4::restartLevel()

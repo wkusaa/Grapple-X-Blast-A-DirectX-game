@@ -150,6 +150,7 @@ void TestLevel5::fixedUpdate()
 	{
 		if (playerCon->player->getKeyAmount() > 0)
 		{
+			std::cout << "Next Scene" << std::endl;
 			playerCon->player->setPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 			nextScene();
 		}
@@ -158,10 +159,10 @@ void TestLevel5::fixedUpdate()
 	}
 
 
-	/*if (playerCon->player->getAmmoAmount() < 0)
+	if (playerCon->player->getAmmoAmount() < 0)
 	{
 		GameOver();
-	}*/
+	}
 
 
 }
@@ -232,47 +233,13 @@ void TestLevel5::buildLevel()
 	gate->Initialize(gameGraphics->d3dDevice);
 	gate->setPosition(D3DXVECTOR3(WIN_WIDTH - 20.0f, 50.0f, 0.0f));
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(146.0f, 453.0f, 0.0f));
+		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(146.0f + i*202.0f, 453.0f, 0.0f));
 		gp->Initialize(gameGraphics->d3dDevice);
 		grapplePointArray.push_back(gp);
 	}
 
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(393.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(595.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(797.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(999.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(999.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
-	}
 
 	for (int i = 0; i < 1; i++)
 	{
@@ -280,13 +247,6 @@ void TestLevel5::buildLevel()
 		platform->Initialize(gameGraphics->d3dDevice);
 		platform->setPosition(D3DXVECTOR3(1217.0f, 560.0f, 0.0f));
 		platformArray.push_back(platform);
-	}
-
-	for (int i = 0; i < 1; i++)
-	{
-		GrapplingPoint* gp = new GrapplingPoint(D3DXVECTOR3(999.0f, 453.0f, 0.0f));
-		gp->Initialize(gameGraphics->d3dDevice);
-		grapplePointArray.push_back(gp);
 	}
 
 
@@ -426,13 +386,16 @@ void TestLevel5::nextScene()
 
 void TestLevel5::GameOver()
 {
-	playerCon->TriggerDeath();
 	soundLevel->stop();
-	releaseLevel();
-	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
-	GameStateManager::getInstance()->levelContinue = 6;
-	GameStateManager::getInstance()->changeGameState(2);
-	playerCon->player->setAmmoAmount(1);
+	if (playerCon->TriggerDeath(GameStateManager::getInstance()->elapsedTime))
+	{
+		releaseLevel();
+		playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+		GameStateManager::getInstance()->levelContinue = 6;
+		GameStateManager::getInstance()->changeGameState(2);
+		playerCon->player->setAmmoAmount(5);
+	}
+
 }
 
 void TestLevel5::restartLevel()
@@ -446,7 +409,15 @@ void TestLevel5::restartLevel()
 	for (int i = 0; i < 1; i++)
 	{
 		Ammo am;
-		am.setPosition(D3DXVECTOR3(1186.0f, 495.0f, 0.0f));
+		am.setPosition(D3DXVECTOR3(549.0f, 579.0f, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(590.0f, 352.0f, 0.0f));
 		am.Initialize(gameGraphics->d3dDevice);
 		ammoArray.push_back(am);
 	}
@@ -458,6 +429,22 @@ void TestLevel5::restartLevel()
 		am.Initialize(gameGraphics->d3dDevice);
 		ammoArray.push_back(am);
 	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(903, 409, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
+
+	for (int i = 0; i < 1; i++)
+	{
+		Ammo am;
+		am.setPosition(D3DXVECTOR3(307, 375, 0.0f));
+		am.Initialize(gameGraphics->d3dDevice);
+		ammoArray.push_back(am);
+	}
 }
 
 void TestLevel5::releaseLevel()
@@ -465,3 +452,4 @@ void TestLevel5::releaseLevel()
 	ammoArray.clear();
 	keysArray.clear();
 }
+

@@ -20,6 +20,10 @@ PlayerController::PlayerController()
 	player->currentWeapon->setPosition(player->position);
 	isSwitched = true;
 	isHooked = false;
+	timerStarted = false;
+
+	deathTimerLength = 3;
+	deathTimerStart = 0;
 
 	angleDegree = 90;
 	magnitude = 5;
@@ -436,17 +440,37 @@ void PlayerController::grappleDrawLaserLine()
 	}
 }
 
-void PlayerController::TriggerDeath()
-{
-	//if (GameInput::getInstance()->KeyboardKeyPressed(DIK_D))
-	{
-		aState = Death;
-		deathSound->play();
-		player->velocity *= 0;
-	}
-}
+//void PlayerController::TriggerDeath()
+//{
+//	aState = Death;
+//	deathSound->play();
+//	player->velocity *= 0;
+//}
 
 void PlayerController::SetPlayerIdle()
 {
 	aState = Idle;
+}
+
+bool PlayerController::TriggerDeath(float elapsedTime)
+{
+	if (!timerStarted)
+	{
+		aState = Death;
+		deathSound->play();
+		player->velocity *= 0;
+
+		deathTimerStart = elapsedTime;
+		timerStarted = true;
+	}
+	else
+	{
+		if (abs(elapsedTime - deathTimerStart) >= deathTimerLength)
+		{
+			timerStarted = false;
+			return true;
+		}
+	}
+
+	return false;
 }

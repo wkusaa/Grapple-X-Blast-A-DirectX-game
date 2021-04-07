@@ -20,8 +20,6 @@ StartScene::StartScene()
 
 	mainMenuSound = new GameSound(1, "assets/sound/bgm/Jorge Hernandez - Chopsticks NO COPYRIGHT 8-bit Music.mp3", true);
 
-	mainMenuSound->play();
-	mainMenuSound->setVolume(0.3f);
 }
 
 StartScene::~StartScene()
@@ -62,4 +60,10 @@ void StartScene::draw()
 void StartScene::release()
 {
 
+}
+
+void StartScene::loadScene()
+{
+	mainMenuSound->play();
+	mainMenuSound->setVolume(0.3f);
 }

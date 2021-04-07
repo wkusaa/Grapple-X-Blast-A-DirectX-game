@@ -15,7 +15,7 @@ public:
 	CollisionManager();
 	~CollisionManager();
 	
-	bool checkCollision(D3DXVECTOR3 playerPos, D3DXVECTOR3 playerBbBox, D3DXVECTOR3 gameObjectPos, D3DXVECTOR3 gameObjectBbSize, int tileType, int playerAction, D3DXVECTOR3& playerVel);
+	bool checkCollision(D3DXVECTOR3& playerPos, D3DXVECTOR3 playerBbBox, D3DXVECTOR3 gameObjectPos, D3DXVECTOR3 gameObjectBbSize, int tileType, int playerAction, D3DXVECTOR3& playerVel);
 	float checkCollision(Player * player, D3DXVECTOR3 gameObjectPos, D3DXVECTOR3 gameObjectBbSize, float & normalx, float & normaly);
 	bool collisionDetect(D3DXVECTOR3 playerPos, D3DXVECTOR3 playerBbSize, D3DXVECTOR3 gameObjectPos, D3DXVECTOR3 gameObjectBbSize);
 };

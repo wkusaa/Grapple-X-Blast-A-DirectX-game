@@ -117,9 +117,9 @@ void Player::Update()
 		
 	}
 
-	if (position.x < 0) position.x = 1;
-	if (position.y < 0) position.y = 1;
-	if (position.x > 1280) position.x = 1230;
+	if (position.x < 0) position.x = 30;
+	if (position.y < 0) position.y = 30;
+	if (position.x > 1280) position.x = 1250;
 	if (position.y > 720) position.y = 680;
 
 	spriteRect.top = size.y * animationRow;

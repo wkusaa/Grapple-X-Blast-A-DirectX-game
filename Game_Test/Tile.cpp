@@ -23,7 +23,7 @@ Brick::Brick(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	objectType = 1;
+	objectType = 5;
 }
 
 void Brick::Initialize(LPDIRECT3DDEVICE9 device)
@@ -59,7 +59,7 @@ Lava::Lava(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	objectType = 0;
+	objectType = 6;
 }
 
 void Lava::Initialize(LPDIRECT3DDEVICE9 device)
@@ -167,7 +167,7 @@ Trap::Trap(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(16.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	objectType = 0;
+	objectType = 4;
 }
 
 void Trap::Initialize(LPDIRECT3DDEVICE9 device)
@@ -359,7 +359,7 @@ Spike::Spike()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y +20;
 	bounding_box.right = bounding_box.left + size.x +16;
-	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	bbSize = D3DXVECTOR3(size.x + 16, size.y + 20, 1.0f);
 	objectType = 4;
 }
 
@@ -392,7 +392,7 @@ Spike::Spike(D3DXVECTOR3 position)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y +16;
 	bounding_box.right = bounding_box.left + size.x +16;
-	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	bbSize = D3DXVECTOR3(size.x + 16, size.y + 20, 1.0f);
 	objectType = 4;
 }
 

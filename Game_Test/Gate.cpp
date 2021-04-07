@@ -29,6 +29,8 @@ Gate::Gate()
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	objectType = 2;
+
 }
 
 Gate::Gate(D3DXVECTOR3 position)
@@ -60,6 +62,8 @@ Gate::Gate(D3DXVECTOR3 position)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	objectType = 2;
+
 }
 
 Gate::~Gate()

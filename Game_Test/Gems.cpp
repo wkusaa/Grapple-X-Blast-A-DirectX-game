@@ -24,7 +24,7 @@ Gems::Gems()
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
-
+	objectType = 2;
 }
 
 Gems::Gems(D3DXVECTOR3 position)
@@ -50,7 +50,7 @@ Gems::Gems(D3DXVECTOR3 position)
 	spriteRect.left = 0;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
-
+	objectType = 2;
 }
 
 Gems::~Gems()

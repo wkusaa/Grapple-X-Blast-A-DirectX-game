@@ -23,6 +23,7 @@ Brick::Brick(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	objectType = 1;
 }
 
 void Brick::Initialize(LPDIRECT3DDEVICE9 device)
@@ -58,6 +59,7 @@ Lava::Lava(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	objectType = 0;
 }
 
 void Lava::Initialize(LPDIRECT3DDEVICE9 device)
@@ -93,6 +95,7 @@ Grass::Grass(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(32.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	objectType = 1;
 }
 
 void Grass::Initialize(LPDIRECT3DDEVICE9 device)
@@ -128,6 +131,7 @@ Door::Door(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(64.0f, 64.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	objectType = 2;
 }
 
 void Door::Initialize(LPDIRECT3DDEVICE9 device)
@@ -163,6 +167,7 @@ Trap::Trap(float x, float y, float z)
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(16.0f, 32.0f, 1.0f);
 	velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	objectType = 0;
 }
 
 void Trap::Initialize(LPDIRECT3DDEVICE9 device)
@@ -197,6 +202,7 @@ Platform::Platform()
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 1;
 }
 
 Platform::Platform(int platformType)
@@ -241,6 +247,8 @@ Platform::Platform(int platformType)
 	bounding_box.left = 0;
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
+	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 1;
 }
 
 Platform::Platform(int platformType, float x, float y, float z)
@@ -288,6 +296,7 @@ Platform::Platform(int platformType, float x, float y, float z)
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 1;
 }
 
 
@@ -351,6 +360,7 @@ Spike::Spike()
 	bounding_box.bottom = bounding_box.top + size.y +20;
 	bounding_box.right = bounding_box.left + size.x +16;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 4;
 }
 
 Spike::Spike(D3DXVECTOR3 position)
@@ -383,6 +393,7 @@ Spike::Spike(D3DXVECTOR3 position)
 	bounding_box.bottom = bounding_box.top + size.y +16;
 	bounding_box.right = bounding_box.left + size.x +16;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 4;
 }
 
 Spike::~Spike()
@@ -468,6 +479,7 @@ Brazier::Brazier()
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 0;
 }
 
 Brazier::Brazier(D3DXVECTOR3 position)
@@ -500,6 +512,7 @@ Brazier::Brazier(D3DXVECTOR3 position)
 	bounding_box.bottom = bounding_box.top + size.y;
 	bounding_box.right = bounding_box.left + size.x;
 	bbSize = D3DXVECTOR3(size.x, size.y, 1.0f);
+	objectType = 0;
 }
 
 Brazier::~Brazier()
@@ -553,4 +566,5 @@ void Brazier::Update()
 	spriteRect.left = size.x * currentFrame;
 	spriteRect.bottom = spriteRect.top + size.y;
 	spriteRect.right = spriteRect.left + size.x;
+	
 }

@@ -68,18 +68,6 @@ TestLevel99::~TestLevel99()
 		delete grapplePointArray[i];
 		grapplePointArray[i] = NULL;
 	}
-
-	/*for (int i = 0; i < ammoObject.size(); i++)
-	{
-		delete ammoObject[i];
-		ammoObject[i] = NULL;
-	}
-
-	for (int i = 0; i < keyObject.size(); i++)
-	{
-		delete keyObject[i];
-		keyObject[i] = NULL;
-	}*/
 	
 	delete doorObject;
 	delete keyUI;
@@ -103,64 +91,45 @@ void TestLevel99::fixedUpdate()
 {
 	playerCon->Update(grapplePointArray);
 	
-	timer += 1 / 60;
-	
-	
-	for (int i = 0; i < keyObject.size(); i++)
+	/*for (int i = 0; i < colliderObject.size(); i++)
 	{
-		
-	}
+		collision->checkCollision(playerCon->player, colliderObject[i]->getColliderBox(), colliderObject[i]->getObjectType(), playerCon->aState);
+	}*/
 
-	for (int i = 0; i < ammoObject.size(); i++)
-	{
-		
-	}
-
-	
+	//printf("collide\n   %f \n", GameStateManager::getInstance()->elapsedTime);
 
 	for (int i = 0; i < grassObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, brickObject[i]->position, grassObject[i]->getBounding_Box(), 1, playerCon->aState);
-
-		//float normalx, normaly;
-		///*if (collision->collisionDetect(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box())) {*/
-		//	//printf("collide %d\n",i+i+1);
-		//	float collisiontime = (collision->checkCollision(playerCon->player, grassObject[i]->position, grassObject[i]->getBounding_Box(), normalx, normaly));
-		//	//printf("%f\n", collisiontime);
-		//	if (collisiontime < 1.0f)
-		//		{
-		//			//printf("collide\n");
-		//			playerCon->player->position.x = playerCon->player->velocity.y * collisiontime;
-		//			playerCon->player->position.y = playerCon->player->velocity.x * collisiontime;
-		//			/*float remainingtime = 1.0f - collisiontime;
-		//			playerCon->player->velocity.x *= remainingtime;
-		//			playerCon->player->velocity.y *= remainingtime;
-		//			if (abs(normalx) > 0.0001f) playerCon->player->velocity.x = -playerCon->player->velocity.x;
-		//			if (abs(normaly) > 0.0001f) playerCon->player->velocity.y = -playerCon->player->velocity.y;*/
-		//		}
-		//
-		////}
+		
+		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), grassObject[i]->position, grassObject[i]->getBbBoxSize(), grassObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
+		
 	}
 	
 	for (int i = 0; i < brickObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, brickObject[i]->position, brickObject[i]->getBounding_Box(), 1, playerCon->aState);
-		
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brickObject[i]->position, brickObject[i]->getBbBoxSize(), brickObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
+		{
+
+		}
 	}
 
 	for (int i = 0; i < trapObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, trapObject[i]->position, trapObject[i]->getBounding_Box(), 0, playerCon->aState);
-		
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), trapObject[i]->position, trapObject[i]->getBbBoxSize(), trapObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
+		{
+
+		}
 	}
 
 	for (int i = 0; i < lavaObject.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, lavaObject[i]->position, lavaObject[i]->getBounding_Box(), 0, playerCon->aState);
-		
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), lavaObject[i]->position, lavaObject[i]->getBbBoxSize(), lavaObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
+		{
+
+		}
 	}
 
-	if (collision->checkCollision(playerCon->player, doorObject->position, doorObject->getBounding_Box(), 2, playerCon->aState))
+	/*if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), doorObject->position, doorObject->getBounding_Box(), doorObject->getObjectType(), playerCon->aState, playerCon->player->velocity))
 	{
 		if (playerCon->player->getKeyAmount() > 0)
 			nextScene();
@@ -172,7 +141,8 @@ void TestLevel99::fixedUpdate()
 	{
 		ammoObject[i].Update();
 
-		if (collision->checkCollision(playerCon->player, ammoObject[i].position, ammoObject[i].getBounding_Box(), 2, playerCon->aState))
+		if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoObject[i].position, ammoObject[i].getBounding_Box(), ammoObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
+			
 		{
 			playerCon->player->updateAmmoAmount(20);
 			ammoObject.erase(ammoObject.begin()+i);
@@ -183,17 +153,17 @@ void TestLevel99::fixedUpdate()
 	{
 		keyObject[i].Update();
 
-		if (collision->checkCollision(playerCon->player, keyObject[i].position, keyObject[i].getBounding_Box(), 2, playerCon->aState))
+		if (collision->checkSquareCollide(playerCon->player->position, playerCon->player->getPlayerBbSize(), keyObject[i].position, keyObject[i].getBounding_Box(), keyObject[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
 			playerCon->player->updateKeyAmount(1);
 			keyObject.erase(keyObject.begin()+i);
 		}
-	}
+	}*/
 
-	if (playerCon->player->getAmmoAmount() < 0)
+	/*if (playerCon->player->getAmmoAmount() < 0)
 	{
 		GameOver();
-	}
+	}*/
 
 	
 }
@@ -287,11 +257,13 @@ void TestLevel99::buildLevel()
 			Brick* brick = new Brick(272.0f + i * 32.0f, 16.0f + j * 32.0f, 0);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
+
 		}
 
 		Lava* lava = new Lava(272.0f + i * 32.0f, 704.0f, 0.0f);
 		lava->Initialize(gameGraphics->d3dDevice);
 		lavaObject.push_back(lava);
+
 
 		lava = new Lava(272.0f + i * 32.0f, 160.0f, 0.0f);
 		lava->Initialize(gameGraphics->d3dDevice);
@@ -337,6 +309,7 @@ void TestLevel99::buildLevel()
 			Brick* brick = new Brick(640.0f + 16.0f + i * 32.0f, j * 32.0f + 16.0f, 0.0f);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
+
 		}
 
 		for (int j = 0; j < 12; j++)
@@ -344,6 +317,7 @@ void TestLevel99::buildLevel()
 			Brick* brick = new Brick(896.0f + 16.0f + i * 32.0f, 144.0f + 16.0f + j * 32.0f, 0.0f);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
+
 		}
 
 		for (int k = 0; k < 3; k++)
@@ -351,6 +325,7 @@ void TestLevel99::buildLevel()
 			Brick* brick = new Brick(640.0f + 16.0f + i * 32.0f, 432.0f + 16.0f + k * 32.0f, 0.0f);
 			brick->Initialize(gameGraphics->d3dDevice);
 			brickObject.push_back(brick);
+
 		}
 	}
 
@@ -359,6 +334,7 @@ void TestLevel99::buildLevel()
 		Brick* brick = new Brick(i * 32.0f + 16.0f, 528.0f + 16.0f, 0.0f);
 		brick->Initialize(gameGraphics->d3dDevice);
 		brickObject.push_back(brick);
+
 	}
 
 	for (int i = 0; i < 20; i++)
@@ -394,6 +370,9 @@ void TestLevel99::buildLevel()
 	grass->Initialize(gameGraphics->d3dDevice);
 	grassObject.push_back(grass);
 
+	/*grass->setColliderBox(688, 720, 0,256);
+	colliderObject.push_back(grass);*/
+
 	doorObject = new Door(50.0f + 16.0f, 80.0f + 16.0f, 0.0f);
 	doorObject->Initialize(gameGraphics->d3dDevice);
 
@@ -406,13 +385,15 @@ void TestLevel99::buildLevel()
 
 	ammoUI = new AmmoUI(D3DXVECTOR3(16.0f, 16.0f, 0.0f));
 	ammoUI->Initialize(gameGraphics->d3dDevice);
+
+
 }
 
 void TestLevel99::loadScene()
 {
 	restartLevel();
 	playerCon->SetPlayerIdle();
-	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 50.0f, 0.0f));
+	playerCon->player->setPosition(D3DXVECTOR3(50.0f, 650.0f, 0.0f));
 	playerCon->player->setAmmoAmount(20);
 	playerCon->player->resetKeyAmount();
 	soundLevel->play();

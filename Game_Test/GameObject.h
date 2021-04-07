@@ -23,6 +23,8 @@ protected:
 	RECT bounding_box;
 	LPD3DXFONT font;
 	RECT textRect;
+	RECT collderBox;
+	int objectType;
 
 	bool animationLoop;
 	int currentFrame;
@@ -86,5 +88,9 @@ public:
 
 	RECT getBounding_Box();
 	D3DXVECTOR3 getBbBoxSize() { return bbSize; };
+	void setColliderBox(float top, float bottom, float left, float right); 
+	RECT getColliderBox() { return collderBox; };
+	void setObjectType(int i) { this->objectType = i; }; //1 = standing platform
+	int getObjectType() { return objectType; };
 };
 

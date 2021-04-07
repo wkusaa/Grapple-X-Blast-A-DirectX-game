@@ -84,7 +84,7 @@ void TestLevel4::fixedUpdate()
 	for (int i = 0; i < ammoArray.size(); i++)
 	{
 		ammoArray[i].Update();
-		if (collision->checkCollision(playerCon->player, ammoArray[i].position, ammoArray[i].getBounding_Box(), 2, playerCon->aState))
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), ammoArray[i].position, ammoArray[i].getBbBoxSize(), ammoArray[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
 			playerCon->player->updateAmmoAmount(20);
 			ammoArray.erase(ammoArray.begin() + i);
@@ -95,7 +95,7 @@ void TestLevel4::fixedUpdate()
 	for (int i = 0; i < gemsArray.size(); i++)
 	{
 		gemsArray[i].Update();
-		if (collision->checkCollision(playerCon->player, gemsArray[i].position, gemsArray[i].getBounding_Box(), 2, playerCon->aState))
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), gemsArray[i].position, gemsArray[i].getBbBoxSize(), gemsArray[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
 			gemsArray.erase(gemsArray.begin() + i);
 		}
@@ -105,20 +105,20 @@ void TestLevel4::fixedUpdate()
 	for (int i = 0; i < spikeArray.size(); i++)
 	{
 		spikeArray[i]->Update();
-		collision->checkCollision(playerCon->player, spikeArray[i]->position, spikeArray[i]->getBounding_Box(), 0, playerCon->aState);
+		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), spikeArray[i]->position, spikeArray[i]->getBbBoxSize(), spikeArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 	}
 
 	for (int i = 0; i < brazierArray.size(); i++)
 	{
 		brazierArray[i]->Update();
-		collision->checkCollision(playerCon->player, brazierArray[i]->position, brazierArray[i]->getBounding_Box(), 0, playerCon->aState);
+		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), brazierArray[i]->position, brazierArray[i]->getBbBoxSize(), brazierArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 	}
 
 	//---------------------------------------------------------------------
 
 	for (int i = 0; i < platformArray.size(); i++)
 	{
-		collision->checkCollision(playerCon->player, platformArray[i]->position, platformArray[i]->getBounding_Box(), 1, playerCon->aState);
+		collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), platformArray[i]->position, platformArray[i]->getBbBoxSize(), platformArray[i]->getObjectType(), playerCon->aState, playerCon->player->velocity);
 	}
 
 	/*for (int i = 0; i < spikeArray.size(); i++)
@@ -133,7 +133,7 @@ void TestLevel4::fixedUpdate()
 	for (int i = 0; i < keysArray.size(); i++)
 	{
 		keysArray[i].Update();
-		if (collision->checkCollision(playerCon->player, keysArray[i].position, keysArray[i].getBounding_Box(), 2, playerCon->aState))
+		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), keysArray[i].position, keysArray[i].getBbBoxSize(), keysArray[i].getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
 			playerCon->player->updateKeyAmount(1);
 			keysArray.erase(keysArray.begin() + i);
@@ -142,7 +142,7 @@ void TestLevel4::fixedUpdate()
 
 
 	gate->Update();
-	if (collision->checkCollision(playerCon->player, gate->position, gate->getBounding_Box(), 2, playerCon->aState))
+	if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), gate->position, gate->getBbBoxSize(), gate->getObjectType(), playerCon->aState, playerCon->player->velocity))
 	{
 		if (playerCon->player->getKeyAmount() > 0)
 			nextScene();

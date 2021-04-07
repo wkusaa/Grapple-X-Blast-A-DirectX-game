@@ -59,10 +59,10 @@ void TestLevel5::init()
 
 void TestLevel5::update()
 {
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
+	//float mouseX = GameInput::getInstance()->mousePosition.x;
+	//float mouseY = GameInput::getInstance()->mousePosition.y;
 
-	std::cout << mouseX << "|" << mouseY << std::endl;
+	//std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel5::fixedUpdate()

@@ -63,7 +63,7 @@ void GameWindows::createWindow()
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACKONWHITE);
 	wndClass.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(BLAZE_CURSOR));
 	//wndClass.hCursor = LoadCursorFromFile(AOT);
-	wndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(GAME_ICON));
+	wndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2));
 	wndClass.hInstance = hInstance;
 	wndClass.lpfnWndProc = WindowProcedure;
 	wndClass.lpszClassName = "My Window";
@@ -78,7 +78,7 @@ void GameWindows::createWindow()
 	rect.right = WIN_WIDTH;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
-	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "My Window's Name", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
+	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Grapple X Blast", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, rect.right, rect.bottom, g_hWnd, NULL, hInstance, NULL);
 	ShowWindow(g_hWnd, 1);
 
 	//	Some interesting function to try out.

@@ -47,13 +47,6 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Accelerator
-//
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Cursor
 //
 
@@ -68,6 +61,8 @@ BLAZE_CURSOR            CURSOR                  "blaze.cur"
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 GAME_ICON               ICON                    "game_icon.ico"
+
+IDI_ICON2               ICON                    "icon.ico"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////

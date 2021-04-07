@@ -1,7 +1,7 @@
 #pragma once
 #include "GameStateManager.h"
 #include "GameState.h"
-#define VICTORY "assets/victoryScene.png"
+#define VICTORY "assets/victory.png"
 
 class VictoryScene:public GameState
 {
@@ -10,6 +10,9 @@ private:
 	LPDIRECT3DDEVICE9 device;
 	LPD3DXSPRITE sprite;
 	RECT rect_bg;
+
+	GameSound* victorySound;
+
 public:
 	VictoryScene();
 	~VictoryScene();
@@ -18,5 +21,6 @@ public:
 	void fixedUpdate();
 	void draw();
 	void release();
+	void loadScene();
 };
 

@@ -24,9 +24,11 @@ protected:
 	LPD3DXFONT font;
 	RECT textRect;
 	RECT collderBox;
-	int objectType;
 
+
+	bool animationComplete;
 	bool animationLoop;
+	int objectType;
 	int currentFrame;
 	int animationCount;
 	int animationRow;
@@ -34,7 +36,7 @@ protected:
 	float animationTimer;
 	float animationRate;
 	float rotationAngle;
-	bool animationComplete;
+
 
 public:
 

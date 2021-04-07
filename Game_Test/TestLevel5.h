@@ -32,6 +32,8 @@ private:
 	KeyUI* keyUI;
 	AmmoUI* ammoUI;
 
+	bool isGameOver;
+
 public:
 	TestLevel5();
 	~TestLevel5();

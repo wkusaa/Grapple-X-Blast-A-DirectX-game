@@ -20,6 +20,10 @@ PlayerController::PlayerController()
 	player->currentWeapon->setPosition(player->position);
 	isSwitched = true;
 	isHooked = false;
+	timerStarted = false;
+
+	deathTimerLength = 3;
+	deathTimerStart = 0;
 
 	angleDegree = 90;
 	magnitude = 5;
@@ -47,7 +51,7 @@ PlayerController::PlayerController()
 	releaseHookSound = new GameSound(0, "assets/sound/sfx/jump_11.wav", false);
 	cannon_load = new GameSound(0, "assets/sound/sfx/cannon_switch.wav", false);
 	grappling_load = new GameSound(0, "assets/sound/sfx/hook_switch.wav", false);
-	deathSound = new GameSound(0, "assets/sound/sfx/snek_death.mp3", false);
+	deathSound = new GameSound(0, "assets/sound/sfx/snaaakeeee.mp3", false);
 }
 
 PlayerController::~PlayerController()
@@ -436,17 +440,30 @@ void PlayerController::grappleDrawLaserLine()
 	}
 }
 
-void PlayerController::TriggerDeath()
+void PlayerController::SetPlayerIdle()
 {
-	//if (GameInput::getInstance()->KeyboardKeyPressed(DIK_D))
+	aState = Idle;
+}
+
+bool PlayerController::TriggerDeath(float elapsedTime)
+{
+	if (!timerStarted)
 	{
 		aState = Death;
 		deathSound->play();
 		player->velocity *= 0;
-	}
-}
 
-void PlayerController::SetPlayerIdle()
-{
-	aState = Idle;
+		deathTimerStart = elapsedTime;
+		timerStarted = true;
+	}
+	else
+	{
+		if (abs(elapsedTime - deathTimerStart) >= deathTimerLength)
+		{
+			timerStarted = false;
+			return true;
+		}
+	}
+
+	return false;
 }

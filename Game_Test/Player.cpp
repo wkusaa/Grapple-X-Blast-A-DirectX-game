@@ -92,6 +92,11 @@ void Player::Update()
 {
 	setShowKeyMsg(false);
 
+	if (animationRow == 2)
+	{
+		animationRate = 3.0f / 6; //make death animation longer
+	}
+
 	animationTimer += 1 / 60.0f;
 	if (animationTimer >= animationRate)
 	{

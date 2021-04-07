@@ -12,6 +12,8 @@ TestLevel4::TestLevel4()
 
 	buildLevel();
 
+	isGameOver = false;
+
 }
 
 TestLevel4::~TestLevel4()
@@ -150,9 +152,13 @@ void TestLevel4::fixedUpdate()
 			playerCon->player->setShowKeyMsg(true);
 			
 	}
-	//std::cout << GameStateManager::getInstance()->elapsedTime << std::endl;
 
 	if (playerCon->player->getAmmoAmount() < 0)
+	{
+		//isGameOver = true;
+	}
+
+	if (isGameOver)
 	{
 		GameOver();
 	}
@@ -435,13 +441,16 @@ void TestLevel4::nextScene()
 
 void TestLevel4::GameOver()
 {
-	playerCon->TriggerDeath();
 	soundLevel->stop();
-	releaseLevel();
-	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
-	GameStateManager::getInstance()->levelContinue = 4;
-	GameStateManager::getInstance()->changeGameState(2);
-	playerCon->player->setAmmoAmount(1);
+	if (playerCon->TriggerDeath(GameStateManager::getInstance()->elapsedTime))
+	{
+		releaseLevel();
+		playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+		isGameOver = false;
+		GameStateManager::getInstance()->levelContinue = 4;
+		GameStateManager::getInstance()->changeGameState(2);
+		playerCon->player->setAmmoAmount(5);
+	}
 }
 
 void TestLevel4::restartLevel()

@@ -21,8 +21,11 @@ private:
 	bool isSwitched;
 	bool isHooked;
 	bool swingOppositeDirection;
+	bool timerStarted;
 	int animationCount[8];
 	int tempAState;
+	float deathTimerStart;
+	int deathTimerLength;
 	float magnitude;
 	float hookLength;
 	float swingLength;
@@ -75,7 +78,7 @@ public:
 	bool checkHookLength(D3DXVECTOR3 pointPosition);
 	void switchWeapon();
 	void grappleDrawLaserLine();
-	void TriggerDeath();
+	bool TriggerDeath(float elapsedTime);
 	void SetPlayerIdle();
 	void animationController();
 

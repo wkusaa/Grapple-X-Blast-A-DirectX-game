@@ -159,7 +159,9 @@ void AmmoUI::Update()
 
 void AmmoUI::Draw()
 {
-	std::string strAmmoAmount = std::to_string(Player::getInstance()->getAmmoAmount());
+	//int ammoAmount = Player::getInstance()->getAmmoAmount();
+	std::string strAmmoAmount = std::to_string(Player::getInstance()->getAmmoAmount() < 0 ? 0 : Player::getInstance()->getAmmoAmount());
+	
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	SetTransform();
 	sprite->Draw(texture, &spriteRect, &spriteCentre, NULL, D3DCOLOR_XRGB(255, 255, 255));

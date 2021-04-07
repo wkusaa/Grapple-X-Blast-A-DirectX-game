@@ -21,5 +21,6 @@ public:
 	void fixedUpdate();
 	void draw();
 	void release();
+	void loadScene();
 };
 

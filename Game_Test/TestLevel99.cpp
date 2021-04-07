@@ -29,6 +29,7 @@ TestLevel99::TestLevel99()
 	buildLevel();
 
 	soundLevel = new GameSound(1, "assets/sound/bgm/AdhesiveWombat_Night Shade.mp3", true);
+	isGameOver = false;
 }
 
 TestLevel99::~TestLevel99()
@@ -163,8 +164,13 @@ void TestLevel99::fixedUpdate()
 
 	/*if (playerCon->player->getAmmoAmount() < 0)
 	{
-		GameOver();
+		isGameOver = true;
 	}*/
+
+	if (isGameOver)
+	{
+		GameOver();
+	}
 
 	
 }
@@ -414,19 +420,16 @@ void TestLevel99::nextScene()
 
 void TestLevel99::GameOver()
 {
-	timer = 0;
-	
-	playerCon->TriggerDeath();
-	
-	
 	soundLevel->stop();
-	releaseLevel();
-	playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
-	GameStateManager::getInstance()->levelContinue = 5;
-	GameStateManager::getInstance()->changeGameState(2);
-	playerCon->player->setAmmoAmount(1);
-
-	
+	if (playerCon->TriggerDeath(GameStateManager::getInstance()->elapsedTime))
+	{
+		releaseLevel();
+		playerCon->player->setPosition(D3DXVECTOR3(0, 0, 0));
+		isGameOver = false;
+		GameStateManager::getInstance()->levelContinue = 5;
+		GameStateManager::getInstance()->changeGameState(2);
+		playerCon->player->setAmmoAmount(5);
+	}
 }
 
 void TestLevel99::restartLevel()

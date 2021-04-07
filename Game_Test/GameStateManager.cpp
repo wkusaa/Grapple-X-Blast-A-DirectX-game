@@ -40,7 +40,7 @@ GameStateManager::GameStateManager()
 	gameLevels.push_back(testLevel5); // 6 Level 2
 
 
-	currentGameState = gameLevels[5];
+	currentGameState = gameLevels[6];
 	tempGameState = currentGameState;
 	currentGameState->loadScene();
 

@@ -47,7 +47,7 @@ Player::Player()
 	grappleGun->Initialize(GameGraphics::getInstance()->d3dDevice);
 
 	isMoving = true;
-	ammoAmount = 10;
+	ammoAmount = 0;
 	keyAmount = 0;
 	showKeyMsg = false;
 	

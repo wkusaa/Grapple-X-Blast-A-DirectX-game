@@ -303,68 +303,11 @@ bool CollisionManager::checkCollision(D3DXVECTOR3& playerPos, D3DXVECTOR3 player
 				}
 			}
 			
-			
-
-			//if (wy > hx)
-			//{
-			//	if (wy > -hx)
-			//	{
-			//		playerVel.y = -playerVel.y*0.9;
-			//		printf("bottom\n");
-			//		/* collision at the bottom */
-			//	}
-			//	else
-			//	{
-			//		playerVel.x = -playerVel.x*0.9;
-			//		printf("left\n");
-			//		/* on the left */
-			//	}
-			//}
-			//else
-			//{
-			//	if (wy > -hx)
-			//	{
-			//		playerVel.x = -playerVel.x*0.9;
-			//		printf("right\n");/* on the right */
-			//	}
-			//	else
-			//	{
-			//		playerVel.y = -playerVel.y*0.9;
-			//		printf("top\n");/* at the top */
-
-			//		if (tileType == 1)//floor, so can stand on it
-			//		{
-			//			Player::getInstance()->isMoving = false;
-			//		}
-
-			//	}
-			//}
 			return true;
-		//}
 	}
 	return false;
 }
 
-//bool CollisionManager::collisionDetect(D3DXVECTOR3 playerPos, D3DXVECTOR3 playerBbSize, D3DXVECTOR3 gameObjectPos, D3DXVECTOR3 gameObjectBbSize)
-//{
-//	float characterCenterX = playerBbSize.x / 2;
-//	float characterCenterY = playerBbSize.y / 2;
-//	float playerRight = playerPos.x + characterCenterX;
-//	float playerLeft = playerPos.x - characterCenterX;
-//	float playerBottom = playerPos.y + characterCenterY;
-//	float playerTop = playerPos.y - characterCenterY;
-//	
-//	float objectCenterX = gameObjectBbSize.x / 2;
-//	float objectCenterY = gameObjectBbSize.y / 2;
-//	float objectRight = gameObjectPos.x + objectCenterX;
-//	float objectLeft = gameObjectPos.x - objectCenterX;
-//	float objectBottom = gameObjectPos.y + objectCenterY;
-//	float objectTop = gameObjectPos.y - objectCenterY;
-//	
-//	if (playerBottom > objectTop && playerTop < objectBottom && playerRight > objectLeft && playerLeft < objectRight) return true;
-//		
-//	return false;
-//}
 
 
 

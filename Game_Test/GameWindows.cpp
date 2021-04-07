@@ -63,7 +63,7 @@ void GameWindows::createWindow()
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACKONWHITE);
 	wndClass.hCursor = LoadCursor(hInstance, MAKEINTRESOURCE(BLAZE_CURSOR));
 	//wndClass.hCursor = LoadCursorFromFile(AOT);
-	wndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(GAME_ICON));
+	wndClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2));
 	wndClass.hInstance = hInstance;
 	wndClass.lpfnWndProc = WindowProcedure;
 	wndClass.lpszClassName = "My Window";

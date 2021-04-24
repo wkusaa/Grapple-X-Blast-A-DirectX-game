@@ -110,7 +110,7 @@ void TestLevel99::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), trapObject[i]->position, trapObject[i]->getBbBoxSize(), trapObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-			isGameOver = true;
+			//isGameOver = true;
 		}
 	}
 
@@ -118,7 +118,7 @@ void TestLevel99::fixedUpdate()
 	{
 		if (collision->checkCollision(playerCon->player->position, playerCon->player->getPlayerBbSize(), lavaObject[i]->position, lavaObject[i]->getBbBoxSize(), lavaObject[i]->getObjectType(), playerCon->aState, playerCon->player->velocity))
 		{
-			isGameOver = true;
+			//isGameOver = true;
 		}
 	}
 

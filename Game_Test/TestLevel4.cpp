@@ -72,10 +72,7 @@ void TestLevel4::init()
 
 void TestLevel4::update()
 {
-	float mouseX = GameInput::getInstance()->mousePosition.x;
-	float mouseY = GameInput::getInstance()->mousePosition.y;
 
-	std::cout << mouseX << "|" << mouseY << std::endl;
 }
 
 void TestLevel4::fixedUpdate()

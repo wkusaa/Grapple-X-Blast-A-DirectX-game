@@ -1,7 +1,7 @@
 # Grapple-X-Blast-A-DirectX-game
 <p>A game that uses Windows, DirectX9 and FMOD API. </p>
 
-![alt text](https://https://github.com/Xiel7/Grapple-X-Blast-A-DirectX-game/blob/master/GrapplexBlast.png?raw=true)
+![alt text](https://github.com/Xiel7/Grapple-X-Blast-A-DirectX-game/blob/master/GrapplexBlast.png?raw=true)
 
 <h1>Overview</h1>
 <h2>High Concept</h2>

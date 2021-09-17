@@ -30,3 +30,6 @@ Windows 10
 
 # Link to the Game
 https://drive.google.com/file/d/1Qhye6NHNbvFCNtaF7uUespZPi_SW0EGj/view?usp=sharing
+
+#Link to gameplay demo video
+https://youtu.be/JAmzp3hfKoA
